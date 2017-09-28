@@ -39,11 +39,11 @@
     </appender>
     <!-- * 通配符 设置log打印级别 对所有类有效TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF-->
     <!--将上面的appender添加到root-->
-    <root level="ERROR">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
-    <logger name="com.boot" level="ERROR"/>
+    <logger name="com.boot" level="INFO"/>
     <!--<!–日志异步到数据库 –>-->
     <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
     <!--<!–日志异步到数据库 –>-->

@@ -23,10 +23,8 @@ public class TopNews {
     @Column(nullable = false)
     private String date;
 
-    @Column(nullable = false)
     private String category;
 
-    @Column(nullable = false)
     private String author_name;
 
     @Column(nullable = false)

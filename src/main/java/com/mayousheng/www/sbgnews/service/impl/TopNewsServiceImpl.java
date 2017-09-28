@@ -46,7 +46,7 @@ public class TopNewsServiceImpl implements TopNewsService {
                 continue;
             }
             tempStr = new String(tempData, Charset.forName("UTF-8"));
-            log.error("Start load news tempUrl=" + tempUrl + ";tempStr=" + tempStr);
+//            log.error("Start load news tempUrl=" + tempUrl + ";tempStr=" + tempStr);
             tempTopNewsBack = JSONObject.parseObject(tempStr, TopNewsBack.class);
             if (tempTopNewsBack.getError_code() != topNewsConf.getSuccessCode().intValue()) {
                 continue;
@@ -61,7 +61,11 @@ public class TopNewsServiceImpl implements TopNewsService {
                 if (tempDBTopNews != null) {
                     continue;
                 }
-                topNewsMapper.save(topNews);
+                try {
+                    topNewsMapper.save(topNews);
+                } catch (Exception e) {
+                    log.error("loadNews e=" + e);
+                }
             }
             try {
                 Thread.sleep(1000);

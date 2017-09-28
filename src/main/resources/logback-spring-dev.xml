@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="/var/log"/>
+    <property name="LOG_HOME" value="/var/log/tomcat"/>
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -43,7 +43,7 @@
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
-    <logger name="com.boot" level="INFO"/>
+    <logger name="com.boot" level="ERROR"/>
     <!--<!–日志异步到数据库 –>-->
     <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
     <!--<!–日志异步到数据库 –>-->

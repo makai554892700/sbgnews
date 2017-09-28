@@ -3,10 +3,11 @@ server:
     uri-encoding: UTF-8
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/sbgnews
+    url: jdbc:mysql://127.0.0.1:3306/sbgnews?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+    sql-script-encoding: UTF-8
   jpa:
     hibernate:
       ddl-auto: update #当无数据库创建，有数据库时更新
@@ -17,6 +18,6 @@ spring:
       force: true
       enabled: true
   profiles:
-    active: prod
+    active: dev
 logging:
   config: classpath:logback-spring-${spring.profiles.active}.xml
