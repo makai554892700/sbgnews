@@ -17,6 +17,7 @@ public class TopNewsConf {
     private Map<String, String> heard = new HashMap<>();
     private Integer successCode;
     private String successStat;
+    private Integer sleepTime;
 
     public String getBaseurl() {
         return baseurl;
@@ -58,6 +59,14 @@ public class TopNewsConf {
         this.successStat = successStat;
     }
 
+    public Integer getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(Integer sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
     @Override
     public String toString() {
         return "TopNewsConf{" +
@@ -65,7 +74,8 @@ public class TopNewsConf {
                 ", types=" + types +
                 ", heard=" + heard +
                 ", successCode=" + successCode +
-                ", successStat=" + successStat +
+                ", successStat='" + successStat + '\'' +
+                ", sleepTime=" + sleepTime +
                 '}';
     }
 }

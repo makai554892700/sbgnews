@@ -68,7 +68,7 @@ public class TopNewsServiceImpl implements TopNewsService {
                 }
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(topNewsConf.getSleepTime());
             } catch (Exception e) {
             }
         }
