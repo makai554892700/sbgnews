@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.vo.request;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

@@ -1,11 +1,11 @@
 package com.mayousheng.www.sbgnews.controller;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.TopNewsConf;
-import com.mayousheng.www.sbgnews.pojo.Result;
-import com.mayousheng.www.sbgnews.pojo.TopNews;
-import com.mayousheng.www.sbgnews.pojo.TopNewsSearch;
+import com.mayousheng.www.sbgnews.vo.response.Result;
+import com.mayousheng.www.sbgnews.vo.request.TopNewsSearch;
 import com.mayousheng.www.sbgnews.service.TopNewsService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
+import com.mayousheng.www.sbgnews.vo.response.TopNewsResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,7 +29,7 @@ public class TopNewsController {
     }
 
     @PostMapping("getNews")
-    public Result<List<TopNews>> getNews(@RequestBody @Valid TopNewsSearch topNewsSearch) throws Exception { // http://localhost:8080/topnews/getNews {"type":"top","count":10,"page":1}
+    public Result<List<TopNewsResponse>> getNews(@RequestBody @Valid TopNewsSearch topNewsSearch) throws Exception { // http://localhost:8080/topnews/getNews {"type":"top","count":10,"page":1}
         return ResultUtils.succeed(topNewsService.getNewsBySearch(topNewsSearch));
     }
 

@@ -7,9 +7,11 @@ import com.mayousheng.www.sbgnews.common.exception.TopNewsException;
 import com.mayousheng.www.sbgnews.mapper.TopNewsMapper;
 import com.mayousheng.www.sbgnews.pojo.TopNews;
 import com.mayousheng.www.sbgnews.pojo.TopNewsBack;
-import com.mayousheng.www.sbgnews.pojo.TopNewsSearch;
+import com.mayousheng.www.sbgnews.utils.vo.TopNewsUtils;
+import com.mayousheng.www.sbgnews.vo.request.TopNewsSearch;
 import com.mayousheng.www.sbgnews.service.TopNewsService;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
+import com.mayousheng.www.sbgnews.vo.response.TopNewsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -75,7 +77,7 @@ public class TopNewsServiceImpl implements TopNewsService {
     }
 
     @Override
-    public List<TopNews> getNewsBySearch(@Valid TopNewsSearch topNewsSearch) throws Exception {
+    public List<TopNewsResponse> getNewsBySearch(@Valid TopNewsSearch topNewsSearch) throws Exception {
         if (!topNewsConf.getTypes().keySet().contains(topNewsSearch.getType())) {
             throw new TopNewsException(ResultEnum.TOP_NEWS_NO_TYPE);
         }
@@ -85,6 +87,6 @@ public class TopNewsServiceImpl implements TopNewsService {
         if (result == null || result.isEmpty()) {
             throw new TopNewsException(ResultEnum.TOP_NEWS_NO_DATA);
         }
-        return result;
+        return TopNewsUtils.topNewss2Responses(result);
     }
 }

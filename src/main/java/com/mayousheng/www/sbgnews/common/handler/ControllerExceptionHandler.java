@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.common.handler;
 
 import com.mayousheng.www.sbgnews.common.exception.TopNewsException;
-import com.mayousheng.www.sbgnews.pojo.Result;
+import com.mayousheng.www.sbgnews.vo.response.Result;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

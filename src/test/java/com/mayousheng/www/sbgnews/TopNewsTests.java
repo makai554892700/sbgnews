@@ -2,7 +2,7 @@ package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.TopNewsConf;
 import com.mayousheng.www.sbgnews.pojo.TopNews;
-import com.mayousheng.www.sbgnews.pojo.TopNewsSearch;
+import com.mayousheng.www.sbgnews.vo.request.TopNewsSearch;
 import com.mayousheng.www.sbgnews.service.TopNewsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
