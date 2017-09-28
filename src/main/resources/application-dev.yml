@@ -1,0 +1,3 @@
+spring:
+  jpa:
+    show-sql: false #是否显示执行的sql

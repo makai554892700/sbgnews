@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.mayousheng.www'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile(
+            'org.springframework.boot:spring-boot-starter-web', //web基本jar
+            'mysql:mysql-connector-java', //mysql连接驱动
+            'org.springframework.boot:spring-boot-starter-data-jpa', //数据库操作
+            'org.springframework.boot:spring-boot-configuration-processor', //配置文件注入
+            'org.springframework.boot:spring-boot-starter-aop', //切面编程支持
+            'com.alibaba:fastjson:1.1.41', //fastjson，json快速简单处理
+    )
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
