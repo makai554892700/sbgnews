@@ -1,6 +1,7 @@
 package com.mayousheng.www.sbgnews.common.aspect;
 
 import com.mayousheng.www.sbgnews.pojo.StatisticObject;
+import com.mayousheng.www.sbgnews.utils.IPUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -46,7 +47,7 @@ public class HttpAspect {
             statisticObject.setClassMethod(signature.getDeclaringTypeName() + "." + signature.getName());
             statisticObject.setRequestUrl(request.getRequestURL().toString());
             statisticObject.setRequestType(request.getMethod());
-            statisticObject.setIp(request.getRemoteAddr());
+            statisticObject.setIp(IPUtils.getIP(request));
             statisticObject.setResponse(response);
             statisticObject.setRunTime(System.currentTimeMillis() - statisticObject.getRequestTime().getTime());
             log.error(statisticObject.toString());
