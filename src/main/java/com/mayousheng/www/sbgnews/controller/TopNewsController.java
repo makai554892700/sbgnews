@@ -1,5 +1,6 @@
 package com.mayousheng.www.sbgnews.controller;
 
+import com.mayousheng.www.sbgnews.api.TopNewsApi;
 import com.mayousheng.www.sbgnews.common.conf.pojo.TopNewsConf;
 import com.mayousheng.www.sbgnews.vo.response.Result;
 import com.mayousheng.www.sbgnews.vo.request.TopNewsSearch;
@@ -14,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/topnews")
-public class TopNewsController {
+public class TopNewsController implements TopNewsApi {
 
     @Resource(name = "topNewsServiceImpl")
     private TopNewsService topNewsService;
@@ -23,12 +23,12 @@ public class TopNewsController {
     @Resource(name = "topNewsConf")
     private TopNewsConf topNewsConf;
 
-    @GetMapping("getNewsTypes")
-    public Result<Map<String,String>> getNewsTypes() throws Exception {// http://localhost:8080/topnews/getNewsTypes
+    @Override
+    public Result<Map<String, String>> getNewsTypes() throws Exception {// http://localhost:8080/topnews/getNewsTypes
         return ResultUtils.succeed(topNewsConf.getTypes());
     }
 
-    @PostMapping("getNews")
+    @Override
     public Result<List<TopNewsResponse>> getNews(@RequestBody @Valid TopNewsSearch topNewsSearch) throws Exception { // http://localhost:8080/topnews/getNews {"type":"top","count":10,"page":1}
         return ResultUtils.succeed(topNewsService.getNewsBySearch(topNewsSearch));
     }

@@ -1,9 +1,9 @@
 package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.TopNewsConf;
-import com.mayousheng.www.sbgnews.pojo.TopNews;
 import com.mayousheng.www.sbgnews.vo.request.TopNewsSearch;
 import com.mayousheng.www.sbgnews.service.TopNewsService;
+import com.mayousheng.www.sbgnews.vo.response.TopNewsResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class TopNewsTests {
         topNewsSearch.setType("top");
         topNewsSearch.setPage(2);
         topNewsSearch.setCount(2);
-        List<TopNews> topNewsList = null;
+        List<TopNewsResponse> topNewsList = null;
         try {
             topNewsList = topNewsService.getNewsBySearch(topNewsSearch);
         } catch (Exception e) {

@@ -1,6 +1,8 @@
 buildscript {
     ext {
         springBootVersion = '1.5.7.RELEASE'
+        swaggerVersion = '2.7.0'
+        fastjsonVersion = '1.2.18'
     }
     repositories {
         mavenCentral()
@@ -35,7 +37,9 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa', //数据库操作
             'org.springframework.boot:spring-boot-configuration-processor', //配置文件注入
             'org.springframework.boot:spring-boot-starter-aop', //切面编程支持
-            'com.alibaba:fastjson:1.1.41', //fastjson，json快速简单处理
+            "com.alibaba:fastjson:${fastjsonVersion}", //fastjson，json快速简单处理
+            "io.springfox:springfox-swagger2:${swaggerVersion}", //swagger2核心jar包
+            "io.springfox:springfox-swagger-ui:${swaggerVersion}", //swagger2核心jar包
     )
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
