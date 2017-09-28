@@ -39,7 +39,7 @@ public class TopNewsServiceImpl implements TopNewsService {
         byte[] tempData;
         String tempUrl;
         String tempStr;
-        for (String type : topNewsConf.getTypes()) {
+        for (String type : topNewsConf.getTypes().keySet()) {
             tempUrl = String.format(topNewsConf.getBaseurl(), type);
             tempData = HttpUtils.getInstance().getURLResponse(tempUrl, (HashMap<String, String>) topNewsConf.getHeard());
             if (tempData == null) {
@@ -76,7 +76,7 @@ public class TopNewsServiceImpl implements TopNewsService {
 
     @Override
     public List<TopNews> getNewsBySearch(@Valid TopNewsSearch topNewsSearch) throws Exception {
-        if (!topNewsConf.getTypes().contains(topNewsSearch.getType())) {
+        if (!topNewsConf.getTypes().keySet().contains(topNewsSearch.getType())) {
             throw new TopNewsException(ResultEnum.TOP_NEWS_NO_TYPE);
         }
         List<TopNews> result = topNewsMapper.getNewsBySearch(topNewsSearch.getType(),

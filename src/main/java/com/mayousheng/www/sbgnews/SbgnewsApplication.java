@@ -9,9 +9,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @Configuration
-@PropertySource({
+@PropertySource(value = {
         "classpath:${spring.profiles.active}/topnews.properties",
-})
+}, encoding = "UTF-8")
 public class SbgnewsApplication {
     public static void main(String[] args) {
         SpringApplication.run(SbgnewsApplication.class, args);

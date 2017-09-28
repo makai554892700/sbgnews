@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -13,7 +12,7 @@ import java.util.Map;
 public class TopNewsConf {
 
     private String baseurl;
-    private List<String> types;
+    private Map<String, String> types = new HashMap<>();
     private Map<String, String> heard = new HashMap<>();
     private Integer successCode;
     private String successStat;
@@ -27,11 +26,11 @@ public class TopNewsConf {
         this.baseurl = baseurl;
     }
 
-    public List<String> getTypes() {
+    public Map<String, String> getTypes() {
         return types;
     }
 
-    public void setTypes(List<String> types) {
+    public void setTypes(Map<String, String> types) {
         this.types = types;
     }
 

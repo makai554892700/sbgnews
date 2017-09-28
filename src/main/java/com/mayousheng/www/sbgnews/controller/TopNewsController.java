@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/topnews")
@@ -23,7 +24,7 @@ public class TopNewsController {
     private TopNewsConf topNewsConf;
 
     @GetMapping("getNewsTypes")
-    public Result<List<String>> getNewsTypes() throws Exception {// http://localhost:8080/topnews/getNewsTypes
+    public Result<Map<String,String>> getNewsTypes() throws Exception {// http://localhost:8080/topnews/getNewsTypes
         return ResultUtils.succeed(topNewsConf.getTypes());
     }
 
