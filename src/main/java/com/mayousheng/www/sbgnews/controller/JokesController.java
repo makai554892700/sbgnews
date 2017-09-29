@@ -18,7 +18,8 @@ public class JokesController implements JokesApi {
     private JokeService jokeService;
 
     @Override
-    public Result<List<JokeResponse>> getJokes(Integer count, Integer page) throws Exception {
+    public Result<List<JokeResponse>> getJokes(@PathVariable("count") Integer count
+            , @PathVariable("page") Integer page) throws Exception {
         return ResultUtils.succeed(jokeService.getJokesBySearch(new JokeLimit(count, page)));
     }
 }
