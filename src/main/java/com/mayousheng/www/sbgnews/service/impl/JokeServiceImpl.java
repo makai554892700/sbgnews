@@ -15,6 +15,7 @@ import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -67,12 +68,12 @@ public class JokeServiceImpl implements JokeService {
     }
 
     @Override
-    public List<JokeResponse> getJokesBySearch(@Valid JokeLimit jokeLimit) throws Exception {
+    public List<JokeResponse> getJokesBySearch(JokeLimit jokeLimit) throws Exception {
         List<Joke> result = jokesMapper.getJokeByOffset(
-                jokeLimit.getCount() * jokeLimit.getPage(),
-                jokeLimit.getCount());
+                jokeLimit.getCount(),
+                jokeLimit.getCount() * jokeLimit.getPage());
         if (result == null || result.isEmpty()) {
-            throw new JokeException(ResultEnum.TOP_NEWS_NO_DATA);
+            throw new JokeException(ResultEnum.NO_DATA);
         }
         return JokeUtils.jokes2Responses(result);
     }

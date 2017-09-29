@@ -5,10 +5,10 @@ import javax.validation.constraints.Min;
 
 public class BaseLimit {
 
-    @Min(value = 0, message = "Page count must max with 0")
-    @Max(value = 100, message = "Page count must min with 100")
+    @Min(value = 0, message = "Count must between 1 and 100.")
+    @Max(value = 100, message = "Count must between 1 and 100.")
     private Integer count;
-    @Min(value = 0, message = "Page count must max with 0")
+    @Min(value = 0, message = "Page count must be greater than 0")
     private Integer page;
 
     public Integer getCount() {

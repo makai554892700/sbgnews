@@ -2,8 +2,8 @@ package com.mayousheng.www.sbgnews.common.conf.enums;
 
 //返回结果的
 public enum ResultEnum {
-    TOP_NEWS_NO_DATA(0, "数据库没有数据"),
-    TOP_NEWS_NO_TYPE(1, "没有这个新闻类型"),
+    NO_DATA(0, "数据库没有数据"),
+    DATA_ERROR(1, "请求数据出错"),
     UNKNOW_ERROR(-1, "未知错误");
 
     private String msg;
