@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.common.handler;
 
-import com.mayousheng.www.sbgnews.common.exception.TopNewsException;
+import com.mayousheng.www.sbgnews.common.exception.JokeException;
 import com.mayousheng.www.sbgnews.vo.response.Result;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(value = TopNewsException.class)
+    @ExceptionHandler(value = JokeException.class)
     @ResponseBody
-    public Result<String> onField(TopNewsException topNewsException) {
-        return ResultUtils.field(topNewsException.getCode(), topNewsException.getMessage());
+    public Result<String> onField(JokeException jokeException) {
+        return ResultUtils.field(jokeException.getCode(), jokeException.getMessage());
     }
 
     @ExceptionHandler(value = Exception.class)

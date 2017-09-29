@@ -25,5 +25,4 @@ dist/
 nbdist/
 .nb-gradle/
 ### Private File ###
-src/main/resources/dev/topnews.properties
-src/main/resources/prod/topnews.properties
+src/main/resources/private
