@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 public class JokeConf {
 
 
-    private String baseurl;
-    private Integer showapiResCode;
-    private Integer retCode;
-    private Integer sleepTime;
+    private String baseurl;//请求路径模板
+    private Integer showapiResCode;//正确返回码
+    private Integer retCode;//正确数据码
+    private Integer defaultPage;//默认初始页数
+    private Integer defaultCount;//默认结果条数
+    private Integer initSleepTime;//初始化请求间隔时间
 
     public String getBaseurl() {
         return baseurl;
@@ -37,12 +39,28 @@ public class JokeConf {
         this.retCode = retCode;
     }
 
-    public Integer getSleepTime() {
-        return sleepTime;
+    public Integer getDefaultPage() {
+        return defaultPage;
     }
 
-    public void setSleepTime(Integer sleepTime) {
-        this.sleepTime = sleepTime;
+    public void setDefaultPage(Integer defaultPage) {
+        this.defaultPage = defaultPage;
+    }
+
+    public Integer getDefaultCount() {
+        return defaultCount;
+    }
+
+    public void setDefaultCount(Integer defaultCount) {
+        this.defaultCount = defaultCount;
+    }
+
+    public Integer getInitSleepTime() {
+        return initSleepTime;
+    }
+
+    public void setInitSleepTime(Integer initSleepTime) {
+        this.initSleepTime = initSleepTime;
     }
 
     @Override
@@ -51,7 +69,9 @@ public class JokeConf {
                 "baseurl='" + baseurl + '\'' +
                 ", showapiResCode=" + showapiResCode +
                 ", retCode=" + retCode +
-                ", sleepTime=" + sleepTime +
+                ", defaultPage=" + defaultPage +
+                ", defaultCount=" + defaultCount +
+                ", initSleepTime=" + initSleepTime +
                 '}';
     }
 }

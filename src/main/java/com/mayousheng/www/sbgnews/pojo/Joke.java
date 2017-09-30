@@ -20,7 +20,7 @@ public class Joke {
     @Type(type = "text")
     private String text;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)

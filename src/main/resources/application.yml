@@ -21,3 +21,10 @@ spring:
     active: dev
 logging:
   config: classpath:logback-spring-${spring.profiles.active}.xml
+executor:
+  default:
+    corePoolSize: 10 #核心线程数
+    maxPoolSize: 100 #最大线程数
+    queueCapacity: 1000 #队列最大长度
+    keepAliveSeconds: 300 #线程池维护线程所允许的空闲时间
+    threadNamePrefix: defaultAsync- #线程名称前缀
