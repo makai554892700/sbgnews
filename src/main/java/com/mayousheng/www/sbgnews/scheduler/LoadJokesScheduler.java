@@ -1,5 +1,6 @@
 package com.mayousheng.www.sbgnews.scheduler;
 
+import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,14 @@ public class LoadJokesScheduler {
     @Scheduled(cron = "0 */1 * * * ?")
     public void loadNews() {
         jokeService.loadJokes();
+    }
+
+    @Resource(name = "bsbdjServiceImpl")
+    private BSBDJService bsbdjService;
+
+    @Scheduled(cron = "30 */1 * * * ?")
+    public void loadBSBDJData() {
+        bsbdjService.loadData();
     }
 
 }

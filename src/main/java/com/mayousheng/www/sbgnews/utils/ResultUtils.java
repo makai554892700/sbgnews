@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.utils;
 
-import com.mayousheng.www.sbgnews.vo.response.Result;
+import com.mayousheng.www.sbgnews.vo.response.base.Result;
 
 public class ResultUtils {
 

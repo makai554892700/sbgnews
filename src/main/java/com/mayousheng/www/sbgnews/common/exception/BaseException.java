@@ -1,17 +1,17 @@
 package com.mayousheng.www.sbgnews.common.exception;
 
-import com.mayousheng.www.sbgnews.common.conf.enums.ResultEnum;
+import com.mayousheng.www.sbgnews.common.conf.enums.BaseResultEnum;
 
 import javax.validation.constraints.NotNull;
 
 //用户异常，用于返回正确的格式及异常码
-public class JokeException extends RuntimeException {
+public class BaseException extends RuntimeException {
 
     private Integer code;
 
-    public JokeException(@NotNull ResultEnum resultEnum) {
-        super(resultEnum.getMsg());
-        code = resultEnum.getCode();
+    public BaseException(@NotNull BaseResultEnum baseResultEnum) {
+        super(baseResultEnum.getMsg());
+        code = baseResultEnum.getCode();
     }
 
     public Integer getCode() {

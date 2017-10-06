@@ -13,7 +13,7 @@ public class PunsterBSBDJ {
     @GeneratedValue
     private Integer id;
     @Column(nullable = false, unique = true)
-    private String mark;         //标记(id)
+    private Integer mark;         //标记(id)
     private Integer userId;       //用户id(对应用户信息)
     private String weixinUrl;     //微信(原文)路径
     private Integer love;         //点赞的数量
@@ -24,7 +24,7 @@ public class PunsterBSBDJ {
     public PunsterBSBDJ() {
     }
 
-    public PunsterBSBDJ(String mark, Integer userId, String weixinUrl, Integer love, Integer hate
+    public PunsterBSBDJ(Integer mark, Integer userId, String weixinUrl, Integer love, Integer hate
             , String text, String createTime) {
         this.mark = mark;
         this.userId = userId;
@@ -43,11 +43,11 @@ public class PunsterBSBDJ {
         this.id = id;
     }
 
-    public String getMark() {
+    public Integer getMark() {
         return mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(Integer mark) {
         this.mark = mark;
     }
 

@@ -15,6 +15,7 @@ public class BSBDJConf {
     private Integer defaultPage;//默认初始页数
     private Integer initSleepTime;//初始化请求间隔时间
     private List<Integer> types;//支持的请求码
+    private Boolean loaded;//是否初始化过
 
     public String getBaseurl() {
         return baseurl;
@@ -64,6 +65,14 @@ public class BSBDJConf {
         this.types = types;
     }
 
+    public Boolean getLoaded() {
+        return loaded;
+    }
+
+    public void setLoaded(Boolean loaded) {
+        this.loaded = loaded;
+    }
+
     @Override
     public String toString() {
         return "BSBDJConf{" +
@@ -73,6 +82,7 @@ public class BSBDJConf {
                 ", defaultPage=" + defaultPage +
                 ", initSleepTime=" + initSleepTime +
                 ", types=" + types +
+                ", loaded=" + loaded +
                 '}';
     }
 }

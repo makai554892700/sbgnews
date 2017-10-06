@@ -42,7 +42,7 @@ public class BSBDJTests {
     }
 
     @Test
-    public void testBSBDJServiceSearch() {
-
+    public void testBSBDJServiceLoadAllDatas() throws Exception{
+        bsbdjService.loadAllDatas();
     }
 }

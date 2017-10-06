@@ -4,7 +4,7 @@ import com.mayousheng.www.sbgnews.api.JokesApi;
 import com.mayousheng.www.sbgnews.pojo.JokeLimit;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
-import com.mayousheng.www.sbgnews.vo.response.Result;
+import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +26,5 @@ public class JokesController implements JokesApi {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
         return ResultUtils.succeed(jokeService.getJokesBySearch(jokeLimit));
-    }
-
-    @Override
-    public Result<String> loadAllJokes() throws Exception {
-        jokeService.loadAllJokes();
-        return new Result<>(0, "start to load all jokes.", "");
     }
 }

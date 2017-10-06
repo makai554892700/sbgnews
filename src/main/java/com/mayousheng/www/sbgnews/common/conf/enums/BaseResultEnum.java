@@ -1,9 +1,10 @@
 package com.mayousheng.www.sbgnews.common.conf.enums;
 
 //返回结果的
-public enum ResultEnum {
+public enum BaseResultEnum {
     NO_DATA(0, "数据库没有数据"),
     DATA_ERROR(1, "请求数据出错"),
+    NO_USER(2, "用户不存在"),
     UNKNOW_ERROR(-1, "未知错误");
 
     private String msg;
@@ -13,7 +14,7 @@ public enum ResultEnum {
         return code;
     }
 
-    ResultEnum(Integer code, String msg) {
+    BaseResultEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

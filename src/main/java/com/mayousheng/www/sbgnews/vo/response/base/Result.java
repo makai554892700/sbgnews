@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.vo.response;
+package com.mayousheng.www.sbgnews.vo.response.base;
 
 //结果通用对象
 public class Result<T> {

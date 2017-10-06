@@ -1,8 +1,29 @@
 package com.mayousheng.www.sbgnews.vo.response;
 
-public class VideoResponse {
+import com.mayousheng.www.sbgnews.vo.response.base.BaseNewsResponse;
+import com.mayousheng.www.sbgnews.vo.response.base.NewsDesc;
+import com.mayousheng.www.sbgnews.vo.response.base.UserDesc;
 
-    private String title;//标题
-    private String text;//内容
-    private String time;//笑话创建时间
+public class VideoResponse extends BaseNewsResponse {
+
+    private String videoUri;        //视频地址
+
+    public VideoResponse() {
+    }
+
+    public VideoResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String videoUri) {
+        setMark(mark);
+        setNewsDesc(newsDesc);
+        setUserDesc(userDesc);
+        setText(text);
+        this.videoUri = videoUri;
+    }
+
+    public String getVideoUri() {
+        return videoUri;
+    }
+
+    public void setVideoUri(String videoUri) {
+        this.videoUri = videoUri;
+    }
 }
