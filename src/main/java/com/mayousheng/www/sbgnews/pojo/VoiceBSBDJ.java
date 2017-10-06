@@ -18,8 +18,6 @@ public class VoiceBSBDJ {
     private Integer mark;           //标记(id)
     private Integer userId;         //用户id(对应用户信息)
     private String weixinUrl;       //微信(原文)路径
-    private Integer love;           //点赞的数量
-    private Integer hate;           //点踩的数量
     @Type(type = "text")
     private String text;            //声音标题
     private String voiceuri;        //声音url
@@ -29,13 +27,11 @@ public class VoiceBSBDJ {
     public VoiceBSBDJ() {
     }
 
-    public VoiceBSBDJ(Integer mark, Integer userId, String weixinUrl, Integer love, Integer hate, String text
+    public VoiceBSBDJ(Integer mark, Integer userId, String weixinUrl, String text
             , String voiceuri, String cdnImg, String createTime) {
         this.mark = mark;
         this.userId = userId;
         this.weixinUrl = weixinUrl;
-        this.love = love;
-        this.hate = hate;
         this.text = text;
         this.voiceuri = voiceuri;
         this.cdnImg = cdnImg;
@@ -72,22 +68,6 @@ public class VoiceBSBDJ {
 
     public void setWeixinUrl(String weixinUrl) {
         this.weixinUrl = weixinUrl;
-    }
-
-    public Integer getLove() {
-        return love;
-    }
-
-    public void setLove(Integer love) {
-        this.love = love;
-    }
-
-    public Integer getHate() {
-        return hate;
-    }
-
-    public void setHate(Integer hate) {
-        this.hate = hate;
     }
 
     public String getText() {
@@ -129,8 +109,6 @@ public class VoiceBSBDJ {
                 ", mark='" + mark + '\'' +
                 ", userId=" + userId +
                 ", weixinUrl='" + weixinUrl + '\'' +
-                ", love=" + love +
-                ", hate=" + hate +
                 ", text='" + text + '\'' +
                 ", voiceuri='" + voiceuri + '\'' +
                 ", cdnImg='" + cdnImg + '\'' +

@@ -1,18 +1,22 @@
 package com.mayousheng.www.sbgnews.vo.response;
 
-public class JokeResponse {
+import com.mayousheng.www.sbgnews.vo.response.base.BaseNewsResponse;
+import com.mayousheng.www.sbgnews.vo.response.base.NewsDesc;
+import com.mayousheng.www.sbgnews.vo.response.base.UserDesc;
+
+public class JokeResponse extends BaseNewsResponse {
 
     private String title;//标题
-    private String text;//内容
-    private String time;//笑话创建时间
 
     public JokeResponse() {
     }
 
-    public JokeResponse(String title, String text, String time) {
+    public JokeResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String title) {
+        setMark(mark);
+        setNewsDesc(newsDesc);
+        setUserDesc(userDesc);
+        setText(text);
         this.title = title;
-        this.text = text;
-        this.time = time;
     }
 
     public String getTitle() {
@@ -21,30 +25,5 @@ public class JokeResponse {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    @Override
-    public String toString() {
-        return "JokeResponse{" +
-                "title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
-                '}';
     }
 }

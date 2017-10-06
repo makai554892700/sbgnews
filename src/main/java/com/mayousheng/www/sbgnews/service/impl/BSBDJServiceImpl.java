@@ -11,6 +11,7 @@ import com.mayousheng.www.sbgnews.common.sort.BSBDJComparator;
 import com.mayousheng.www.sbgnews.mapper.*;
 import com.mayousheng.www.sbgnews.pojo.*;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
+import com.mayousheng.www.sbgnews.service.NewsDescService;
 import com.mayousheng.www.sbgnews.utils.BSBDJPojoUtils;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
 import com.mayousheng.www.sbgnews.utils.RC4Utils;
@@ -19,9 +20,9 @@ import com.mayousheng.www.sbgnews.vo.response.PhotoResponse;
 import com.mayousheng.www.sbgnews.vo.response.PunsterResponse;
 import com.mayousheng.www.sbgnews.vo.response.VideoResponse;
 import com.mayousheng.www.sbgnews.vo.response.VoiceResponse;
-import com.mayousheng.www.sbgnews.vo.response.base.NewsDesc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,7 +40,7 @@ public class BSBDJServiceImpl implements BSBDJService {
     private DefaultUserConf defaultUserConf;
     @Resource(name = "bsbdjConf")
     private BSBDJConf bsbdjConf;
-    @Resource(name = "userMapper")
+    @Resource(name = "userMapperImpl")
     private UserMapper userMapper;
     @Resource(name = "photoBSBDJMapper")
     private PhotoBSBDJMapper photoBSBDJMapper;
@@ -49,6 +50,8 @@ public class BSBDJServiceImpl implements BSBDJService {
     private VideoBSBDJMapper videoBSBDJMapper;
     @Resource(name = "voiceBSBDJMapper")
     private VoiceBSBDJMapper voiceBSBDJMapper;
+    @Resource(name = "newsDescServiceImpl")
+    private NewsDescService newsDescService;
 
     @Override
     public void setLoaded(boolean loaded) {
@@ -109,6 +112,7 @@ public class BSBDJServiceImpl implements BSBDJService {
     }
 
     @Override
+    @Async("defaultAsync")
     public void loadAllDatas() throws Exception {
         log.error("isInitOk=" + isInitOk);
         if (!isInitOk) {
@@ -278,8 +282,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new PhotoResponse(photoBSBDJ.getMark(), new NewsDesc(photoBSBDJ.getLove()
-                , photoBSBDJ.getHate(), 0, 0, photoBSBDJ.getCreateTime())
+        return new PhotoResponse(photoBSBDJ.getMark(), newsDescService.getNewsDesc(
+                photoBSBDJ.getCreateTime(), photoBSBDJ.getId(), StaticParam.TABLE_NAME_PHOTOBSBDJ)
                 , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getCdnImg());
     }
 
@@ -302,8 +306,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new PunsterResponse(punsterBSBDJ.getMark(), new NewsDesc(punsterBSBDJ.getLove()
-                , punsterBSBDJ.getHate(), 0, 0, punsterBSBDJ.getCreateTime())
+        return new PunsterResponse(punsterBSBDJ.getMark(), newsDescService.getNewsDesc(
+                punsterBSBDJ.getCreateTime(), punsterBSBDJ.getId(), StaticParam.TABLE_NAME_PUNSTERBSBDJ)
                 , UserUtils.user2UserDesc(user), punsterBSBDJ.getText());
     }
 
@@ -326,8 +330,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new VideoResponse(videoBSBDJ.getMark(), new NewsDesc(videoBSBDJ.getLove()
-                , videoBSBDJ.getHate(), 0, 0, videoBSBDJ.getCreateTime())
+        return new VideoResponse(videoBSBDJ.getMark(), newsDescService.getNewsDesc(
+                videoBSBDJ.getCreateTime(), videoBSBDJ.getId(), StaticParam.TABLE_NAME_VIDEOBSBDJ)
                 , UserUtils.user2UserDesc(user), videoBSBDJ.getText(), videoBSBDJ.getVideoUri());
     }
 
@@ -350,8 +354,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new VoiceResponse(voiceBSBDJ.getMark(), new NewsDesc(voiceBSBDJ.getLove()
-                , voiceBSBDJ.getHate(), 0, 0, voiceBSBDJ.getCreateTime())
+        return new VoiceResponse(voiceBSBDJ.getMark(), newsDescService.getNewsDesc(
+                voiceBSBDJ.getCreateTime(), voiceBSBDJ.getId(), StaticParam.TABLE_NAME_VOICEBSBDJ)
                 , UserUtils.user2UserDesc(user), voiceBSBDJ.getText(), voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg());
     }
 

@@ -2,18 +2,23 @@ package com.mayousheng.www.sbgnews.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mayousheng.www.sbgnews.common.base.BaseShowApiResBody;
+import com.mayousheng.www.sbgnews.common.conf.StaticParam;
 import com.mayousheng.www.sbgnews.common.conf.enums.BaseResultEnum;
+import com.mayousheng.www.sbgnews.common.conf.pojo.DefaultUserConf;
 import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
 import com.mayousheng.www.sbgnews.common.exception.BaseException;
 import com.mayousheng.www.sbgnews.common.sort.JokeComparator;
 import com.mayousheng.www.sbgnews.mapper.JokesMapper;
+import com.mayousheng.www.sbgnews.mapper.UserMapper;
 import com.mayousheng.www.sbgnews.pojo.Joke;
 import com.mayousheng.www.sbgnews.pojo.JokeBack;
 import com.mayousheng.www.sbgnews.pojo.JokeLimit;
+import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.JokeService;
+import com.mayousheng.www.sbgnews.service.NewsDescService;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
 import com.mayousheng.www.sbgnews.utils.RC4Utils;
-import com.mayousheng.www.sbgnews.utils.vo.JokeUtils;
+import com.mayousheng.www.sbgnews.utils.UserUtils;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("jokeServiceImpl")
@@ -32,9 +38,14 @@ public class JokeServiceImpl implements JokeService {
 
     @Resource(name = "jokesMapper")
     private JokesMapper jokesMapper;
-
     @Resource(name = "jokeConf")
     private JokeConf jokeConf;
+    @Resource(name = "newsDescServiceImpl")
+    private NewsDescService newsDescService;
+    @Resource(name = "userMapperImpl")
+    private UserMapper userMapper;
+    @Resource(name = "defaultUserConf")
+    private DefaultUserConf defaultUserConf;
 
     @Override
     public void setLoaded(boolean loaded) {
@@ -58,7 +69,7 @@ public class JokeServiceImpl implements JokeService {
         if (result == null || result.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return JokeUtils.jokes2Responses(result);
+        return jokes2Responses(result);
     }
 
     @Override
@@ -113,6 +124,7 @@ public class JokeServiceImpl implements JokeService {
             if (tempJoke != null) {
                 continue;
             }
+            joke.setUserId(defaultUserConf.getUser().getId());
             joke.setText(RC4Utils.bytesToHexString(joke.getText().getBytes()));
             try {
                 jokesMapper.save(joke);
@@ -121,6 +133,30 @@ public class JokeServiceImpl implements JokeService {
             }
         }
         return jokeBack;
+    }
+
+    private JokeResponse joke2Response(Joke joke) {
+        if (joke == null) {
+            return null;
+        }
+        User user = userMapper.findOne(joke.getUserId());
+        if (user == null) {
+            user = defaultUserConf.getUser();
+        }
+        return new JokeResponse(joke.getId(), newsDescService.getNewsDesc(joke.getCt()
+                , joke.getId(), StaticParam.TABLE_NAME_JOKE), UserUtils.user2UserDesc(user)
+                , joke.getText(), joke.getTitle());
+    }
+
+    private List<JokeResponse> jokes2Responses(List<Joke> jokes) {
+        if (jokes == null) {
+            return null;
+        }
+        List<JokeResponse> jokeRespons = new ArrayList<>();
+        for (Joke joke : jokes) {
+            jokeRespons.add(joke2Response(joke));
+        }
+        return jokeRespons;
     }
 
 }

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository("userMapper")
+@Repository("userMapperImpl")
 public interface UserMapper extends JpaRepository<User, Integer> {
 
     public User getUserByUserName(String userName);

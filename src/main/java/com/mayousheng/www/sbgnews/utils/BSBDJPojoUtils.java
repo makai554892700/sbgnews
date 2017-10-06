@@ -19,7 +19,7 @@ public class BSBDJPojoUtils {
             return null;
         }
         return new PhotoBSBDJ(bsbdj.getId(), StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
-                , bsbdj.getLove(), bsbdj.getHate(), bsbdj.getText(), bsbdj.getCdnImg(), bsbdj.getCreateTime());
+                , bsbdj.getText(), bsbdj.getCdnImg(), bsbdj.getCreateTime());
     }
 
     public static PunsterBSBDJ BSBDJ2PunsterBSBDJ(BSBDJ bsbdj) {
@@ -27,7 +27,7 @@ public class BSBDJPojoUtils {
             return null;
         }
         return new PunsterBSBDJ(bsbdj.getId(), StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
-                , bsbdj.getLove(), bsbdj.getHate(), bsbdj.getText(), bsbdj.getCreateTime());
+                , bsbdj.getText(), bsbdj.getCreateTime());
     }
 
     public static VideoBSBDJ BSBDJ2VideoBSBDJ(BSBDJ bsbdj) {
@@ -35,7 +35,7 @@ public class BSBDJPojoUtils {
             return null;
         }
         return new VideoBSBDJ(bsbdj.getId(), StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
-                , bsbdj.getLove(), bsbdj.getHate(), bsbdj.getText(), bsbdj.getVideoUri(), bsbdj.getCreateTime());
+                , bsbdj.getText(), bsbdj.getVideoUri(), bsbdj.getCreateTime());
     }
 
     public static VoiceBSBDJ BSBDJ2VoiceBSBDJ(BSBDJ bsbdj) {
@@ -43,8 +43,7 @@ public class BSBDJPojoUtils {
             return null;
         }
         return new VoiceBSBDJ(bsbdj.getId(), StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
-                , bsbdj.getLove(), bsbdj.getHate(), bsbdj.getText(), bsbdj.getVoiceUri(), bsbdj.getCdnImg()
-                , bsbdj.getCreateTime());
+                , bsbdj.getText(), bsbdj.getVoiceUri(), bsbdj.getCdnImg(), bsbdj.getCreateTime());
     }
 
 }

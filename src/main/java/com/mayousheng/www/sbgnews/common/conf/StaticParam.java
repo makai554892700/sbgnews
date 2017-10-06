@@ -13,4 +13,10 @@ public class StaticParam {
 
     public static final String EMPTY_STR = "";
 
+    public static final String TABLE_NAME_JOKE = "joke";
+    public static final String TABLE_NAME_PHOTOBSBDJ = "photobsbdj";
+    public static final String TABLE_NAME_PUNSTERBSBDJ = "punsterbsbdj";
+    public static final String TABLE_NAME_VIDEOBSBDJ = "videobsbdj";
+    public static final String TABLE_NAME_VOICEBSBDJ = "voicebsbdj";
+
 }

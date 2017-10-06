@@ -25,7 +25,7 @@ public class InitJob {
     private BSBDJConf bsbdjConf;
     @Resource(name = "jokeConf")
     private JokeConf jokeConf;
-    @Resource(name = "userMapper")
+    @Resource(name = "userMapperImpl")
     private UserMapper userMapper;
     @Resource(name = "jokeServiceImpl")
     private JokeService jokeService;
