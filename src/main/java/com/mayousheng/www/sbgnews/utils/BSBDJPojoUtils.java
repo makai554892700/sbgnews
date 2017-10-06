@@ -9,7 +9,7 @@ public class BSBDJPojoUtils {
         if (bsbdj == null) {
             return null;
         }
-        return new User(UserUtils.getUserName(), bsbdj.getName(), StaticParam.SEX_NONE, StaticParam.EMPTY_STR
+        return new User(bsbdj.getName(), bsbdj.getName(), StaticParam.SEX_NONE, StaticParam.EMPTY_STR
                 , StaticParam.EMPTY_STR, StaticParam.EMPTY_STR, StaticParam.EMPTY_STR, bsbdj.getProfileImage()
                 , bsbdj.getWeixinUrl());
     }

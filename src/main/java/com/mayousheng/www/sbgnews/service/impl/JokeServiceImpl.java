@@ -12,6 +12,7 @@ import com.mayousheng.www.sbgnews.pojo.JokeBack;
 import com.mayousheng.www.sbgnews.pojo.JokeLimit;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
+import com.mayousheng.www.sbgnews.utils.RC4Utils;
 import com.mayousheng.www.sbgnews.utils.vo.JokeUtils;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import org.slf4j.Logger;
@@ -112,6 +113,7 @@ public class JokeServiceImpl implements JokeService {
             if (tempJoke != null) {
                 continue;
             }
+            joke.setText(RC4Utils.bytesToHexString(joke.getText().getBytes()));
             try {
                 jokesMapper.save(joke);
             } catch (Exception e) {

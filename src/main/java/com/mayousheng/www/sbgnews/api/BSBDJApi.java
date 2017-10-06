@@ -30,7 +30,7 @@ public interface BSBDJApi {
 
     @PostMapping(value = "/getPhotos")
     @ApiOperation(value = "根据查找信息获取图片", notes = "根据查找信息获取图片", tags = {"bsbdj"})
-    // http://localhost:8080/bsbdj/getPhoto {"count":10,"page":0}
+    // http://localhost:8080/bsbdj/getPhotos {"count":10,"page":0}
     public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid BSBDJLimit bsbdjLimit, BindingResult bindingResult) throws Exception;
 
     @PostMapping(value = "/getVoices")

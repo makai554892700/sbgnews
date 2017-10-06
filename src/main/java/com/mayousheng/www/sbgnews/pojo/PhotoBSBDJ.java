@@ -1,5 +1,7 @@
 package com.mayousheng.www.sbgnews.pojo;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ public class PhotoBSBDJ {
     private String weixinUrl;     //微信(原文)路径
     private Integer love;         //点赞的数量
     private Integer hate;         //点踩的数量
+    @Type(type = "text")
     private String text;          //图片标题
     private String cdnImg;        //cdn图片
     private String createTime;    //创建时间
