@@ -284,7 +284,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         }
         return new PhotoResponse(photoBSBDJ.getMark(), newsDescService.getNewsDesc(
                 photoBSBDJ.getCreateTime(), photoBSBDJ.getId(), StaticParam.TABLE_NAME_PHOTOBSBDJ)
-                , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getCdnImg());
+                , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getWeixinUrl(), photoBSBDJ.getCdnImg());
     }
 
     private List<PhotoResponse> photoBSBDJs2PhotoResponses(List<PhotoBSBDJ> photoBSBDJList) {
@@ -308,7 +308,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         }
         return new PunsterResponse(punsterBSBDJ.getMark(), newsDescService.getNewsDesc(
                 punsterBSBDJ.getCreateTime(), punsterBSBDJ.getId(), StaticParam.TABLE_NAME_PUNSTERBSBDJ)
-                , UserUtils.user2UserDesc(user), punsterBSBDJ.getText());
+                , UserUtils.user2UserDesc(user), punsterBSBDJ.getText(), punsterBSBDJ.getWeixinUrl());
     }
 
     private List<PunsterResponse> punsterBSBDJs2PunsterResponses(List<PunsterBSBDJ> punsterBSBDJList) {
@@ -332,7 +332,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         }
         return new VideoResponse(videoBSBDJ.getMark(), newsDescService.getNewsDesc(
                 videoBSBDJ.getCreateTime(), videoBSBDJ.getId(), StaticParam.TABLE_NAME_VIDEOBSBDJ)
-                , UserUtils.user2UserDesc(user), videoBSBDJ.getText(), videoBSBDJ.getVideoUri());
+                , UserUtils.user2UserDesc(user), videoBSBDJ.getText(), videoBSBDJ.getWeixinUrl()
+                , videoBSBDJ.getVideoUri());
     }
 
     private List<VideoResponse> videoBSBDJs2VideoResponses(List<VideoBSBDJ> videoBSBDJList) {
@@ -356,7 +357,8 @@ public class BSBDJServiceImpl implements BSBDJService {
         }
         return new VoiceResponse(voiceBSBDJ.getMark(), newsDescService.getNewsDesc(
                 voiceBSBDJ.getCreateTime(), voiceBSBDJ.getId(), StaticParam.TABLE_NAME_VOICEBSBDJ)
-                , UserUtils.user2UserDesc(user), voiceBSBDJ.getText(), voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg());
+                , UserUtils.user2UserDesc(user), voiceBSBDJ.getText(), voiceBSBDJ.getWeixinUrl()
+                , voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg());
     }
 
     private List<VoiceResponse> voiceBSBDJs2VoiceResponses(List<VoiceBSBDJ> voiceBSBDJList) {

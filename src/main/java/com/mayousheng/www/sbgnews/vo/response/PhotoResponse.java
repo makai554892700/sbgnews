@@ -11,11 +11,12 @@ public class PhotoResponse extends BaseNewsResponse {
     public PhotoResponse() {
     }
 
-    public PhotoResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String cdnImg) {
+    public PhotoResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String url, String cdnImg) {
         setMark(mark);
         setNewsDesc(newsDesc);
         setUserDesc(userDesc);
         setText(text);
+        setUrl(url);
         this.cdnImg = cdnImg;
     }
 

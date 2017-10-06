@@ -11,11 +11,12 @@ public class VideoResponse extends BaseNewsResponse {
     public VideoResponse() {
     }
 
-    public VideoResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String videoUri) {
+    public VideoResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String url, String videoUri) {
         setMark(mark);
         setNewsDesc(newsDesc);
         setUserDesc(userDesc);
         setText(text);
+        setUrl(url);
         this.videoUri = videoUri;
     }
 

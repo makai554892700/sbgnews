@@ -6,6 +6,7 @@ public class BaseNewsResponse {
     private NewsDesc newsDesc;  //新闻描述
     private UserDesc userDesc;  //用户描述
     private String text;        //基本内容
+    private String url;   //详情跳转url
 
     public Integer getMark() {
         return mark;
@@ -39,13 +40,11 @@ public class BaseNewsResponse {
         this.text = text;
     }
 
-    @Override
-    public String toString() {
-        return "BaseNewsResponse{" +
-                "mark='" + mark + '\'' +
-                ", newsDesc=" + newsDesc +
-                ", userDesc=" + userDesc +
-                ", text='" + text + '\'' +
-                '}';
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
