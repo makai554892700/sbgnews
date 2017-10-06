@@ -1,6 +1,7 @@
 package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
+import com.mayousheng.www.sbgnews.pojo.JokeBack;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +31,11 @@ public class JokesTests {
     private JokeService jokeService;
 
     @Test
-    public void testTopNewsServiceLoadNews() {
-        jokeService.loadJokes();
+    public void testTopNewsServiceLoadNews() throws Exception {
+        JokeBack jokeBack = jokeService.loadJokes();
+        if (jokeBack == null) {
+            throw new Exception("jokeBack is null.");
+        }
     }
 
     @Test

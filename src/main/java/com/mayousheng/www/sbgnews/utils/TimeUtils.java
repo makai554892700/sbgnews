@@ -73,4 +73,16 @@ public class TimeUtils {
         return sdf.format(date);
     }
 
+    public static int sortDESC(Date date1, Date date2) {
+        if (date1 != null && date2 != null) {
+            if (date1.getTime() < date2.getTime()) {
+                return -1;
+            }
+            if (date1.getTime() > date2.getTime()) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
 }

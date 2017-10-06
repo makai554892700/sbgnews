@@ -1,6 +1,7 @@
 package com.mayousheng.www.sbgnews.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mayousheng.www.sbgnews.common.base.BaseShowApiResBody;
 import com.mayousheng.www.sbgnews.common.conf.enums.ResultEnum;
 import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
 import com.mayousheng.www.sbgnews.common.exception.JokeException;
@@ -95,7 +96,7 @@ public class JokeServiceImpl implements JokeService {
         if (!jokeConf.getShowapiResCode().equals(jokeBack.getShowapiResCode())) {
             return null;
         }
-        JokeBack.ShowapiResBody showapiResBody = jokeBack.getShowapiResBody();
+        BaseShowApiResBody<Joke> showapiResBody = jokeBack.getShowapiResBody();
         List<Joke> jokes = showapiResBody.getContentlist();
         if (!jokeConf.getRetCode().equals(showapiResBody.getRetCode()) || jokes == null) {
             return null;
