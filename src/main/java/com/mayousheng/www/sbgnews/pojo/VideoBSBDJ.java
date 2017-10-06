@@ -1,0 +1,126 @@
+package com.mayousheng.www.sbgnews.pojo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+//百思不得姐-视频
+@Entity
+public class VideoBSBDJ {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column(nullable = false, unique = true)
+    private String mark;           //标记(id)
+    private Integer userId;         //用户id(对应用户信息)
+    private String weixinUrl;       //微信(原文)路径
+    private Integer love;           //点赞的数量
+    private Integer hate;           //点踩的数量
+    private String text;            //视频标题
+    private String videoUri;        //视频url
+    private String createTime;      //创建时间
+
+    public VideoBSBDJ() {
+    }
+
+    public VideoBSBDJ(String mark, Integer userId, String weixinUrl, Integer love, Integer hate, String text
+            , String videoUri, String createTime) {
+        this.mark = mark;
+        this.userId = userId;
+        this.weixinUrl = weixinUrl;
+        this.love = love;
+        this.hate = hate;
+        this.text = text;
+        this.videoUri = videoUri;
+        this.createTime = createTime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getWeixinUrl() {
+        return weixinUrl;
+    }
+
+    public void setWeixinUrl(String weixinUrl) {
+        this.weixinUrl = weixinUrl;
+    }
+
+    public Integer getLove() {
+        return love;
+    }
+
+    public void setLove(Integer love) {
+        this.love = love;
+    }
+
+    public Integer getHate() {
+        return hate;
+    }
+
+    public void setHate(Integer hate) {
+        this.hate = hate;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getVideoUri() {
+        return videoUri;
+    }
+
+    public void setVideoUri(String videoUri) {
+        this.videoUri = videoUri;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoBSBDJ{" +
+                "id=" + id +
+                ", mark='" + mark + '\'' +
+                ", userId=" + userId +
+                ", weixinUrl='" + weixinUrl + '\'' +
+                ", love=" + love +
+                ", hate=" + hate +
+                ", text='" + text + '\'' +
+                ", videoUri='" + videoUri + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
+    }
+}

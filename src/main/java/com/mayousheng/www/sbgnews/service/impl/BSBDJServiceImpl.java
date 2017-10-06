@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.mayousheng.www.sbgnews.common.base.BaseShowApiResBody;
 import com.mayousheng.www.sbgnews.common.conf.pojo.BSBDJConf;
 import com.mayousheng.www.sbgnews.common.sort.BSBDJComparator;
-import com.mayousheng.www.sbgnews.pojo.BSBDJ;
-import com.mayousheng.www.sbgnews.pojo.BSBDJBack;
-import com.mayousheng.www.sbgnews.pojo.BSBDJLimit;
+import com.mayousheng.www.sbgnews.mapper.*;
+import com.mayousheng.www.sbgnews.pojo.*;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
+import com.mayousheng.www.sbgnews.utils.BSBDJPojoUtils;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
 import com.mayousheng.www.sbgnews.vo.response.VideoResponse;
 import org.slf4j.Logger;
@@ -27,6 +27,18 @@ public class BSBDJServiceImpl implements BSBDJService {
 
     @Resource(name = "bsbdjConf")
     private BSBDJConf bsbdjConf;
+    @Resource(name = "deviceMapper")
+    private DeviceMapper deviceMapper;
+    @Resource(name = "userMapper")
+    private UserMapper userMapper;
+    @Resource(name = "photoBSBDJMapper")
+    private PhotoBSBDJMapper photoBSBDJMapper;
+    @Resource(name = "punsterBSBDJMapper")
+    private PunsterBSBDJMapper punsterBSBDJMapper;
+    @Resource(name = "videoBSBDJMapper")
+    private VideoBSBDJMapper videoBSBDJMapper;
+    @Resource(name = "voiceBSBDJMapper")
+    private VoiceBSBDJMapper voiceBSBDJMapper;
 
     @Override
     public List<BSBDJBack> loadData() {
@@ -73,9 +85,8 @@ public class BSBDJServiceImpl implements BSBDJService {
             return null;
         }
         String tempStr = new String(tempData, Charset.forName("UTF-8"));
-        log.error("Start load bsbdj tempStr=" + tempStr);
+//        log.error("Start load bsbdj tempStr=" + tempStr);
         BSBDJBack bsbdjBack = JSONObject.parseObject(tempStr, BSBDJBack.class);
-        log.error("bsbdjBack=" + bsbdjBack);
         if (!bsbdjConf.getShowapiResCode().equals(bsbdjBack.getShowapiResCode())) {
             return null;
         }
@@ -91,20 +102,57 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (bsbdjList == null) {
             return null;
         }
-        BSBDJ tempBSBDJ;
         bsbdjList.sort(new BSBDJComparator());
-        log.error("bsbdjList=" + bsbdjList);
-        for (BSBDJ bsbdj : bsbdjList) {
-//            tempBSBDJ = jokesMapper.getJokesByTitle(bsbdj.getTitle());
-//            if (tempBSBDJ != null) {
-//                continue;
-//            }
-//            try {
-//                jokesMapper.save(bsbdj);
-//            } catch (Exception e) {
-//                log.error("loadJokes e=" + e);
-//            }
+        switch (type) {
+            case 10://图片
+                savePhotoBSBDJ(bsbdjList);
+                break;
+            case 29://段子
+                savePunsterBSBDJ(bsbdjList);
+                break;
+            case 31://声音
+                saveVoiceBSBDJ(bsbdjList);
+                break;
+            case 41://视频
+                saveVideoBSBDJ(bsbdjList);
+                break;
+            default:
+                return null;
         }
         return bsbdjBack;
+    }
+
+    public void savePhotoBSBDJ(List<BSBDJ> bsbdjList) {
+        User tempUser;
+        PhotoBSBDJ tempPhotoBSBDJ;
+        for (BSBDJ bsbdj : bsbdjList) {
+            tempUser = BSBDJPojoUtils.BSBDJ2User(bsbdj);
+
+            tempPhotoBSBDJ = BSBDJPojoUtils.BSBDJ2PhotoBSBDJ(bsbdj);
+        }
+    }
+
+    private void savePunsterBSBDJ(List<BSBDJ> bsbdjList) {
+        User tempUser;
+        PunsterBSBDJ tempPunsterBSBDJ;
+        for (BSBDJ bsbdj : bsbdjList) {
+            tempUser = BSBDJPojoUtils.BSBDJ2User(bsbdj);
+        }
+    }
+
+    private void saveVideoBSBDJ(List<BSBDJ> bsbdjList) {
+        User tempUser;
+        VideoBSBDJ tempVideoBSBDJ;
+        for (BSBDJ bsbdj : bsbdjList) {
+            tempUser = BSBDJPojoUtils.BSBDJ2User(bsbdj);
+        }
+    }
+
+    private void saveVoiceBSBDJ(List<BSBDJ> bsbdjList) {
+        User tempUser;
+        VoiceBSBDJ tempVoiceBSBDJ;
+        for (BSBDJ bsbdj : bsbdjList) {
+            tempUser = BSBDJPojoUtils.BSBDJ2User(bsbdj);
+        }
     }
 }
