@@ -194,7 +194,9 @@ public class BSBDJServiceImpl implements BSBDJService {
             tempDBPhotoBSBDJ = photoBSBDJMapper.getPhotoBSBDJByMark(tempPhotoBSBDJ.getMark());
             if (tempDBPhotoBSBDJ == null) {
                 tempPhotoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
-                tempPhotoBSBDJ.setText(RC4Utils.bytesToHexString(tempPhotoBSBDJ.getText().getBytes()));
+                if (tempPhotoBSBDJ.getText() != null) {
+                    tempPhotoBSBDJ.setText(RC4Utils.bytesToHexString(tempPhotoBSBDJ.getText().getBytes()));
+                }
                 try {
                     photoBSBDJMapper.save(tempPhotoBSBDJ);
                 } catch (Exception e) {
@@ -212,7 +214,9 @@ public class BSBDJServiceImpl implements BSBDJService {
             tempDBPunsterBSBDJ = punsterBSBDJMapper.getPunsterBSBDJByMark(tempPunsterBSBDJ.getMark());
             if (tempDBPunsterBSBDJ == null) {
                 tempPunsterBSBDJ.setUserId(saveUserAndGetId(bsbdj));
-                tempPunsterBSBDJ.setText(RC4Utils.bytesToHexString(tempPunsterBSBDJ.getText().getBytes()));
+                if (tempPunsterBSBDJ.getText() != null) {
+                    tempPunsterBSBDJ.setText(RC4Utils.bytesToHexString(tempPunsterBSBDJ.getText().getBytes()));
+                }
                 try {
                     punsterBSBDJMapper.save(tempPunsterBSBDJ);
                 } catch (Exception e) {
@@ -230,7 +234,9 @@ public class BSBDJServiceImpl implements BSBDJService {
             tempDBVideoBSBDJ = videoBSBDJMapper.getVideoBSBDJByMark(tempVideoBSBDJ.getMark());
             if (tempDBVideoBSBDJ == null) {
                 tempVideoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
-                tempVideoBSBDJ.setText(RC4Utils.bytesToHexString(tempVideoBSBDJ.getText().getBytes()));
+                if (tempVideoBSBDJ.getText() != null) {
+                    tempVideoBSBDJ.setText(RC4Utils.bytesToHexString(tempVideoBSBDJ.getText().getBytes()));
+                }
                 try {
                     videoBSBDJMapper.save(tempVideoBSBDJ);
                 } catch (Exception e) {
@@ -248,7 +254,9 @@ public class BSBDJServiceImpl implements BSBDJService {
             tempDBVoiceBSBDJ = voiceBSBDJMapper.getVoiceBSBDJByMark(tempVoiceBSBDJ.getMark());
             if (tempDBVoiceBSBDJ == null) {
                 tempVoiceBSBDJ.setUserId(saveUserAndGetId(bsbdj));
-                tempVoiceBSBDJ.setText(RC4Utils.bytesToHexString(tempVoiceBSBDJ.getText().getBytes()));
+                if (tempVoiceBSBDJ.getText() != null) {
+                    tempVoiceBSBDJ.setText(RC4Utils.bytesToHexString(tempVoiceBSBDJ.getText().getBytes()));
+                }
                 try {
                     voiceBSBDJMapper.save(tempVoiceBSBDJ);
                 } catch (Exception e) {
