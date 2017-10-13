@@ -1,12 +1,12 @@
 # sbgnews
 新闻web端springboot+gradle实现
-#spring boot + swagger-------------------start
+#spring boot + swagger -------------------start
 #### swagger官网： https://swagger.io/
-###添加依赖：
+### 添加依赖：
 
     compile("io.springfox:springfox-swagger2:${swaggerVersion}") //swagger2核心jar包
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}") //swagger2核心jar包
-###各个注解说明
+### 各个注解说明
 
     @Api：用在类上，说明该类的作用
     @ApiOperation：用在方法上，说明方法的作用
@@ -30,7 +30,7 @@
         response：抛出异常的类
     @ApiModel：描述一个Model的信息（这种一般用在post创建的时候，使用@RequestBody这样的场景，请求参数无法使用@ApiImplicitParam注解进行描述的时候）
     @ApiModelProperty：描述一个model的属性
-###访问路径： 
+### 访问路径： 
 
     http://${host}/swagger-ui.html
-#spring boot + swagger-------------------end
+# spring boot + swagger -------------------end
