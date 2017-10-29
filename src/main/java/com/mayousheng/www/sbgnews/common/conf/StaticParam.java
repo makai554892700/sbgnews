@@ -19,4 +19,13 @@ public class StaticParam {
     public static final String TABLE_NAME_VIDEOBSBDJ = "videobsbdj";
     public static final String TABLE_NAME_VOICEBSBDJ = "voicebsbdj";
 
+    public static final String LINE = "\n";
+    public static final String COMMA = ",";
+
+    public static final String FFMPEG_SHORTCUT_WH = "ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s";
+    public static final String FFMPEG_INFO = "ffmpeg -i %s";
+    public static final String FFMPEG_DURATION = "Duration:";
+    public static final String FFMPEG_VIDEO = "Video:";
+    public static final String FFMPEG_X = "x";
+
 }
