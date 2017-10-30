@@ -56,7 +56,18 @@
     //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
     ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
 ### vue 相关 (需先安装nodejs)
+* 安装淘宝镜像(根据个人需求,若安装后，可用cnpm替换npm运行npm命令)
+    * npm install -g cnpm --registry=https://registry.npm.taobao.org
 * 初始化package.json文件
     * 于webapp目录下运行 npm init 并填写或跳过相应属性
+* 安装webpack
+    * npm install webpack -g
+* 安装vue脚手架
+    * npm install vue-cli -g
 * 安装vue
     * 于webapp目录下运行 npm install vue --save 
+* 创建vue项目
+    * vue init webpack projectName
+    * npm install
+* 启动项目
+    * npm run dev
