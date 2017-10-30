@@ -26,3 +26,5 @@ nbdist/
 .nb-gradle/
 ### Private File ###
 src/main/resources/private
+### Vue ###
+src/main/webapp/node_modules

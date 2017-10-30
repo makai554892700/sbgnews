@@ -55,3 +55,8 @@
     ffmpeg -i %s
     //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
     ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
+### vue 相关 (需先安装nodejs)
+* 初始化package.json文件
+    * 于webapp目录下运行 npm init 并填写或跳过相应属性
+* 安装vue
+    * 于webapp目录下运行 npm install vue --save 
