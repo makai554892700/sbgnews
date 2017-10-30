@@ -1,7 +1,7 @@
 # sbgnews
 新闻web端springboot+gradle实现
-#spring boot + swagger -------------------start
-#### swagger官网： https://swagger.io/
+#spring boot + swagger
+#### [swagger官网](https://swagger.io/)
 ### 添加依赖：
 
     compile("io.springfox:springfox-swagger2:${swaggerVersion}") //swagger2核心jar包
@@ -33,4 +33,25 @@
 ### 访问路径： 
 
     http://${host}/swagger-ui.html
-# spring boot + swagger -------------------end
+# CENTOS7下ffmpeg安装与总结
+#### [ffmpeg官网](https://www.ffmpeg.org/)
+#### [ffmpeg git地址](https://github.com/FFmpeg/FFmpeg)
+### ffmpeg安装
+* 启用epel仓库
+* 安装nux-dextop仓库
+* 安装ffmpeg
+
+      yum install epel-release -y
+      rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+      rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+      yum install ffmpeg ffmpeg-devel -y
+      ffmpeg -h
+    * 如果最后出现ffmpeg帮助信息则表示安装成功
+### ffmpeg常用命令
+
+    //获取帮助
+    ffmpeg -h
+    //获取视频信息(视频地址)
+    ffmpeg -i %s
+    //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
+    ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
