@@ -10,6 +10,7 @@ public class BaseLimit {
     private Integer count;
     @Min(value = 0, message = "Page count must be greater than 0")
     private Integer page;
+    private boolean needRealText;
 
     public Integer getCount() {
         return count;
@@ -27,11 +28,20 @@ public class BaseLimit {
         this.page = page;
     }
 
+    public boolean isNeedRealText() {
+        return needRealText;
+    }
+
+    public void setNeedRealText(boolean needRealText) {
+        this.needRealText = needRealText;
+    }
+
     @Override
     public String toString() {
         return "BaseLimit{" +
                 "count=" + count +
                 ", page=" + page +
+                ", needRealText=" + needRealText +
                 '}';
     }
 }

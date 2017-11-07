@@ -1,5 +1,7 @@
 package com.mayousheng.www.sbgnews.utils;
 
+import java.nio.charset.Charset;
+
 public class RC4Utils {
 
     private static final String CODE = "UTF-8";
@@ -51,7 +53,7 @@ public class RC4Utils {
         j = 0;
         char[] iInputChar = value.toCharArray();
         char[] iOutputChar = new char[iInputChar.length];
-        for (short x = 0; x < iInputChar.length; x++) {
+        for (int x = 0; x < iInputChar.length; x++) {
             i = (i + 1) % 256;
             j = (j + iS[i]) % 256;
             int temp = iS[i];
@@ -79,6 +81,13 @@ public class RC4Utils {
             stringBuilder.append(hv);
         }
         return stringBuilder.toString();
+    }
+
+    public static String strToHexString(String str) {
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+        return bytesToHexString(str.getBytes(Charset.forName(CODE)));
     }
 
     public static String hexStringToString(String hexString) {

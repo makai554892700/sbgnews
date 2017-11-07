@@ -14,6 +14,7 @@ public class JokeConf {
     private Integer defaultCount;//默认结果条数
     private Integer initSleepTime;//初始化请求间隔时间
     private Boolean loaded;//是否初始化过
+    private Integer sleepTime;//请求间隔时间
 
     public String getBaseurl() {
         return baseurl;
@@ -71,6 +72,14 @@ public class JokeConf {
         this.loaded = loaded;
     }
 
+    public Integer getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(Integer sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
     @Override
     public String toString() {
         return "JokeConf{" +
@@ -81,6 +90,7 @@ public class JokeConf {
                 ", defaultCount=" + defaultCount +
                 ", initSleepTime=" + initSleepTime +
                 ", loaded=" + loaded +
+                ", sleepTime=" + sleepTime +
                 '}';
     }
 }

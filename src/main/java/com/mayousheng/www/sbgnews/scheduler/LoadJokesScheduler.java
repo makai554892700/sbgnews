@@ -17,7 +17,7 @@ public class LoadJokesScheduler {
     @Resource(name = "jokeServiceImpl")
     private JokeService jokeService;
 
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void loadNews() {
         jokeService.loadJokes();
     }
@@ -25,7 +25,7 @@ public class LoadJokesScheduler {
     @Resource(name = "bsbdjServiceImpl")
     private BSBDJService bsbdjService;
 
-    @Scheduled(cron = "30 */1 * * * ?")
+    @Scheduled(cron = "30 */10 * * * ?")
     public void loadBSBDJData() {
         bsbdjService.loadData();
     }

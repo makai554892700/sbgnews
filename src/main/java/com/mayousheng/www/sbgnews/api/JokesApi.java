@@ -19,7 +19,7 @@ public interface JokesApi {
 
     @PostMapping(value = "/getJokes")
     @ApiOperation(value = "根据查找信息获取搞笑文本", notes = "根据查找信息获取搞笑文本", tags = {"jokes"})
-    // http://localhost:8080/jokes/getJokes {"count":10,"page":0}
+    // http://localhost:8080/jokes/getJokes {"count":10,"page":0,"needRealText":true}
     public Result<List<JokeResponse>> getJokes(@RequestBody @Valid JokeLimit jokeLimit, BindingResult bindingResult) throws Exception;
 
 }

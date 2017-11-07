@@ -16,6 +16,7 @@ public class BSBDJConf {
     private Integer initSleepTime;//初始化请求间隔时间
     private List<Integer> types;//支持的请求码
     private Boolean loaded;//是否初始化过
+    private Integer sleepTime;//请求间隔时间
 
     public String getBaseurl() {
         return baseurl;
@@ -73,6 +74,14 @@ public class BSBDJConf {
         this.loaded = loaded;
     }
 
+    public Integer getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(Integer sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
     @Override
     public String toString() {
         return "BSBDJConf{" +
@@ -83,6 +92,7 @@ public class BSBDJConf {
                 ", initSleepTime=" + initSleepTime +
                 ", types=" + types +
                 ", loaded=" + loaded +
+                ", sleepTime=" + sleepTime +
                 '}';
     }
 }

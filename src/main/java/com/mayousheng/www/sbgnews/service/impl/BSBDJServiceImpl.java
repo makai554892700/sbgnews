@@ -64,7 +64,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         for (Integer type : bsbdjConf.getTypes()) {
             result.add(loadDataByPage(type, bsbdjConf.getDefaultPage()));
             try {
-                Thread.sleep(bsbdjConf.getInitSleepTime());
+                Thread.sleep(bsbdjConf.getSleepTime());
             } catch (Exception e) {
             }
         }
@@ -78,7 +78,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (photoBSBDJList == null || photoBSBDJList.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return photoBSBDJs2PhotoResponses(photoBSBDJList);
+        return photoBSBDJs2PhotoResponses(photoBSBDJList, bsbdjLimit);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (punsterBSBDJList == null || punsterBSBDJList.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return punsterBSBDJs2PunsterResponses(punsterBSBDJList);
+        return punsterBSBDJs2PunsterResponses(punsterBSBDJList, bsbdjLimit);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (voiceBSBDJList == null || voiceBSBDJList.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return voiceBSBDJs2VoiceResponses(voiceBSBDJList);
+        return voiceBSBDJs2VoiceResponses(voiceBSBDJList, bsbdjLimit);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (videoBSBDJList == null || videoBSBDJList.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return videoBSBDJs2VideoResponses(videoBSBDJList);
+        return videoBSBDJs2VideoResponses(videoBSBDJList, bsbdjLimit);
     }
 
     @Override
@@ -150,7 +150,13 @@ public class BSBDJServiceImpl implements BSBDJService {
         }
         String tempStr = new String(tempData, Charset.forName("UTF-8"));
 //        log.error("Start load bsbdj tempStr=" + tempStr);
-        BSBDJBack bsbdjBack = JSONObject.parseObject(tempStr, BSBDJBack.class);
+        BSBDJBack bsbdjBack;
+        try {
+            bsbdjBack = JSONObject.parseObject(tempStr, BSBDJBack.class);
+        } catch (Exception e) {
+            log.error("tempStr=" + tempStr + ";e=" + e);
+            return null;
+        }
         if (!bsbdjConf.getShowapiResCode().equals(bsbdjBack.getShowapiResCode())) {
             return null;
         }
@@ -195,7 +201,7 @@ public class BSBDJServiceImpl implements BSBDJService {
             if (tempDBPhotoBSBDJ == null) {
                 tempPhotoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
                 if (tempPhotoBSBDJ.getText() != null) {
-                    tempPhotoBSBDJ.setText(RC4Utils.bytesToHexString(tempPhotoBSBDJ.getText().getBytes()));
+                    tempPhotoBSBDJ.setText(RC4Utils.strToHexString(tempPhotoBSBDJ.getText()));
                 }
                 try {
                     photoBSBDJMapper.save(tempPhotoBSBDJ);
@@ -215,7 +221,7 @@ public class BSBDJServiceImpl implements BSBDJService {
             if (tempDBPunsterBSBDJ == null) {
                 tempPunsterBSBDJ.setUserId(saveUserAndGetId(bsbdj));
                 if (tempPunsterBSBDJ.getText() != null) {
-                    tempPunsterBSBDJ.setText(RC4Utils.bytesToHexString(tempPunsterBSBDJ.getText().getBytes()));
+                    tempPunsterBSBDJ.setText(RC4Utils.strToHexString(tempPunsterBSBDJ.getText()));
                 }
                 try {
                     punsterBSBDJMapper.save(tempPunsterBSBDJ);
@@ -235,7 +241,7 @@ public class BSBDJServiceImpl implements BSBDJService {
             if (tempDBVideoBSBDJ == null) {
                 tempVideoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
                 if (tempVideoBSBDJ.getText() != null) {
-                    tempVideoBSBDJ.setText(RC4Utils.bytesToHexString(tempVideoBSBDJ.getText().getBytes()));
+                    tempVideoBSBDJ.setText(RC4Utils.strToHexString(tempVideoBSBDJ.getText()));
                 }
                 try {
                     videoBSBDJMapper.save(tempVideoBSBDJ);
@@ -255,7 +261,7 @@ public class BSBDJServiceImpl implements BSBDJService {
             if (tempDBVoiceBSBDJ == null) {
                 tempVoiceBSBDJ.setUserId(saveUserAndGetId(bsbdj));
                 if (tempVoiceBSBDJ.getText() != null) {
-                    tempVoiceBSBDJ.setText(RC4Utils.bytesToHexString(tempVoiceBSBDJ.getText().getBytes()));
+                    tempVoiceBSBDJ.setText(RC4Utils.strToHexString(tempVoiceBSBDJ.getText()));
                 }
                 try {
                     voiceBSBDJMapper.save(tempVoiceBSBDJ);
@@ -295,12 +301,15 @@ public class BSBDJServiceImpl implements BSBDJService {
                 , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getWeixinUrl(), photoBSBDJ.getCdnImg());
     }
 
-    private List<PhotoResponse> photoBSBDJs2PhotoResponses(List<PhotoBSBDJ> photoBSBDJList) {
+    private List<PhotoResponse> photoBSBDJs2PhotoResponses(List<PhotoBSBDJ> photoBSBDJList, BSBDJLimit bsbdjLimit) {
         if (photoBSBDJList == null) {
             return null;
         }
         List<PhotoResponse> photoResponseList = new ArrayList<>();
         for (PhotoBSBDJ photoBSBDJ : photoBSBDJList) {
+            if (bsbdjLimit.isNeedRealText()) {
+                photoBSBDJ.setText(RC4Utils.hexStringToString(photoBSBDJ.getText()));
+            }
             photoResponseList.add(photoBSBDJ2PhotoResponse(photoBSBDJ));
         }
         return photoResponseList;
@@ -319,12 +328,15 @@ public class BSBDJServiceImpl implements BSBDJService {
                 , UserUtils.user2UserDesc(user), punsterBSBDJ.getText(), punsterBSBDJ.getWeixinUrl());
     }
 
-    private List<PunsterResponse> punsterBSBDJs2PunsterResponses(List<PunsterBSBDJ> punsterBSBDJList) {
+    private List<PunsterResponse> punsterBSBDJs2PunsterResponses(List<PunsterBSBDJ> punsterBSBDJList, BSBDJLimit bsbdjLimit) {
         if (punsterBSBDJList == null) {
             return null;
         }
         List<PunsterResponse> punsterResponseList = new ArrayList<>();
         for (PunsterBSBDJ punsterBSBDJ : punsterBSBDJList) {
+            if (bsbdjLimit.isNeedRealText()) {
+                punsterBSBDJ.setText(RC4Utils.hexStringToString(punsterBSBDJ.getText()));
+            }
             punsterResponseList.add(punsterBSBDJ2PunsterResponse(punsterBSBDJ));
         }
         return punsterResponseList;
@@ -344,12 +356,15 @@ public class BSBDJServiceImpl implements BSBDJService {
                 , videoBSBDJ.getVideoUri());
     }
 
-    private List<VideoResponse> videoBSBDJs2VideoResponses(List<VideoBSBDJ> videoBSBDJList) {
+    private List<VideoResponse> videoBSBDJs2VideoResponses(List<VideoBSBDJ> videoBSBDJList, BSBDJLimit bsbdjLimit) {
         if (videoBSBDJList == null) {
             return null;
         }
         List<VideoResponse> videoResponseList = new ArrayList<>();
         for (VideoBSBDJ videoBSBDJ : videoBSBDJList) {
+            if (bsbdjLimit.isNeedRealText()) {
+                videoBSBDJ.setText(RC4Utils.hexStringToString(videoBSBDJ.getText()));
+            }
             videoResponseList.add(videoBSBDJ2VideoResponse(videoBSBDJ));
         }
         return videoResponseList;
@@ -369,12 +384,15 @@ public class BSBDJServiceImpl implements BSBDJService {
                 , voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg());
     }
 
-    private List<VoiceResponse> voiceBSBDJs2VoiceResponses(List<VoiceBSBDJ> voiceBSBDJList) {
+    private List<VoiceResponse> voiceBSBDJs2VoiceResponses(List<VoiceBSBDJ> voiceBSBDJList, BSBDJLimit bsbdjLimit) {
         if (voiceBSBDJList == null) {
             return null;
         }
         List<VoiceResponse> voiceResponseList = new ArrayList<>();
         for (VoiceBSBDJ voiceBSBDJ : voiceBSBDJList) {
+            if (bsbdjLimit.isNeedRealText()) {
+                voiceBSBDJ.setText(RC4Utils.hexStringToString(voiceBSBDJ.getText()));
+            }
             voiceResponseList.add(voiceBSBDJ2VoiceResponse(voiceBSBDJ));
         }
         return voiceResponseList;

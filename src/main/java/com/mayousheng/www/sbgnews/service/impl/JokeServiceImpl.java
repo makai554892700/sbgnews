@@ -69,7 +69,7 @@ public class JokeServiceImpl implements JokeService {
         if (result == null || result.isEmpty()) {
             throw new BaseException(BaseResultEnum.NO_DATA);
         }
-        return jokes2Responses(result);
+        return jokes2Responses(result, jokeLimit);
     }
 
     @Override
@@ -108,7 +108,13 @@ public class JokeServiceImpl implements JokeService {
         }
         String tempStr = new String(tempData, Charset.forName("UTF-8"));
 //        log.error("Start load joke tempStr=" + tempStr);
-        JokeBack jokeBack = JSONObject.parseObject(tempStr, JokeBack.class);
+        JokeBack jokeBack;
+        try {
+            jokeBack = JSONObject.parseObject(tempStr, JokeBack.class);
+        } catch (Exception e) {
+            log.error("tempStr=" + tempStr + ";e=" + e);
+            return null;
+        }
         if (!jokeConf.getShowapiResCode().equals(jokeBack.getShowapiResCode())) {
             return null;
         }
@@ -125,7 +131,7 @@ public class JokeServiceImpl implements JokeService {
                 continue;
             }
             joke.setUserId(defaultUserConf.getUser().getId());
-            joke.setText(RC4Utils.bytesToHexString(joke.getText().getBytes()));
+            joke.setText(RC4Utils.strToHexString(joke.getText()));
             try {
                 jokesMapper.save(joke);
             } catch (Exception e) {
@@ -148,12 +154,15 @@ public class JokeServiceImpl implements JokeService {
                 , joke.getText(), joke.getTitle());
     }
 
-    private List<JokeResponse> jokes2Responses(List<Joke> jokes) {
+    private List<JokeResponse> jokes2Responses(List<Joke> jokes, JokeLimit jokeLimit) {
         if (jokes == null) {
             return null;
         }
         List<JokeResponse> jokeRespons = new ArrayList<>();
         for (Joke joke : jokes) {
+            if (jokeLimit.isNeedRealText()) {
+                joke.setText(RC4Utils.hexStringToString(joke.getText()));
+            }
             jokeRespons.add(joke2Response(joke));
         }
         return jokeRespons;
