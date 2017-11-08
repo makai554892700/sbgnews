@@ -1,12 +1,13 @@
 # sbgnews
 新闻web端springboot+gradle实现
-#spring boot + swagger
-#### [swagger官网](https://swagger.io/)
-### 添加依赖：
+#spring boot + swagger + shiro
+### swagger相关
+##### [swagger官网](https://swagger.io/)
+##### 添加依赖：
 
     compile("io.springfox:springfox-swagger2:${swaggerVersion}") //swagger2核心jar包
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}") //swagger2核心jar包
-### 各个注解说明
+##### 各个注解说明
 
     @Api：用在类上，说明该类的作用
     @ApiOperation：用在方法上，说明方法的作用
@@ -30,13 +31,13 @@
         response：抛出异常的类
     @ApiModel：描述一个Model的信息（这种一般用在post创建的时候，使用@RequestBody这样的场景，请求参数无法使用@ApiImplicitParam注解进行描述的时候）
     @ApiModelProperty：描述一个model的属性
-### 访问路径： 
+##### 访问路径： 
 
     http://${host}/swagger-ui.html
-# CENTOS7下ffmpeg安装与总结
-#### [ffmpeg官网](https://www.ffmpeg.org/)
-#### [ffmpeg git地址](https://github.com/FFmpeg/FFmpeg)
-### ffmpeg安装
+#### CENTOS7下ffmpeg安装与总结
+##### [ffmpeg官网](https://www.ffmpeg.org/)
+##### [ffmpeg git地址](https://github.com/FFmpeg/FFmpeg)
+##### ffmpeg安装
 * 启用epel仓库
 * 安装nux-dextop仓库
 * 安装ffmpeg
@@ -56,6 +57,7 @@
     //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
     ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
 ### vue 相关 (需先安装nodejs)
+##### [vue官网](https://cn.vuejs.org/)
 * 安装淘宝镜像(根据个人需求,若安装后，可用cnpm替换npm运行npm命令)
     * npm install -g cnpm --registry=https://registry.npm.taobao.org
 * 初始化package.json文件
@@ -71,3 +73,26 @@
     * npm install
 * 启动项目
     * npm run dev
+* 生成相关资源
+    * npm buile
+### shiro 相关
+##### [shiro官网](http://shiro.apache.org/)
+#### shiro依赖添加（gradle）
+
+    "org.apache.shiro:shiro-core:${shiroVersion}",
+    "org.apache.shiro:shiro-web:${shiroVersion}",
+    "org.apache.shiro:shiro-spring:${shiroVersion}",
+#### 用户权限等相关数据库添加及pojo类书写
+
+    用户表 id  userName    password
+    角色表 id  permissionName
+    权限表 id  roleName
+    用户_角色表  userId  roleId
+    角色_权限表  roleId  permissionId
+    (一个用户拥有多个角色，一个角色拥有多个权限)
+#### 编写配置类(具体查看[代码](https://github.com/makai554892700/sbgnews/tree/master/src/main/java/com/mayousheng/www/sbgnews/common/auth))
+    
+    ShiroConfig
+    AuthRealm
+    CredentialsMatcher
+

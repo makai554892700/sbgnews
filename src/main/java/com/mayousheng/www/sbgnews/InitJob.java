@@ -4,15 +4,21 @@ import com.mayousheng.www.sbgnews.common.conf.pojo.BSBDJConf;
 import com.mayousheng.www.sbgnews.common.conf.pojo.DefaultUserConf;
 import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
 import com.mayousheng.www.sbgnews.mapper.UserMapper;
+import com.mayousheng.www.sbgnews.pojo.Permission;
+import com.mayousheng.www.sbgnews.pojo.Role;
 import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.service.JokeService;
+import com.mayousheng.www.sbgnews.service.PermissionService;
+import com.mayousheng.www.sbgnews.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class InitJob {
@@ -31,14 +37,35 @@ public class InitJob {
     private JokeService jokeService;
     @Resource(name = "bsbdjServiceImpl")
     private BSBDJService bsbdjService;
+    @Resource(name = "permissionServiceImpl")
+    private PermissionService permissionService;
+    @Resource(name = "roleServiceImpl")
+    private RoleService roleService;
 
     @PostConstruct
     public void insetDefaultUser() throws Exception {
-        User user = userMapper.getUserByUserName(defaultUserConf.getUser().getUserName());
+        Permission tempPermission = defaultUserConf.getPermission();
+        Permission permission = permissionService.getPermissionByPermissionName(tempPermission.getPermissionName());
+        if (permission == null) {
+            permission = permissionService.save(tempPermission);
+        }
+        Role tempRole = defaultUserConf.getRole();
+        Role role = roleService.getRoleByRoleName(tempRole.getRoleName());
+        if (role == null) {
+            List<Permission> permissions = new ArrayList<>();
+            permissions.add(permission);
+            tempRole.setPermissions(permissions);
+            role = roleService.save(tempRole);
+        }
+        User tempUser = defaultUserConf.getUser();
+        User user = userMapper.getUserByUserName(tempUser.getUserName());
         if (user == null) {
-            user = userMapper.save(defaultUserConf.getUser());
+            List<Role> roleList = new ArrayList<>();
+            roleList.add(role);
+            tempUser.setRoles(roleList);
+            user = userMapper.save(tempUser);
             if (user != null) {
-                log.error("Insert user ok.user=" + user);
+                log.error("Insert user ok");
             } else {
                 log.error("Insert user error.");
                 return;
@@ -46,11 +73,7 @@ public class InitJob {
         } else {
             log.error("User already exist.user=" + user);
         }
-        log.error("Default user=" + defaultUserConf.getUser());
-        if (user.getId().intValue() != defaultUserConf.getUser().getId()) {
-            userMapper.updateUserId(user.getId(), defaultUserConf.getUser().getId());
-            log.error("Update user ok.");
-        }
+        log.error("Default user=" + tempUser);
         if (!jokeConf.getLoaded()) {
             jokeService.loadAllJokes();
         } else {

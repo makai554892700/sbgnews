@@ -1,10 +1,10 @@
 package com.mayousheng.www.sbgnews.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -13,10 +13,12 @@ public class User {
     @GeneratedValue
     private Integer id;
     @Column(nullable = false, unique = true)
+    @NotEmpty(message = "用户名不能为空")
     private String userName;        //账户	String(unique)
     private String nickName;        //昵称	String
     private Integer sex;            //性别	int
     private String msg;             //个性签名	String
+    @NotEmpty(message = "密码不能为空")
     private String passWord;        //密码	String
     private String email;           //邮箱	String
     private String phone;           //电话号码	String
@@ -26,6 +28,10 @@ public class User {
     private Date createdAt;
     @Column(columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Date updatedAt;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "role_id")})
+    private List<Role> roles;
 
     public User() {
     }
@@ -139,10 +145,18 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", sex=" + sex +
@@ -154,6 +168,7 @@ public class User {
                 ", pageHome='" + pageHome + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", roles=" + roles +
                 '}';
     }
 }
