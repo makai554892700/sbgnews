@@ -71,7 +71,7 @@ public class InitJob {
                 return;
             }
         } else {
-            log.error("User already exist.user=" + user);
+            log.error("User already exist.");
         }
         log.error("Default user=" + tempUser);
         if (!jokeConf.getLoaded()) {

@@ -95,4 +95,15 @@
     ShiroConfig
     AuthRealm
     CredentialsMatcher
-
+#### Shiro内置的FilterChain
+ Filter Name | Class | Descrption
+----------  | ------ | -----
+ anon        | org.apache.shiro.web.filter.authc.AnonymousFilter | 所有url都都可以匿名访问
+ authc       | org.apache.shiro.web.filter.authc.FormAuthenticationFilter | 需要认证才能进行访问
+ authcBasic  | org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter |
+ perms       | org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter |
+ port        | org.apache.shiro.web.filter.authz.PortFilter |
+ rest        | org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter |
+ roles       | org.apache.shiro.web.filter.authz.RolesAuthorizationFilter |
+ ssl         | org.apache.shiro.web.filter.authz.SslFilter |
+ user        | org.apache.shiro.web.filter.authc.UserFilter | 配置记住我或认证通过可以访问
