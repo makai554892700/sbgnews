@@ -12,6 +12,7 @@ public class StaticParam {
     public static final int DEFAULT_USER_ID = 1;
 
     public static final String EMPTY_STR = "";
+    public static final String DEFAULT_PASS = "123456";
 
     public static final String TABLE_NAME_JOKE = "joke";
     public static final String TABLE_NAME_PHOTOBSBDJ = "photobsbdj";

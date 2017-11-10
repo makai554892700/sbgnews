@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/bsbdj")
+@RequestMapping("/api/bsbdj")
 @Api(value = "百思不得姐")
 public interface BSBDJApi {
 

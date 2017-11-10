@@ -15,6 +15,15 @@ public interface UserMapper extends JpaRepository<User, Integer> {
 
     @Transactional //执行自定义sql更新或者删除时必须带
     @Modifying(clearAutomatically = true)
+    @Query(nativeQuery = true, value = "insert into user (id, email, img_url, msg, nick_name, page_home, pass_word, phone, sex, user_name) " +
+            "values (:id, :email, :img_url, :msg, :nick_name, :page_home, :pass_word, :phone, :sex, :user_name)")
+    public Integer insert(@Param("id") Integer id, @Param("email") String email, @Param("img_url") String imgUrl,
+                       @Param("msg") String msg, @Param("nick_name") String nickName
+            , @Param("page_home") String pageHome, @Param("pass_word") String passWord
+            , @Param("phone") String phone, @Param("sex") Integer sex, @Param("user_name") String userName);
+
+    @Transactional //执行自定义sql更新或者删除时必须带
+    @Modifying(clearAutomatically = true)
     @Query(nativeQuery = true, value = "update user set id = :newId where id = :oldId")
     public void updateUserId(@Param("oldId") Integer oldId, @Param("newId") Integer newId);
 

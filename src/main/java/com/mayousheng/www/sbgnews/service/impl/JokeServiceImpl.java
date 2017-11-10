@@ -142,7 +142,7 @@ public class JokeServiceImpl implements JokeService {
     }
 
     private JokeResponse joke2Response(Joke joke) {
-        if (joke == null) {
+        if (joke == null || joke.getUserId() != null) {
             return null;
         }
         User user = userMapper.findOne(joke.getUserId());

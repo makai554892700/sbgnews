@@ -281,7 +281,7 @@ public class BSBDJServiceImpl implements BSBDJService {
             } catch (Exception e) {
                 log.error("e=" + e);
             }
-            return -1;
+            return defaultUserConf.getUser().getId();
         } else {
             return tempDBUser.getId();
         }
@@ -289,7 +289,7 @@ public class BSBDJServiceImpl implements BSBDJService {
 
 
     private PhotoResponse photoBSBDJ2PhotoResponse(PhotoBSBDJ photoBSBDJ) {
-        if (photoBSBDJ == null) {
+        if (photoBSBDJ == null || photoBSBDJ.getUserId() == null) {
             return null;
         }
         User user = userMapper.findOne(photoBSBDJ.getUserId());
@@ -316,7 +316,7 @@ public class BSBDJServiceImpl implements BSBDJService {
     }
 
     private PunsterResponse punsterBSBDJ2PunsterResponse(PunsterBSBDJ punsterBSBDJ) {
-        if (punsterBSBDJ == null) {
+        if (punsterBSBDJ == null || punsterBSBDJ.getUserId() == null) {
             return null;
         }
         User user = userMapper.findOne(punsterBSBDJ.getUserId());
@@ -343,7 +343,7 @@ public class BSBDJServiceImpl implements BSBDJService {
     }
 
     private VideoResponse videoBSBDJ2VideoResponse(VideoBSBDJ videoBSBDJ) {
-        if (videoBSBDJ == null) {
+        if (videoBSBDJ == null || videoBSBDJ.getUserId() == null) {
             return null;
         }
         User user = userMapper.findOne(videoBSBDJ.getUserId());
@@ -371,7 +371,7 @@ public class BSBDJServiceImpl implements BSBDJService {
     }
 
     private VoiceResponse voiceBSBDJ2VoiceResponse(VoiceBSBDJ voiceBSBDJ) {
-        if (voiceBSBDJ == null) {
+        if (voiceBSBDJ == null || voiceBSBDJ.getUserId() == null) {
             return null;
         }
         User user = userMapper.findOne(voiceBSBDJ.getUserId());

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/jokes")
+@RequestMapping("/api/jokes")
 @Api(value = "搞笑文本")
 public interface JokesApi {
 

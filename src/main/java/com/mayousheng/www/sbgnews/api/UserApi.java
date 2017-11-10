@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @Api(value = "用户登录注册")
 public interface UserApi {
 

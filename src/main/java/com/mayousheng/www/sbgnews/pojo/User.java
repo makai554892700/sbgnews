@@ -10,6 +10,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @Column(insertable = true)
     @GeneratedValue
     private Integer id;
     @Column(nullable = false, unique = true)
@@ -24,9 +25,9 @@ public class User {
     private String phone;           //电话号码	String
     private String imgUrl;          //头像图片url	String
     private String pageHome;        //主页链接	String
-    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date createdAt;
-    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date updatedAt;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {

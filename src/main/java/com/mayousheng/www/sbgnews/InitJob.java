@@ -60,11 +60,13 @@ public class InitJob {
         User tempUser = defaultUserConf.getUser();
         User user = userMapper.getUserByUserName(tempUser.getUserName());
         if (user == null) {
-            List<Role> roleList = new ArrayList<>();
-            roleList.add(role);
-            tempUser.setRoles(roleList);
-            user = userMapper.save(tempUser);
-            if (user != null) {
+            if (userMapper.insert(tempUser.getId(), tempUser.getEmail(), tempUser.getImgUrl(), tempUser.getMsg()
+                    , tempUser.getNickName(), tempUser.getPageHome(), tempUser.getPassWord(), tempUser.getUserName()
+                    , tempUser.getSex(), tempUser.getUserName()) > 0) {
+                List<Role> roleList = new ArrayList<>();
+                roleList.add(role);
+                tempUser.setRoles(roleList);
+                userMapper.save(tempUser);
                 log.error("Insert user ok");
             } else {
                 log.error("Insert user error.");
@@ -73,7 +75,6 @@ public class InitJob {
         } else {
             log.error("User already exist.");
         }
-        log.error("Default user=" + tempUser);
         if (!jokeConf.getLoaded()) {
             jokeService.loadAllJokes();
         } else {
