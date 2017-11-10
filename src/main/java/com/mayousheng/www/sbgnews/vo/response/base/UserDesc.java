@@ -2,23 +2,23 @@ package com.mayousheng.www.sbgnews.vo.response.base;
 
 public class UserDesc {
 
-    private String nikeName;        //用户昵称
+    private String nickName;        //用户昵称
     private String imgUrl;         //用户头像
 
     public UserDesc() {
     }
 
-    public UserDesc(String nikeName, String imgUrl) {
-        this.nikeName = nikeName;
+    public UserDesc(String nickName, String imgUrl) {
+        this.nickName = nickName;
         this.imgUrl = imgUrl;
     }
 
-    public String getNikeName() {
-        return nikeName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNikeName(String nikeName) {
-        this.nikeName = nikeName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getImgUrl() {
@@ -32,7 +32,7 @@ public class UserDesc {
     @Override
     public String toString() {
         return "UserDesc{" +
-                "nikeName='" + nikeName + '\'' +
+                "nickName='" + nickName + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }

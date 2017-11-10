@@ -60,8 +60,6 @@ public class Role {//角色
         return "Role{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
-                ", users=" + users +
-                ", permissions=" + permissions +
                 '}';
     }
 }

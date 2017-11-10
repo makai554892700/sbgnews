@@ -18,7 +18,7 @@ spring:
       force: true
       enabled: true
   profiles:
-    active: dev
+    active: prod
 logging:
   config: classpath:logback-spring-${spring.profiles.active}.xml
 executor:

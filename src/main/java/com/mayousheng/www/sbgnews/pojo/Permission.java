@@ -48,7 +48,6 @@ public class Permission {//权限
         return "Permission{" +
                 "id=" + id +
                 ", permissionName='" + permissionName + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

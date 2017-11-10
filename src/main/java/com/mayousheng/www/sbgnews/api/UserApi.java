@@ -1,6 +1,8 @@
 package com.mayousheng.www.sbgnews.api;
 
 import com.mayousheng.www.sbgnews.pojo.User;
+import com.mayousheng.www.sbgnews.vo.response.UserResponse;
+import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,7 @@ public interface UserApi {
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登陆", notes = "用户登陆", tags = {"user"})
-    // http://localhost:8080/user/login {"userName":"makai554892700","passWord":"marking"}
-    public String getVideos(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
+    // http://localhost:8080/api/user/login {"userName":"makai554892700","passWord":"marking"}
+    public Result<UserResponse> login(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
 
 }
