@@ -107,3 +107,31 @@
  roles       | org.apache.shiro.web.filter.authz.RolesAuthorizationFilter |
  ssl         | org.apache.shiro.web.filter.authz.SslFilter |
  user        | org.apache.shiro.web.filter.authc.UserFilter | 配置记住我或认证通过可以访问
+#### /src/main/resources/private/joke.properties 文件示例
+
+    #笑话大全
+    joke.baseurl=http://route.showapi.com/341-1?showapi_appid=47095&showapi_sign=you_showapi_sign&page=%s&maxResult=%s
+    joke.showapiResCode=0
+    joke.retCode=0
+    joke.defaultPage=1
+    joke.defaultCount=50
+    joke.initSleepTime=1000
+    joke.loaded=true
+    joke.sleepTime=5000
+    #百思不得姐
+    bsbdj.baseurl=http://route.showapi.com/255-1?showapi_appid=47095&showapi_sign=you_showapi_sign&type=%s&page=%s
+    bsbdj.showapiResCode=0
+    bsbdj.retCode=0
+    bsbdj.defaultPage=1
+    bsbdj.initSleepTime=1000
+    #图片
+    bsbdj.types[0]=10
+    #段子
+    bsbdj.types[1]=29
+    #声音
+    bsbdj.types[2]=31
+    #视频
+    bsbdj.types[3]=41
+    bsbdj.loaded=true
+    bsbdj.sleepTime=5000
+
