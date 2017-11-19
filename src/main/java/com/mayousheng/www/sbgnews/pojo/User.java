@@ -3,6 +3,7 @@ package com.mayousheng.www.sbgnews.pojo;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class User {
     private Integer sex;            //性别	int
     private String msg;             //个性签名	String
     @NotEmpty(message = "密码不能为空")
+    @Size(max = 100, min = 6, message = "密码长度必须小于100大于5")
     private String passWord;        //密码	String
     private String email;           //邮箱	String
     private String phone;           //电话号码	String

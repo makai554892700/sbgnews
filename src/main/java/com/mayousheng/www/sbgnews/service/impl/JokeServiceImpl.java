@@ -115,7 +115,7 @@ public class JokeServiceImpl implements JokeService {
             log.error("tempStr=" + tempStr + ";e=" + e);
             return null;
         }
-        if (!jokeConf.getShowapiResCode().equals(jokeBack.getShowapiResCode())) {
+        if (jokeBack == null || !jokeConf.getShowapiResCode().equals(jokeBack.getShowapiResCode())) {
             return null;
         }
         BaseShowApiResBody<Joke> showapiResBody = jokeBack.getShowapiResBody();

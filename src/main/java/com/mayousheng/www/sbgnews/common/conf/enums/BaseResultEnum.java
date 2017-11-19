@@ -5,6 +5,7 @@ public enum BaseResultEnum {
     NO_DATA(0, "数据库没有数据"),
     DATA_ERROR(1, "请求数据出错"),
     NO_USER(2, "用户不存在"),
+    DOUBLE_USER_NAME(3, "用户名已被占用"),
     UNKNOW_ERROR(-1, "未知错误");
 
     private String msg;

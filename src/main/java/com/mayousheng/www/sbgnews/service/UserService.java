@@ -6,4 +6,10 @@ public interface UserService {
 
     public User getUserByUserName(String userName);
 
+    public User save(User user);
+
+    public User update(User user, boolean updateRole);
+
+    public void delete(Integer id);
+
 }

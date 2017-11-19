@@ -16,9 +16,24 @@ import javax.validation.Valid;
 @Api(value = "用户登录注册")
 public interface UserApi {
 
+    @PostMapping(value = "/register")
+    @ApiOperation(value = "用户注册", notes = "用户注册", tags = {"user"})
+    // http://localhost:8080/api/user/register {"userName":"makai554892700","passWord":"marking"}
+    public Result<UserResponse> register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
+
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登陆", notes = "用户登陆", tags = {"user"})
     // http://localhost:8080/api/user/login {"userName":"makai554892700","passWord":"marking"}
     public Result<UserResponse> login(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
+
+    @PostMapping(value = "/logout")
+    @ApiOperation(value = "用户登出", notes = "用户登出", tags = {"user"})
+    // http://localhost:8080/api/user/logout
+    public Result<String> logout() throws Exception;
+
+    @PostMapping(value = "/update")
+    @ApiOperation(value = "用户更新", notes = "用户更新", tags = {"user"})
+    // http://localhost:8080/api/user/update {"userName":"makai554892700","passWord":"marking"}
+    public Result<UserResponse> update(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
 
 }

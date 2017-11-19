@@ -13,6 +13,8 @@ public class DefaultUserConf {
     private User user;
     private Permission permission;
     private Role role;
+    private String encrypt;
+    private String salt;
 
     public User getUser() {
         return user;
@@ -38,12 +40,30 @@ public class DefaultUserConf {
         this.role = role;
     }
 
+    public String getEncrypt() {
+        return encrypt;
+    }
+
+    public void setEncrypt(String encrypt) {
+        this.encrypt = encrypt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String toString() {
         return "DefaultUserConf{" +
                 "user=" + user +
                 ", permission=" + permission +
                 ", role=" + role +
+                ", encrypt='" + encrypt + '\'' +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }
