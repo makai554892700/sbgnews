@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.bsbdj;
 
 import org.hibernate.annotations.Type;
 
@@ -7,32 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//百思不得姐-视频
+//百思不得姐-声音
 @Entity
-public class VideoBSBDJ {
+public class VoiceBSBDJ {
 
     @Id
     @GeneratedValue
     private Integer id;
     @Column(nullable = false, unique = true)
-    private Integer mark;           //标记(id)
+    private String mark;           //标记(id)
     private Integer userId;         //用户id(对应用户信息)
     private String weixinUrl;       //微信(原文)路径
     @Type(type = "text")
-    private String text;            //视频标题
-    private String videoUri;        //视频url
+    private String text;            //声音标题
+    private String voiceuri;        //声音url
+    private String cdnImg;            //cdn图片
+    private Integer voiceTime;           //播放时长
     private String createTime;      //创建时间
 
-    public VideoBSBDJ() {
+    public VoiceBSBDJ() {
     }
 
-    public VideoBSBDJ(Integer mark, Integer userId, String weixinUrl, String text
-            , String videoUri, String createTime) {
+    public VoiceBSBDJ(String mark, Integer userId, String weixinUrl, String text, String voiceuri
+            , String cdnImg, Integer voiceTime, String createTime) {
         this.mark = mark;
         this.userId = userId;
         this.weixinUrl = weixinUrl;
         this.text = text;
-        this.videoUri = videoUri;
+        this.voiceuri = voiceuri;
+        this.cdnImg = cdnImg;
+        this.voiceTime = voiceTime;
         this.createTime = createTime;
     }
 
@@ -44,11 +48,11 @@ public class VideoBSBDJ {
         this.id = id;
     }
 
-    public Integer getMark() {
+    public String getMark() {
         return mark;
     }
 
-    public void setMark(Integer mark) {
+    public void setMark(String mark) {
         this.mark = mark;
     }
 
@@ -76,12 +80,28 @@ public class VideoBSBDJ {
         this.text = text;
     }
 
-    public String getVideoUri() {
-        return videoUri;
+    public String getVoiceuri() {
+        return voiceuri;
     }
 
-    public void setVideoUri(String videoUri) {
-        this.videoUri = videoUri;
+    public void setVoiceuri(String voiceuri) {
+        this.voiceuri = voiceuri;
+    }
+
+    public String getCdnImg() {
+        return cdnImg;
+    }
+
+    public void setCdnImg(String cdnImg) {
+        this.cdnImg = cdnImg;
+    }
+
+    public Integer getVoiceTime() {
+        return voiceTime;
+    }
+
+    public void setVoiceTime(Integer voiceTime) {
+        this.voiceTime = voiceTime;
     }
 
     public String getCreateTime() {
@@ -94,13 +114,15 @@ public class VideoBSBDJ {
 
     @Override
     public String toString() {
-        return "VideoBSBDJ{" +
+        return "VoiceBSBDJ{" +
                 "id=" + id +
-                ", mark='" + mark + '\'' +
+                ", mark=" + mark +
                 ", userId=" + userId +
                 ", weixinUrl='" + weixinUrl + '\'' +
                 ", text='" + text + '\'' +
-                ", videoUri='" + videoUri + '\'' +
+                ", voiceuri='" + voiceuri + '\'' +
+                ", cdnImg='" + cdnImg + '\'' +
+                ", voiceTime=" + voiceTime +
                 ", createTime='" + createTime + '\'' +
                 '}';
     }

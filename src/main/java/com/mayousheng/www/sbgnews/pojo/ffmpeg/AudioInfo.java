@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.pojo.ffmpeg;
 
-public class VideoInfo {
+public class AudioInfo {
 
     private int width;
     private int height;
@@ -32,7 +32,7 @@ public class VideoInfo {
 
     @Override
     public String toString() {
-        return "VideoInfo{" +
+        return "AudioInfo{" +
                 "width=" + width +
                 ", height=" + height +
                 ", timeLen='" + timeLen + '\'' +

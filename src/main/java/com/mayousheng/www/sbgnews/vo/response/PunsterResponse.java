@@ -9,7 +9,7 @@ public class PunsterResponse extends BaseNewsResponse {
     public PunsterResponse() {
     }
 
-    public PunsterResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text, String url) {
+    public PunsterResponse(String mark, NewsDesc newsDesc, UserDesc userDesc, String text, String url) {
         setMark(mark);
         setNewsDesc(newsDesc);
         setUserDesc(userDesc);

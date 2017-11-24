@@ -1,5 +1,6 @@
 package com.mayousheng.www.sbgnews.pojo;
 
+import com.mayousheng.www.sbgnews.pojo.auth.Role;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;

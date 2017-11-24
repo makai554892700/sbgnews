@@ -1,30 +1,43 @@
 package com.mayousheng.www.sbgnews.utils.ffmpeg;
 
 import com.mayousheng.www.sbgnews.common.conf.StaticParam;
-import com.mayousheng.www.sbgnews.pojo.ffmpeg.VideoInfo;
+import com.mayousheng.www.sbgnews.pojo.ffmpeg.AudioInfo;
 import com.mayousheng.www.sbgnews.utils.CMDUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-public class VideoUtils {
+public class AudioUtils {
 
-    public static File getShortCut(String url, String path) {
+    private static final Logger log = LoggerFactory.getLogger(AudioUtils.class);
+
+
+    public static File getShortCut(String url, String path, boolean isPicture, AudioInfo audioInfo) {
         if (url == null || url.isEmpty()) {
             return null;
         }
-        VideoInfo videoInfo = VideoUtils.getVideoInfo(url);
-        if (videoInfo == null || videoInfo.getWidth() == 0 || videoInfo.getHeight() == 0) {
+        if (audioInfo == null || audioInfo.getWidth() == 0 || audioInfo.getHeight() == 0) {
             return null;
         }
-        String result = CMDUtils.run(String.format(StaticParam.FFMPEG_SHORTCUT_WH, url
-                , videoInfo.getWidth(), videoInfo.getHeight(), path));
+        String cmdStr = isPicture ?
+                String.format(StaticParam.FFMPEG_CUT_PICTURE, url
+                        , audioInfo.getWidth(), audioInfo.getWidth(), 0, 0, path) :
+                String.format(StaticParam.FFMPEG_SHORTCUT_WH, url
+                        , audioInfo.getWidth(), audioInfo.getHeight(), path);
+        String result = CMDUtils.run(cmdStr);
         if (result == null) {
             return null;
         }
         return new File(path);
     }
 
-    public static VideoInfo getVideoInfo(String url) {
+
+    public static File getShortCut(String url, String path, boolean isPicture) {
+        return getShortCut(url, path, isPicture, getVideoInfo(url));
+    }
+
+    public static AudioInfo getVideoInfo(String url) {
         if (url == null || url.isEmpty()) {
             return null;
         }
@@ -32,7 +45,7 @@ public class VideoUtils {
         if (tempResult == null) {
             return null;
         }
-        VideoInfo result = new VideoInfo();
+        AudioInfo result = new AudioInfo();
         String[] tempStrs = tempResult.split(StaticParam.LINE);
         for (String tempStr : tempStrs) {
             if (tempStr.contains(StaticParam.FFMPEG_DURATION)) {
@@ -46,7 +59,12 @@ public class VideoUtils {
                 if (strs.length < 3) {
                     break;
                 }
-                strs = strs[2].split(StaticParam.FFMPEG_X);
+                for (int i = 2; i < strs.length; i++) {
+                    if (strs[i].contains(StaticParam.FFMPEG_X)) {
+                        strs = strs[i].split(StaticParam.FFMPEG_X);
+                        break;
+                    }
+                }
                 if (strs.length != 2) {
                     break;
                 }
@@ -56,7 +74,7 @@ public class VideoUtils {
                     System.out.println("e=" + e + ";str=" + strs[0]);
                 }
                 try {
-                    result.setHeight(Integer.parseInt(strs[1].trim()));
+                    result.setHeight(Integer.parseInt(strs[1].split(StaticParam.BLANK)[0].trim()));
                 } catch (Exception e) {
                     System.out.println("e=" + e + ";str=" + strs[1]);
                 }

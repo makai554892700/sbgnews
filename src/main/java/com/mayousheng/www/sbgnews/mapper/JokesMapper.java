@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.mapper;
 
-import com.mayousheng.www.sbgnews.pojo.Joke;
+import com.mayousheng.www.sbgnews.pojo.joke.Joke;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

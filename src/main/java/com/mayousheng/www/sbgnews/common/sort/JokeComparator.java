@@ -1,11 +1,10 @@
 package com.mayousheng.www.sbgnews.common.sort;
 
 import com.mayousheng.www.sbgnews.common.conf.enums.TimeEnum;
-import com.mayousheng.www.sbgnews.pojo.Joke;
+import com.mayousheng.www.sbgnews.pojo.joke.Joke;
 import com.mayousheng.www.sbgnews.utils.TimeUtils;
 
 import java.util.Comparator;
-import java.util.Date;
 
 public class JokeComparator implements Comparator<Joke> {
 

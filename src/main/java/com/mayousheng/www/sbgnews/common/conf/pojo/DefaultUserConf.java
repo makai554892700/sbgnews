@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.common.conf.pojo;
 
-import com.mayousheng.www.sbgnews.pojo.Permission;
-import com.mayousheng.www.sbgnews.pojo.Role;
+import com.mayousheng.www.sbgnews.pojo.auth.Permission;
+import com.mayousheng.www.sbgnews.pojo.auth.Role;
 import com.mayousheng.www.sbgnews.pojo.User;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

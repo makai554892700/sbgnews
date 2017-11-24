@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.joke;
 
 import org.hibernate.annotations.Type;
 

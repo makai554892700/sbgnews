@@ -10,6 +10,7 @@ import com.mayousheng.www.sbgnews.common.exception.BaseException;
 import com.mayousheng.www.sbgnews.common.sort.BSBDJComparator;
 import com.mayousheng.www.sbgnews.mapper.*;
 import com.mayousheng.www.sbgnews.pojo.*;
+import com.mayousheng.www.sbgnews.pojo.bsbdj.*;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.service.NewsDescService;
 import com.mayousheng.www.sbgnews.utils.BSBDJPojoUtils;
@@ -157,7 +158,8 @@ public class BSBDJServiceImpl implements BSBDJService {
             log.error("tempStr=" + tempStr + ";e=" + e);
             return null;
         }
-        if (!bsbdjConf.getShowapiResCode().equals(bsbdjBack.getShowapiResCode())) {
+        if (bsbdjBack == null || !bsbdjConf.getShowapiResCode().equals(bsbdjBack.getShowapiResCode())) {
+            log.error("tempStr=" + tempStr + ";bsbdjBack=" + bsbdjBack);
             return null;
         }
         BSBDJBack.BSBDJBody bsbdjBody = bsbdjBack.getShowapiResBody();
@@ -197,6 +199,10 @@ public class BSBDJServiceImpl implements BSBDJService {
         PhotoBSBDJ tempDBPhotoBSBDJ;
         for (BSBDJ bsbdj : bsbdjList) {
             tempPhotoBSBDJ = BSBDJPojoUtils.BSBDJ2PhotoBSBDJ(bsbdj);
+            if (tempPhotoBSBDJ == null) {
+                log.error("tempPhotoBSBDJ is null.bsbdj=" + bsbdj);
+                continue;
+            }
             tempDBPhotoBSBDJ = photoBSBDJMapper.getPhotoBSBDJByMark(tempPhotoBSBDJ.getMark());
             if (tempDBPhotoBSBDJ == null) {
                 tempPhotoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
@@ -217,6 +223,10 @@ public class BSBDJServiceImpl implements BSBDJService {
         PunsterBSBDJ tempDBPunsterBSBDJ;
         for (BSBDJ bsbdj : bsbdjList) {
             tempPunsterBSBDJ = BSBDJPojoUtils.BSBDJ2PunsterBSBDJ(bsbdj);
+            if (tempPunsterBSBDJ == null) {
+                log.error("tempPunsterBSBDJ is null.bsbdj=" + bsbdj);
+                continue;
+            }
             tempDBPunsterBSBDJ = punsterBSBDJMapper.getPunsterBSBDJByMark(tempPunsterBSBDJ.getMark());
             if (tempDBPunsterBSBDJ == null) {
                 tempPunsterBSBDJ.setUserId(saveUserAndGetId(bsbdj));
@@ -226,7 +236,7 @@ public class BSBDJServiceImpl implements BSBDJService {
                 try {
                     punsterBSBDJMapper.save(tempPunsterBSBDJ);
                 } catch (Exception e) {
-                    log.error("e=" + e + ";tempPunsterBSBDJ=" + tempPunsterBSBDJ);
+                    log.error("e=" + e + "save error,tempPhotoBSBDJ=" + tempPunsterBSBDJ);
                 }
             }
         }
@@ -237,6 +247,10 @@ public class BSBDJServiceImpl implements BSBDJService {
         VideoBSBDJ tempDBVideoBSBDJ;
         for (BSBDJ bsbdj : bsbdjList) {
             tempVideoBSBDJ = BSBDJPojoUtils.BSBDJ2VideoBSBDJ(bsbdj);
+            if (tempVideoBSBDJ == null) {
+                log.error("tempVideoBSBDJ is null.bsbdj=" + bsbdj);
+                continue;
+            }
             tempDBVideoBSBDJ = videoBSBDJMapper.getVideoBSBDJByMark(tempVideoBSBDJ.getMark());
             if (tempDBVideoBSBDJ == null) {
                 tempVideoBSBDJ.setUserId(saveUserAndGetId(bsbdj));
@@ -257,6 +271,10 @@ public class BSBDJServiceImpl implements BSBDJService {
         VoiceBSBDJ tempDBVoiceBSBDJ;
         for (BSBDJ bsbdj : bsbdjList) {
             tempVoiceBSBDJ = BSBDJPojoUtils.BSBDJ2VoiceBSBDJ(bsbdj);
+            if (tempVoiceBSBDJ == null) {
+                log.error("tempVoiceBSBDJ is null.bsbdj=" + bsbdj);
+                continue;
+            }
             tempDBVoiceBSBDJ = voiceBSBDJMapper.getVoiceBSBDJByMark(tempVoiceBSBDJ.getMark());
             if (tempDBVoiceBSBDJ == null) {
                 tempVoiceBSBDJ.setUserId(saveUserAndGetId(bsbdj));

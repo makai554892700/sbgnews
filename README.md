@@ -1,6 +1,122 @@
 # sbgnews
 新闻web端springboot+gradle实现
 #spring boot + swagger + shiro
+#### nginx相关 
+* centos7下nginx安装命令
+
+      echo "[nginx]" > /etc/yum.repos.d/nginx.repo
+      echo "name=nginx repo" >> /etc/yum.repos.d/nginx.repo
+      echo "baseurl=http://nginx.org/packages/mainline/rhel/7/\$basearch/" >> /etc/yum.repos.d/nginx.repo
+      echo "gpgcheck=0" >> /etc/yum.repos.d/nginx.repo
+      echo "enabled=1" >> /etc/yum.repos.d/nginx.repo
+      yum install nginx -y
+      
+* centos7下nginx相关命令
+    * service nginx start # 启动nginx
+    * service nginx stop # 停止nginx
+    * service nginx restart # 重启nginx
+    * service ngixn relaod # 在不关闭nginx的情况下启用nginx新配置，运行前最好先运行nginx -t检测配置文件的合法性
+    * nginx -t # 测试配置文件是否符合规则
+    * nginx -s reopen # 启动nginx
+    * nginx -s stop # 停止nginx
+
+#### jdk相关
+* centos7下jdk安装命令
+	
+        tar -zxvf jdk-8u141-linux-x64.tar.gz -C /usr/local/src
+        mv /usr/local/src/jdk1.8.0_141 /usr/local/src/jdk1.8
+
+* centos7下jdk环境变量配置
+    
+        echo "JAVA_HOME=/usr/java/jdk1.8.0_121" >> /etc/profile
+        echo "PATH=\$PATH:\$JAVA_HOME/bin" >> /etc/profile
+        echo "CLASSPATH=.:\$JAVA_HOME/lib/jt.jar:\$JAVA_HOME/lib/tools.jar" >> /etc/profile
+        echo "export JAVA_HOME PATH CLASSPATH" >> /etc/profile
+
+#### mysql相关
+* mysql安装
+
+        tar -zxvf mysql-5.6.38-linux-glibc2.12-x86_64.tar.gz -C /usr/local
+	    mv /usr/local/mysql-5.6.38-linux-glibc2.12-x86_64 /usr/local/mysql
+* mysql配置
+    * 5.7运行mysqld --initialize --user=mysql时会生成初始密码
+	* 5.7以下所有配置运行完并启动mysql后需登录mysql并执行 set password=('your_pass') 重置密码开始使用
+	* 5.6启动mysql后直接运行mysql登录使用
+	* 配置命令
+	
+	        echo "[mysql]" > /etc/my.cnf
+	        echo "default-character-set=utf8" >> /etc/my.cnf
+	        echo "socket=/var/lib/mysql/mysql.sock" >> /etc/my.cnf
+	        echo "[mysqld]" >> /etc/my.cnf
+	        echo "skip-name-resolve" >> /etc/my.cnf
+	        echo "port=3306" >> /etc/my.cnf
+	        echo "socket=/var/lib/mysql/mysql.sock" >> /etc/my.cnf
+	        echo "basedir=/usr/local/mysql" >> /etc/my.cnf
+	        echo "datadir=/usr/local/mysql/data" >> /etc/my.cnf
+	        echo "max_connections=200" >> /etc/my.cnf
+	        echo "character-set-server=utf8" >> /etc/my.cnf
+	        echo "default-storage-engine=INNODB" >> /etc/my.cnf
+	        echo "lower_case_table_names=1" >> /etc/my.cnf
+	        echo "max_allowed_packet=16M" >> /etc/my.cnf
+	        mkdir -p /var/lib/mysql/mysql
+	        groupadd mysql
+	        useradd -g mysql mysql
+	        chown -R mysql:mysql /usr/local/mysql
+	        chown -R mysql:mysql /var/lib/mysql
+	        yum install -y perl-Module-Install.noarch
+	        /usr/local/mysql/scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql # 5.6
+	        #mysqld --initialize --user=mysql # 5.7
+	        cp /usr/local/mysql/support-files/mysql.server /etc/rc.d/init.d/mysqld
+	        chmod +x /etc/rc.d/init.d/mysqld
+	        chkconfig --add mysqld
+	        chkconfig --list mysqld
+	        echo "export PATH=\$PATH:/usr/local/mysql/bin" >> /etc/profile
+	        source /etc/profile
+	
+#### tomcat相关
+* tomcat安装
+
+        tar -zxvf apache-tomcat-9.0.1.tar.gz -C /
+	    mv /apache-tomcat-9.0.1 /tomcat
+	    echo "<?xml version='1.0' encoding='utf-8'?>" > /tomcat/conf/tomcat-user.xml
+	    echo "<tomcat-users>" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"admin-gui\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"admin-script\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"manager-gui\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"manager-script\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"manager-jmx\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<role rolename=\"manager-status\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "<user username=\"your_username\" password=\"your_password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui\" />" >> /tomcat/conf/tomcat-user.xml
+	    echo "</tomcat-users>" >> /tomcat/conf/tomcat-user.xml
+
+#### redis相关
+* redis安装
+	
+	    yum install epel-release.noarch -y
+	    yum install redis -y
+
+##### ffmpeg安装
+* 启用epel仓库
+* 安装nux-dextop仓库
+* 安装ffmpeg
+
+      yum install epel-release -y
+      rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+      rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+      yum install ffmpeg ffmpeg-devel -y
+      ffmpeg -h
+    * 如果最后出现ffmpeg帮助信息则表示安装成功
+### ffmpeg常用命令
+
+    //获取帮助
+    ffmpeg -h
+    //获取视频信息(视频地址)
+    ffmpeg -i %s
+    //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
+    ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
+    //对图片进行指定大小截图(图片地址/结果图片宽/结果图片高/原图x轴起截点/原图y轴起截点/结果图片生成地址)
+    ffmpeg -i %s -vf crop=%s:%s:%s:%s %s
+    
 ### swagger相关
 ##### [swagger官网](https://swagger.io/)
 ##### 添加依赖：
@@ -37,25 +153,6 @@
 #### CENTOS7下ffmpeg安装与总结
 ##### [ffmpeg官网](https://www.ffmpeg.org/)
 ##### [ffmpeg git地址](https://github.com/FFmpeg/FFmpeg)
-##### ffmpeg安装
-* 启用epel仓库
-* 安装nux-dextop仓库
-* 安装ffmpeg
-
-      yum install epel-release -y
-      rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-      rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
-      yum install ffmpeg ffmpeg-devel -y
-      ffmpeg -h
-    * 如果最后出现ffmpeg帮助信息则表示安装成功
-### ffmpeg常用命令
-
-    //获取帮助
-    ffmpeg -h
-    //获取视频信息(视频地址)
-    ffmpeg -i %s
-    //生成缩略图(视频地址/视频宽/视频高/缩略图地址)
-    ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s
 ### vue 相关 (需先安装nodejs)
 ##### [vue官网](https://cn.vuejs.org/)
 * 安装淘宝镜像(根据个人需求,若安装后，可用cnpm替换npm运行npm命令)
@@ -110,7 +207,7 @@
 #### /src/main/resources/private/joke.properties 文件示例
 
     #笑话大全
-    joke.baseurl=http://route.showapi.com/341-1?showapi_appid=47095&showapi_sign=you_showapi_sign&page=%s&maxResult=%s
+    joke.baseurl=https://route.showapi.com/341-1?showapi_appid=47095&showapi_sign=you_showapi_sign&page=%s&maxResult=%s
     joke.showapiResCode=0
     joke.retCode=0
     joke.defaultPage=1
@@ -119,7 +216,7 @@
     joke.loaded=true
     joke.sleepTime=5000
     #百思不得姐
-    bsbdj.baseurl=http://route.showapi.com/255-1?showapi_appid=47095&showapi_sign=you_showapi_sign&type=%s&page=%s
+    bsbdj.baseurl=https://route.showapi.com/255-1?showapi_appid=47095&showapi_sign=you_showapi_sign&type=%s&page=%s
     bsbdj.showapiResCode=0
     bsbdj.retCode=0
     bsbdj.defaultPage=1
@@ -134,4 +231,13 @@
     bsbdj.types[3]=41
     bsbdj.loaded=true
     bsbdj.sleepTime=5000
+#### 因为生成的截图保存在指定位置了。所以需要给nginx添加如下配置
 
+    server {
+        .....
+        location /bsbdj/img/ {
+            root /data/;
+            autoindex on;
+        }
+        .....
+    }

@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.bsbdj;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -17,6 +17,7 @@ public class BSBDJ {
     private String videoUri;
     private String name;
     private String createTime;
+    private String image3;
 
     public String getText() {
         return text;
@@ -124,6 +125,14 @@ public class BSBDJ {
         this.createTime = createTime;
     }
 
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
     @Override
     public String toString() {
         return "BSBDJ{" +
@@ -140,6 +149,7 @@ public class BSBDJ {
                 ", videoUri='" + videoUri + '\'' +
                 ", name='" + name + '\'' +
                 ", createTime='" + createTime + '\'' +
+                ", image3='" + image3 + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.controller;
 
 import com.mayousheng.www.sbgnews.api.BSBDJApi;
-import com.mayousheng.www.sbgnews.pojo.BSBDJLimit;
+import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJLimit;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.*;

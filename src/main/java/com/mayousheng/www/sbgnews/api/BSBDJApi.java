@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.api;
 
 
-import com.mayousheng.www.sbgnews.pojo.BSBDJLimit;
+import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJLimit;
 import com.mayousheng.www.sbgnews.vo.response.*;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import io.swagger.annotations.Api;

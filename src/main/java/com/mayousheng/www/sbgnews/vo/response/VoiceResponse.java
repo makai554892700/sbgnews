@@ -12,7 +12,7 @@ public class VoiceResponse extends BaseNewsResponse {
     public VoiceResponse() {
     }
 
-    public VoiceResponse(Integer mark, NewsDesc newsDesc, UserDesc userDesc, String text
+    public VoiceResponse(String mark, NewsDesc newsDesc, UserDesc userDesc, String text
             , String url, String voiceuri, String cdnImg) {
         setMark(mark);
         setNewsDesc(newsDesc);

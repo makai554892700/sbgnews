@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.auth;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

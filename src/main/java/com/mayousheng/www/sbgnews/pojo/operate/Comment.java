@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.operate;
 
 
 import org.hibernate.annotations.Type;
@@ -20,7 +20,7 @@ public class Comment {
     private String tableName;        //表名		String(unique)
     @Column(nullable = false)
     @Type(type = "text")
-    private String info;        //表名		String(unique)
+    private String info;        //评论信息		String
 
     public Integer getId() {
         return id;

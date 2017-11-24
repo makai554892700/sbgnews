@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.service.impl;
 
 import com.mayousheng.www.sbgnews.mapper.PermissionMapper;
-import com.mayousheng.www.sbgnews.pojo.Permission;
+import com.mayousheng.www.sbgnews.pojo.auth.Permission;
 import com.mayousheng.www.sbgnews.service.PermissionService;
 import org.springframework.stereotype.Service;
 

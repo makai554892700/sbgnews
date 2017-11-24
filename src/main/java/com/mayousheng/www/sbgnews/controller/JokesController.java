@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.controller;
 
 import com.mayousheng.www.sbgnews.api.JokesApi;
-import com.mayousheng.www.sbgnews.pojo.JokeLimit;
+import com.mayousheng.www.sbgnews.pojo.joke.JokeLimit;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;

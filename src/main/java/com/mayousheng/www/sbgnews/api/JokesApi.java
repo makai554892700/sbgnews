@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.api;
 
-import com.mayousheng.www.sbgnews.pojo.JokeLimit;
+import com.mayousheng.www.sbgnews.pojo.joke.JokeLimit;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import io.swagger.annotations.Api;

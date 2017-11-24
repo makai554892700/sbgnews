@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.joke;
 
 import com.mayousheng.www.sbgnews.common.base.BaseShowApiBack;
 import com.mayousheng.www.sbgnews.common.base.BaseShowApiResBody;

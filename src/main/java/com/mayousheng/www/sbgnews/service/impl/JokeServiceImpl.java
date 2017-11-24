@@ -10,9 +10,9 @@ import com.mayousheng.www.sbgnews.common.exception.BaseException;
 import com.mayousheng.www.sbgnews.common.sort.JokeComparator;
 import com.mayousheng.www.sbgnews.mapper.JokesMapper;
 import com.mayousheng.www.sbgnews.mapper.UserMapper;
-import com.mayousheng.www.sbgnews.pojo.Joke;
-import com.mayousheng.www.sbgnews.pojo.JokeBack;
-import com.mayousheng.www.sbgnews.pojo.JokeLimit;
+import com.mayousheng.www.sbgnews.pojo.joke.Joke;
+import com.mayousheng.www.sbgnews.pojo.joke.JokeBack;
+import com.mayousheng.www.sbgnews.pojo.joke.JokeLimit;
 import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import com.mayousheng.www.sbgnews.service.NewsDescService;
@@ -116,6 +116,7 @@ public class JokeServiceImpl implements JokeService {
             return null;
         }
         if (jokeBack == null || !jokeConf.getShowapiResCode().equals(jokeBack.getShowapiResCode())) {
+            log.error("tempStr=" + tempStr + ";jokeBack=" + jokeBack);
             return null;
         }
         BaseShowApiResBody<Joke> showapiResBody = jokeBack.getShowapiResBody();
@@ -149,7 +150,7 @@ public class JokeServiceImpl implements JokeService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new JokeResponse(joke.getId(), newsDescService.getNewsDesc(joke.getCt()
+        return new JokeResponse(String.valueOf(joke.getId()), newsDescService.getNewsDesc(joke.getCt()
                 , joke.getId(), StaticParam.TABLE_NAME_JOKE), UserUtils.user2UserDesc(user)
                 , joke.getText(), joke.getTitle());
     }

@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.bsbdj;
 
 import com.mayousheng.www.sbgnews.common.base.BaseLimit;
 

@@ -1,10 +1,8 @@
 package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.BSBDJConf;
-import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
-import com.mayousheng.www.sbgnews.pojo.BSBDJBack;
+import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJBack;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
-import com.mayousheng.www.sbgnews.service.JokeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

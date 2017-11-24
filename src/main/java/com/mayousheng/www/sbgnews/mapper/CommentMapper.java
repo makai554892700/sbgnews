@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.mapper;
 
-import com.mayousheng.www.sbgnews.pojo.Comment;
+import com.mayousheng.www.sbgnews.pojo.operate.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

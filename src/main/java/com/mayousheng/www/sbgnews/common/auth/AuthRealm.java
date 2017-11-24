@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.common.auth;
 
-import com.mayousheng.www.sbgnews.pojo.Permission;
-import com.mayousheng.www.sbgnews.pojo.Role;
+import com.mayousheng.www.sbgnews.pojo.auth.Permission;
+import com.mayousheng.www.sbgnews.pojo.auth.Role;
 import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.UserService;
 import org.apache.shiro.authc.*;

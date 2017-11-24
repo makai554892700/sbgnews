@@ -1,6 +1,6 @@
 package com.mayousheng.www.sbgnews.service;
 
-import com.mayousheng.www.sbgnews.pojo.Permission;
+import com.mayousheng.www.sbgnews.pojo.auth.Permission;
 
 public interface PermissionService {
 

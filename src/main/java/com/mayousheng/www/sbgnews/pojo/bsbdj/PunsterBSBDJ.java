@@ -1,4 +1,4 @@
-package com.mayousheng.www.sbgnews.pojo;
+package com.mayousheng.www.sbgnews.pojo.bsbdj;
 
 import org.hibernate.annotations.Type;
 
@@ -15,7 +15,7 @@ public class PunsterBSBDJ {
     @GeneratedValue
     private Integer id;
     @Column(nullable = false, unique = true)
-    private Integer mark;         //标记(id)
+    private String mark;         //标记(id)
     private Integer userId;       //用户id(对应用户信息)
     private String weixinUrl;     //微信(原文)路径
     @Type(type = "text")
@@ -25,7 +25,7 @@ public class PunsterBSBDJ {
     public PunsterBSBDJ() {
     }
 
-    public PunsterBSBDJ(Integer mark, Integer userId, String weixinUrl
+    public PunsterBSBDJ(String mark, Integer userId, String weixinUrl
             , String text, String createTime) {
         this.mark = mark;
         this.userId = userId;
@@ -42,11 +42,11 @@ public class PunsterBSBDJ {
         this.id = id;
     }
 
-    public Integer getMark() {
+    public String getMark() {
         return mark;
     }
 
-    public void setMark(Integer mark) {
+    public void setMark(String mark) {
         this.mark = mark;
     }
 

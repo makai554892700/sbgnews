@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.service.impl;
 
 import com.mayousheng.www.sbgnews.mapper.RoleMapper;
-import com.mayousheng.www.sbgnews.pojo.Role;
+import com.mayousheng.www.sbgnews.pojo.auth.Role;
 import com.mayousheng.www.sbgnews.service.RoleService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
-import com.mayousheng.www.sbgnews.pojo.JokeBack;
+import com.mayousheng.www.sbgnews.pojo.joke.JokeBack;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

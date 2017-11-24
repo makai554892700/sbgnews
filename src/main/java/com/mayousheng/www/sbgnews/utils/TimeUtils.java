@@ -1,37 +1,33 @@
 package com.mayousheng.www.sbgnews.utils;
 
 import com.mayousheng.www.sbgnews.common.conf.enums.TimeEnum;
-import com.mayousheng.www.sbgnews.common.sort.JokeComparator;
-import com.mayousheng.www.sbgnews.pojo.Joke;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class TimeUtils {
 
     private static final Logger log = LoggerFactory.getLogger(TimeUtils.class);
 
-//    public static void main(String[] args) {
-//        String test1 = "2017-09-29 19:30:16.935";
-//        String test2 = "2017-09-29 19:10:16.935";
-//        String test3 = "2017-09-29 19:20:16.935";
-//        System.out.println("date=" + getDateByStr(test1, TimeEnum.FORMAT_DAY_MSEC));
-//        List<Joke> jokes = new ArrayList<>();
-//        Joke joke1 = new Joke();
-//        joke1.setCt(test1);
-//        jokes.add(joke1);
-//        Joke joke2 = new Joke();
-//        joke2.setCt(test2);
-//        jokes.add(joke2);
-//        Joke joke3 = new Joke();
-//        joke3.setCt(test3);
-//        jokes.add(joke3);
-//        System.out.println("jokes1=" + jokes);
-//        jokes.sort(new JokeComparator());
-//        System.out.println("jokes2=" + jokes);
-//    }
+    private static final String HOURE_MARK = ":";
+    private static final String MSEC_MARK = ".";
+    private static final String SPLIT_HOURE_MARK = "\\:";
+    private static final String SPLIT_MSEC_MARK = "\\.";
+    private static final String TIME_REG = "^(\\d+)(" + HOURE_MARK + "[0-5][0-9]){2}" + MSEC_MARK + "(\\d{0,3})$";
+
+    public static int getTimeByStr(String str) {
+        if (str == null || !Pattern.matches(TIME_REG, str)) {
+            log.error("str is null.or str is not matches.str=" + str);
+            return 0;
+        }
+        String[] tempStr = str.split(SPLIT_MSEC_MARK)[0].split(SPLIT_HOURE_MARK);
+        return Integer.valueOf(tempStr[0]) * 3600 +
+                Integer.valueOf(tempStr[1]) * 60 +
+                Integer.valueOf(tempStr[2]);
+    }
 
     public static Date getDateByStr(String str, TimeEnum timeEnum) {
         if (str == null || timeEnum == null) {

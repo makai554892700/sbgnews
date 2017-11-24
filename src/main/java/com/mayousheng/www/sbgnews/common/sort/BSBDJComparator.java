@@ -1,12 +1,10 @@
 package com.mayousheng.www.sbgnews.common.sort;
 
 import com.mayousheng.www.sbgnews.common.conf.enums.TimeEnum;
-import com.mayousheng.www.sbgnews.pojo.BSBDJ;
-import com.mayousheng.www.sbgnews.pojo.Joke;
+import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJ;
 import com.mayousheng.www.sbgnews.utils.TimeUtils;
 
 import java.util.Comparator;
-import java.util.Date;
 
 public class BSBDJComparator implements Comparator<BSBDJ> {
 
