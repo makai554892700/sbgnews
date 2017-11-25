@@ -3,7 +3,7 @@ package com.mayousheng.www.sbgnews.pojo.operate;
 import javax.persistence.*;
 
 @Entity
-@Table(indexes = {@Index(columnList = "newsId,tableName")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"newsId", "tableName"})})
 public class NewsOperate {
 
     @Id
@@ -17,6 +17,19 @@ public class NewsOperate {
     private Integer hate;           //点踩次数  int
     private Integer share;          //分享次数  int
     private Integer comment;          //评论次数  int
+
+    public NewsOperate() {
+    }
+
+    public NewsOperate(Integer newsId, String tableName, Integer love
+            , Integer hate, Integer share, Integer comment) {
+        this.newsId = newsId;
+        this.tableName = tableName;
+        this.love = love;
+        this.hate = hate;
+        this.share = share;
+        this.comment = comment;
+    }
 
     public Integer getId() {
         return id;

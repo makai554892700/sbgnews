@@ -11,8 +11,7 @@ public class JokeResponse extends BaseNewsResponse {
     public JokeResponse() {
     }
 
-    public JokeResponse(String mark, NewsDesc newsDesc, UserDesc userDesc, String text, String title) {
-        setMark(mark);
+    public JokeResponse(NewsDesc newsDesc, UserDesc userDesc, String text, String title) {
         setNewsDesc(newsDesc);
         setUserDesc(userDesc);
         setText(text);

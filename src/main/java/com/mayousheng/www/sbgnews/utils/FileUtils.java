@@ -1,8 +1,13 @@
 package com.mayousheng.www.sbgnews.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 public class FileUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     public static File sureDir(String dir) {
         if (dir == null) {
@@ -96,7 +101,7 @@ public class FileUtils {
         }
         File file = new File(dirPath);
         if (!file.exists() || !file.isDirectory()) {
-            System.out.println("file is not exists or is not a directory");
+            log.error("file is not exists or is not a directory");
         }
         File[] children = file.listFiles();
         for (int i = 0; i < children.length; i++) {
@@ -114,7 +119,7 @@ public class FileUtils {
             try {
                 boolean isOk = file.createNewFile();
             } catch (Exception e) {
-                System.out.println("e=" + e);
+                log.error("e=" + e);
                 return null;
             }
             return file;
@@ -159,7 +164,7 @@ public class FileUtils {
         } catch (Exception e) {
             return false;
         } finally {
-            closeSilently(fileOutputStream);
+            CloseUtils.closeSilently(fileOutputStream);
         }
         return true;
     }
@@ -167,35 +172,19 @@ public class FileUtils {
     public static boolean inputStream2File(InputStream inputStream, File file) {
         boolean result = false;
         if (inputStream == null || file == null || !file.exists()) {
-            System.out.println("message is error.");
+            log.error("message is error.");
         } else {
             OutputStream outputStream;
             try {
                 outputStream = new FileOutputStream(file);
             } catch (Exception e) {
-                System.out.println("e=" + e);
+                log.error("e=" + e);
                 return false;
             }
-            result = inputStream2OutputStream(inputStream, outputStream);
-            closeSilently(outputStream);
+            result = StreamUtils.inputStream2OutputStream(inputStream, outputStream);
+            CloseUtils.closeSilently(outputStream);
         }
         return result;
-    }
-
-    private static boolean inputStream2OutputStream(InputStream inputStream, OutputStream outputStream) {
-        if (inputStream != null && outputStream != null) {
-            byte[] tempByte = new byte[1024];
-            int len;
-            try {
-                while ((len = inputStream.read(tempByte)) != -1) {
-                    outputStream.write(tempByte, 0, len);
-                }
-                return true;
-            } catch (Exception e) {
-                System.out.println("e=" + 3);
-            }
-        }
-        return false;
     }
 
     public static boolean readLine(String filePath, LineBack lineBack) {
@@ -208,17 +197,17 @@ public class FileUtils {
                 try {
                     fileReader = new FileReader(file);
                 } catch (Exception e) {
-                    System.out.println("e1=" + e);
+                    log.error("e1=" + e);
                     return false;
                 }
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 result = onLine(lineBack, bufferedReader);
-                closeReader(bufferedReader);
-                closeReader(fileReader);
+                CloseUtils.closeReader(bufferedReader);
+                CloseUtils.closeReader(fileReader);
             }
             lineBack.onEnd(filePath);
         } else {
-            System.out.println("filePath is null or lineBack is null;filePath=" + filePath + ";lineBack=" + lineBack);
+            log.error("filePath is null or lineBack is null;filePath=" + filePath + ";lineBack=" + lineBack);
         }
         return result;
     }
@@ -228,7 +217,7 @@ public class FileUtils {
         try {
             tempString.append(bufferedReader.readLine());
         } catch (Exception e) {
-            System.out.println("e1=" + e);
+            log.error("e1=" + e);
             return false;
         }
         while (!"null".equals(tempString.toString())) {
@@ -237,7 +226,7 @@ public class FileUtils {
             try {
                 tempString.append(bufferedReader.readLine());
             } catch (Exception e) {
-                System.out.println("e1=" + e);
+                log.error("e1=" + e);
                 return false;
             }
         }
@@ -246,7 +235,7 @@ public class FileUtils {
 
     public static <T extends Serializable> File object2File(File file, T object) {
         if (file == null || !file.exists()) {
-            System.out.println("file not exists.file=" + file);
+            log.error("file not exists.file=" + file);
             return null;
         }
         FileOutputStream fileOutputStream = null;
@@ -256,18 +245,18 @@ public class FileUtils {
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(object);
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
             return null;
         } finally {
-            FileUtils.closeSilently(fileOutputStream);
-            FileUtils.closeSilently(objectOutputStream);
+            CloseUtils.closeSilently(fileOutputStream);
+            CloseUtils.closeSilently(objectOutputStream);
         }
         return file;
     }
 
     public static <T extends Serializable> T file2Object(File file) {
         if (file == null || !file.exists()) {
-            System.out.println("file not exists.file=" + file);
+            log.error("file not exists.file=" + file);
             return null;
         }
         FileInputStream fileInputStream = null;
@@ -278,10 +267,10 @@ public class FileUtils {
             objectInputStream = new ObjectInputStream(fileInputStream);
             result = (T) objectInputStream.readObject();
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
         } finally {
-            closeSilently(objectInputStream);
-            closeSilently(fileInputStream);
+            CloseUtils.closeSilently(objectInputStream);
+            CloseUtils.closeSilently(fileInputStream);
         }
         return result;
     }
@@ -314,24 +303,6 @@ public class FileUtils {
         public void onDir(String line);
 
         public void onEnd(String fileName);
-    }
-
-    public static void closeSilently(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    public static void closeReader(Reader reader) {
-        if (reader != null) {
-            try {
-                reader.close();
-            } catch (Exception e) {
-            }
-        }
     }
 
 }

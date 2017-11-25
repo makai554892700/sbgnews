@@ -6,16 +6,22 @@ public class NewsDesc {
     private Integer hate;         //点踩的数量
     private Integer share;        //分享的数量
     private Integer comment;      //评论的数量
+    private Integer newsMark;      //新闻标记(id)
+    private String newsType;      //新闻类型
     private String createTime;    //创建时间
 
     public NewsDesc() {
     }
 
-    public NewsDesc(Integer love, Integer hate, Integer share, Integer comment, String createTime) {
+    public NewsDesc(Integer love, Integer hate, Integer share
+            , Integer comment, Integer newsMark, String newsType
+            , String createTime) {
         this.love = love;
         this.hate = hate;
         this.share = share;
         this.comment = comment;
+        this.newsMark = newsMark;
+        this.newsType = newsType;
         this.createTime = createTime;
     }
 
@@ -51,6 +57,22 @@ public class NewsDesc {
         this.comment = comment;
     }
 
+    public Integer getNewsMark() {
+        return newsMark;
+    }
+
+    public void setNewsMark(Integer newsMark) {
+        this.newsMark = newsMark;
+    }
+
+    public String getNewsType() {
+        return newsType;
+    }
+
+    public void setNewsType(String newsType) {
+        this.newsType = newsType;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -66,6 +88,8 @@ public class NewsDesc {
                 ", hate=" + hate +
                 ", share=" + share +
                 ", comment=" + comment +
+                ", newsMark=" + newsMark +
+                ", newsType='" + newsType + '\'' +
                 ", createTime='" + createTime + '\'' +
                 '}';
     }

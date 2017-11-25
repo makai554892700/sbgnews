@@ -1,8 +1,13 @@
 package com.mayousheng.www.sbgnews.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class IPUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(IPUtils.class);
     private static final String IP_SPLIT = "\\.";
     private static final String IP_ZERO = "0.0.0.0";
 
@@ -35,10 +40,10 @@ public class IPUtils {
                 try {
                     result = ((Integer.valueOf(parts[0]) % 256) << 16) + ((Integer.valueOf(parts[1]) % 256) << 8) + (Integer.valueOf(parts[2]) % 256);
                 } catch (Exception e) {
-                    System.out.println("e=" + e);
+                    log.error("e=" + e);
                 }
             } else {
-                System.out.println("parts.length=" + parts.length + ";ip=" + ip);
+                log.error("parts.length=" + parts.length + ";ip=" + ip);
             }
         }
         return result;
@@ -50,7 +55,7 @@ public class IPUtils {
             try {
                 result += Integer.valueOf(ip.split(IP_SPLIT)[3]);
             } catch (Exception e) {
-                System.out.println("e=" + e);
+                log.error("e=" + e);
             }
         }
         return result;

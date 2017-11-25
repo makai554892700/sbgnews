@@ -1,9 +1,13 @@
 package com.mayousheng.www.sbgnews.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.nio.charset.Charset;
 
 public class RC4Utils {
 
+    private static final Logger log = LoggerFactory.getLogger(RC4Utils.class);
     private static final String CODE = "UTF-8";
 
     public static String deCode(String key, String value) {
@@ -14,7 +18,7 @@ public class RC4Utils {
         try {
             tempStr = new String(hexStringToBytes(value), CODE);
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
             tempStr = new String(hexStringToBytes(value));
         }
         return RC4(key, tempStr);
@@ -96,7 +100,7 @@ public class RC4Utils {
         try {
             result = new String(data, CODE);
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
         }
         return result;
     }

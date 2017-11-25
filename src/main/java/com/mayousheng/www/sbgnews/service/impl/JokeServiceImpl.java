@@ -9,11 +9,13 @@ import com.mayousheng.www.sbgnews.common.conf.pojo.JokeConf;
 import com.mayousheng.www.sbgnews.common.exception.BaseException;
 import com.mayousheng.www.sbgnews.common.sort.JokeComparator;
 import com.mayousheng.www.sbgnews.mapper.JokesMapper;
+import com.mayousheng.www.sbgnews.mapper.NewsOperateMapper;
 import com.mayousheng.www.sbgnews.mapper.UserMapper;
 import com.mayousheng.www.sbgnews.pojo.joke.Joke;
 import com.mayousheng.www.sbgnews.pojo.joke.JokeBack;
 import com.mayousheng.www.sbgnews.pojo.joke.JokeLimit;
 import com.mayousheng.www.sbgnews.pojo.User;
+import com.mayousheng.www.sbgnews.pojo.operate.NewsOperate;
 import com.mayousheng.www.sbgnews.service.JokeService;
 import com.mayousheng.www.sbgnews.service.NewsDescService;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
@@ -38,6 +40,8 @@ public class JokeServiceImpl implements JokeService {
 
     @Resource(name = "jokesMapper")
     private JokesMapper jokesMapper;
+    @Resource(name = "newsOperateMapper")
+    private NewsOperateMapper newsOperateMapper;
     @Resource(name = "jokeConf")
     private JokeConf jokeConf;
     @Resource(name = "newsDescServiceImpl")
@@ -75,13 +79,11 @@ public class JokeServiceImpl implements JokeService {
     @Override
     @Async("defaultAsync")
     public synchronized void loadAllJokes() throws Exception {
-        log.error("isInitOk=" + isInitOk);
         if (!isInitOk) {
             JokeBack jokeBack;
             int currentPage = 0;
             boolean haveNext;
             do {
-                log.error("Loading current Page=" + currentPage);
                 jokeBack = loadJokesByPage(currentPage--, jokeConf.getDefaultCount());
                 if (jokeBack != null) {
                     if (currentPage < 0) {
@@ -102,7 +104,8 @@ public class JokeServiceImpl implements JokeService {
     }
 
     private JokeBack loadJokesByPage(Integer page, Integer count) {
-        byte[] tempData = HttpUtils.getInstance().getURLResponse(String.format(jokeConf.getBaseurl(), page, count), null);
+        byte[] tempData = HttpUtils.getInstance().getURLResponse(
+                String.format(jokeConf.getBaseurl(), page, count), null);
         if (tempData == null) {
             return null;
         }
@@ -134,7 +137,9 @@ public class JokeServiceImpl implements JokeService {
             joke.setUserId(defaultUserConf.getUser().getId());
             joke.setText(RC4Utils.strToHexString(joke.getText()));
             try {
-                jokesMapper.save(joke);
+                joke = jokesMapper.save(joke);
+                newsOperateMapper.save(new NewsOperate(joke.getId()
+                        , StaticParam.TABLE_NAME_PHOTOBSBDJ, 0, 0, 0, 0));
             } catch (Exception e) {
                 log.error("loadJokes e=" + e);
             }
@@ -150,7 +155,7 @@ public class JokeServiceImpl implements JokeService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new JokeResponse(String.valueOf(joke.getId()), newsDescService.getNewsDesc(joke.getCt()
+        return new JokeResponse(newsDescService.getNewsDesc(joke.getCt()
                 , joke.getId(), StaticParam.TABLE_NAME_JOKE), UserUtils.user2UserDesc(user)
                 , joke.getText(), joke.getTitle());
     }

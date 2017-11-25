@@ -28,24 +28,22 @@ public class BSBDJPojoUtils {
         if (bsbdj == null) {
             return null;
         }
-        String imgUrl = bsbdj.getCdnImg() == null ? bsbdj.getImage3() : bsbdj.getCdnImg();
-        AudioInfo audioInfo = AudioUtils.getVideoInfo(imgUrl);
+        String imgUrl = getImgUrl(bsbdj);
+        AudioInfo audioInfo = AudioUtils.getAudioInfo(imgUrl);
         if (audioInfo == null) {
             return null;
         }
-        String scImg = null;
+        String scImg = imgUrl;
+        String mark = getMark(bsbdj);
         if (audioInfo.getWidth() * 2 < audioInfo.getHeight()) {
-            String localPath = PathUtils.getBSBDJImgPath(bsbdj.get_id() == null
-                    ? String.valueOf(bsbdj.getId()) : bsbdj.get_id());
+            String localPath = PathUtils.getBSBDJImgPath(mark);
             File localFile = AudioUtils.getShortCut(imgUrl
                     , localPath, true, audioInfo);
             if (localFile != null) {
                 scImg = PathUtils.getBSBDJImgUrl(bsbdj.get_id());
             }
         }
-        return new PhotoBSBDJ(bsbdj.get_id() == null
-                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id()
-                , StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
+        return new PhotoBSBDJ(mark, StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
                 , bsbdj.getText(), imgUrl, scImg, audioInfo.getWidth()
                 , audioInfo.getHeight(), bsbdj.getCreateTime());
     }
@@ -54,9 +52,8 @@ public class BSBDJPojoUtils {
         if (bsbdj == null) {
             return null;
         }
-        return new PunsterBSBDJ(bsbdj.get_id() == null
-                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id()
-                , StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
+        String mark = getMark(bsbdj);
+        return new PunsterBSBDJ(mark, StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
                 , bsbdj.getText(), bsbdj.getCreateTime());
     }
 
@@ -64,22 +61,22 @@ public class BSBDJPojoUtils {
         if (bsbdj == null) {
             return null;
         }
-        AudioInfo audioInfo = AudioUtils.getVideoInfo(bsbdj.getVideoUri());
+        AudioInfo audioInfo = AudioUtils.getAudioInfo(bsbdj.getVideoUri());
         if (audioInfo == null) {
             return null;
         }
-        String scImg = null;
-        String localPath = PathUtils.getBSBDJImgPath(bsbdj.get_id() == null
-                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id());
+        String scImg;
+        String mark = getMark(bsbdj);
+        String localPath = PathUtils.getBSBDJImgPath(mark);
         File localFile = AudioUtils.getShortCut(bsbdj.getVideoUri()
                 , localPath, false, audioInfo);
         if (localFile != null) {
-            scImg = PathUtils.getBSBDJImgUrl(bsbdj.get_id());
+            scImg = PathUtils.getBSBDJImgUrl(mark);
+        } else {
+            return null;
         }
         int playTime = TimeUtils.getTimeByStr(audioInfo.getTimeLen());
-        return new VideoBSBDJ(bsbdj.get_id() == null
-                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id()
-                , StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
+        return new VideoBSBDJ(mark, StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
                 , bsbdj.getText(), bsbdj.getVideoUri(), scImg
                 , audioInfo.getWidth(), audioInfo.getHeight()
                 , playTime, bsbdj.getCreateTime());
@@ -89,17 +86,26 @@ public class BSBDJPojoUtils {
         if (bsbdj == null) {
             return null;
         }
-        AudioInfo audioInfo = AudioUtils.getVideoInfo(bsbdj.getVoiceUri());
+        AudioInfo audioInfo = AudioUtils.getAudioInfo(bsbdj.getVoiceUri());
         if (audioInfo == null) {
             return null;
         }
-        String imgUrl = bsbdj.getCdnImg() == null ? bsbdj.getImage3() : bsbdj.getCdnImg();
+        String imgUrl = getImgUrl(bsbdj);
+        String mark = getMark(bsbdj);
         int playTime = TimeUtils.getTimeByStr(audioInfo.getTimeLen());
-        return new VoiceBSBDJ(bsbdj.get_id() == null
-                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id()
-                , StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
+        return new VoiceBSBDJ(mark, StaticParam.DEFAULT_USER_ID, bsbdj.getWeixinUrl()
                 , bsbdj.getText(), bsbdj.getVoiceUri(), imgUrl
                 , playTime, bsbdj.getCreateTime());
+    }
+
+    public static String getMark(BSBDJ bsbdj) {
+        return bsbdj == null ? null : (bsbdj.get_id() == null
+                ? String.valueOf(bsbdj.getId()) : bsbdj.get_id());
+    }
+
+    public static String getImgUrl(BSBDJ bsbdj) {
+        return bsbdj == null ? null : (bsbdj.getCdnImg() == null
+                ? bsbdj.getImage3() : bsbdj.getCdnImg());
     }
 
 }

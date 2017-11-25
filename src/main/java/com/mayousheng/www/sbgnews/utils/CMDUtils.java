@@ -1,12 +1,13 @@
 package com.mayousheng.www.sbgnews.utils;
 
-import com.mayousheng.www.sbgnews.utils.CloseUtils;
-import com.mayousheng.www.sbgnews.utils.StreamUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.io.SequenceInputStream;
 
 public class CMDUtils {
+    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     public static String execute(String... commands) {
         if (commands == null || commands.length == 0) {
@@ -18,7 +19,7 @@ public class CMDUtils {
         try {
             process = builder.start();
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
             return null;
         }
         return process2Result(process);
@@ -34,7 +35,7 @@ public class CMDUtils {
         try {
             process = runtime.exec(commandStr);
         } catch (Exception e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
             return null;
         }
         return process2Result(process);
@@ -45,9 +46,9 @@ public class CMDUtils {
         InputStream errorStream = process.getErrorStream();
         SequenceInputStream sequenceInputStream = new SequenceInputStream(inputStream, errorStream);
         String result = StreamUtils.sequenceInputStream2Str(sequenceInputStream);
-        CloseUtils.close(sequenceInputStream);
-        CloseUtils.close(errorStream);
-        CloseUtils.close(inputStream);
+        CloseUtils.closeSilently(sequenceInputStream);
+        CloseUtils.closeSilently(errorStream);
+        CloseUtils.closeSilently(inputStream);
         return result;
     }
 

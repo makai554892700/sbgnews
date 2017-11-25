@@ -6,7 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Entity
-@Table(indexes = {@Index(columnList = "userId,descId,tableName")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"userId", "descId", "tableName"})})
 public class Comment {
 
     @Id
@@ -21,6 +21,16 @@ public class Comment {
     @Column(nullable = false)
     @Type(type = "text")
     private String info;        //评论信息		String
+
+    public Comment() {
+    }
+
+    public Comment(Integer userId, Integer descId, String tableName, String info) {
+        this.userId = userId;
+        this.descId = descId;
+        this.tableName = tableName;
+        this.info = info;
+    }
 
     public Integer getId() {
         return id;

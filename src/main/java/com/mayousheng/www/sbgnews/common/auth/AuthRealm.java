@@ -1,5 +1,6 @@
 package com.mayousheng.www.sbgnews.common.auth;
 
+import com.mayousheng.www.sbgnews.mapper.UserMapper;
 import com.mayousheng.www.sbgnews.pojo.auth.Permission;
 import com.mayousheng.www.sbgnews.pojo.auth.Role;
 import com.mayousheng.www.sbgnews.pojo.User;
@@ -20,22 +21,25 @@ public class AuthRealm extends AuthorizingRealm {
 
     private Logger log = LoggerFactory.getLogger(AuthRealm.class);
 
-    @Resource(name = "userServiceImpl")
-    private UserService userService;
+    @Resource(name = "userMapperImpl")
+    private UserMapper userMapper;
 
     //认证.登录
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
+            throws AuthenticationException {
         UsernamePasswordToken utoken = (UsernamePasswordToken) token;//获取用户输入的token
         String username = utoken.getUsername();
-        User user = userService.getUserByUserName(username);
-        return new SimpleAuthenticationInfo(user, user.getPassWord(), this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
+        User user = userMapper.getUserByUserName(username);
+        return new SimpleAuthenticationInfo(user, user.getPassWord()
+                , this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
     }
 
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-        User user = (User) principal.fromRealm(this.getClass().getName()).iterator().next();//获取session中的用户
+        User user = (User) principal.fromRealm(
+                this.getClass().getName()).iterator().next();//获取session中的用户
         List<String> permissions = new ArrayList<>();
         List<Role> roles = user.getRoles();
         if (roles != null && roles.size() > 0) {

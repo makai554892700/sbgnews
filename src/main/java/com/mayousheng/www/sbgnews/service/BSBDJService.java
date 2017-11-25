@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.service;
 
 import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJBack;
-import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJLimit;
+import com.mayousheng.www.sbgnews.vo.request.BSBDJLimit;
 import com.mayousheng.www.sbgnews.vo.response.PhotoResponse;
 import com.mayousheng.www.sbgnews.vo.response.PunsterResponse;
 import com.mayousheng.www.sbgnews.vo.response.VideoResponse;

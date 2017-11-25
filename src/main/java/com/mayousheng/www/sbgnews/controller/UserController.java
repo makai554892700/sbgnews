@@ -30,59 +30,36 @@ public class UserController implements UserApi {
 
     @Resource(name = "userServiceImpl")
     private UserService userService;
-    @Resource(name = "defaultUserConf")
-    private DefaultUserConf defaultUserConf;
 
     @Override
-    public Result<UserResponse> register(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
-        User dbUser = userService.getUserByUserName(user.getUserName());
-        if (dbUser == null) {
-            user.setRoles(null);
-            user.setPassWord(getPass(user.getPassWord()));
-            dbUser = userService.save(user);
-            return ResultUtils.succeed(UserUtils.user2UserResponse(dbUser));
-        } else {
-            throw new BaseException(BaseResultEnum.DOUBLE_USER_NAME);
-        }
-    }
-
-    @Override
-    public Result<UserResponse> login(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
+    public Result<UserResponse> register(@RequestBody @Valid User user
+            , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        User dbUser = userService.getUserByUserName(user.getUserName());
-        if (dbUser == null) {
-            throw new BaseException(BaseResultEnum.NO_USER);
+        return ResultUtils.succeed(userService.register(user));
+    }
+
+    @Override
+    public Result<UserResponse> login(@RequestBody @Valid User user
+            , BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), getPass(user.getPassWord()));
-        Subject currentUser = SecurityUtils.getSubject();
-        currentUser.login(token);
-        dbUser = userService.getUserByUserName(user.getUserName());
-        return ResultUtils.succeed(UserUtils.user2UserResponse(dbUser));
+        return ResultUtils.succeed(userService.login(user));
     }
 
     @Override
     public Result<String> logout() throws Exception {
-        Subject currentUser = SecurityUtils.getSubject();
-        if (currentUser != null) {
-            currentUser.logout();
-        }
-        return ResultUtils.succeed(null);
+        return ResultUtils.succeed(userService.logout());
     }
 
     @Override
-    public Result<UserResponse> update(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
-        User dbUser = userService.getUserByUserName(user.getUserName());
-        if (dbUser != null) {
-            dbUser = userService.update(user, false);
-            return ResultUtils.succeed(UserUtils.user2UserResponse(dbUser));
-        } else {
-            throw new BaseException(BaseResultEnum.NO_USER);
+    public Result<UserResponse> update(@RequestBody @Valid User user
+            , BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-    }
-
-    public String getPass(String pass) {
-        return new SimpleHash(defaultUserConf.getEncrypt(), pass, defaultUserConf.getSalt()).toString();
+        return ResultUtils.succeed(userService.update(user));
     }
 }

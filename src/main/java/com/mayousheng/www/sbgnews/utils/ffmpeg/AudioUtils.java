@@ -13,7 +13,7 @@ public class AudioUtils {
     private static final Logger log = LoggerFactory.getLogger(AudioUtils.class);
 
 
-    public static File getShortCut(String url, String path, boolean isPicture, AudioInfo audioInfo) {
+    public synchronized static File getShortCut(String url, String path, boolean isPicture, AudioInfo audioInfo) {
         if (url == null || url.isEmpty()) {
             return null;
         }
@@ -34,10 +34,10 @@ public class AudioUtils {
 
 
     public static File getShortCut(String url, String path, boolean isPicture) {
-        return getShortCut(url, path, isPicture, getVideoInfo(url));
+        return getShortCut(url, path, isPicture, getAudioInfo(url));
     }
 
-    public static AudioInfo getVideoInfo(String url) {
+    public static AudioInfo getAudioInfo(String url) {
         if (url == null || url.isEmpty()) {
             return null;
         }
@@ -71,12 +71,12 @@ public class AudioUtils {
                 try {
                     result.setWidth(Integer.parseInt(strs[0].trim()));
                 } catch (Exception e) {
-                    System.out.println("e=" + e + ";str=" + strs[0]);
+                    log.error("e=" + e + ";str=" + strs[0]);
                 }
                 try {
                     result.setHeight(Integer.parseInt(strs[1].split(StaticParam.BLANK)[0].trim()));
                 } catch (Exception e) {
-                    System.out.println("e=" + e + ";str=" + strs[1]);
+                    log.error("e=" + e + ";str=" + strs[1]);
                 }
             }
         }

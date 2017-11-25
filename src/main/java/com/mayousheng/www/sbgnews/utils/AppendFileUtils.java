@@ -1,5 +1,8 @@
 package com.mayousheng.www.sbgnews.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AppendFileUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(AppendFileUtils.class);
     private static ConcurrentHashMap<String, AppendFileUtils> concurrentHashMap = new ConcurrentHashMap<>();
 
     private File fileName;
@@ -20,7 +24,7 @@ public class AppendFileUtils {
         try {
             fileWriter = new FileWriter(file, true);
         } catch (IOException e) {
-            System.out.println("e=" + e);
+            log.error("e=" + e);
             return;
         }
         printWriter = new PrintWriter(fileWriter);
@@ -67,18 +71,10 @@ public class AppendFileUtils {
             try {
                 fileWriter.flush();
             } catch (Exception e) {
-                System.out.println("e=" + e);
+                log.error("e=" + e);
             }
-            try {
-                printWriter.close();
-            } catch (Exception e) {
-                System.out.println("e=" + e);
-            }
-            try {
-                fileWriter.close();
-            } catch (Exception e) {
-                System.out.println("e=" + e);
-            }
+            CloseUtils.closeSilently(printWriter);
+            CloseUtils.closeSilently(fileWriter);
             concurrentHashMap.remove(fileName.getAbsolutePath());
             isInited = false;
         }

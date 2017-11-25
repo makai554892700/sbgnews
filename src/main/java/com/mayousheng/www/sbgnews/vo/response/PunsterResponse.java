@@ -9,11 +9,11 @@ public class PunsterResponse extends BaseNewsResponse {
     public PunsterResponse() {
     }
 
-    public PunsterResponse(String mark, NewsDesc newsDesc, UserDesc userDesc, String text, String url) {
-        setMark(mark);
+    public PunsterResponse(NewsDesc newsDesc, UserDesc userDesc, String text, String url) {
         setNewsDesc(newsDesc);
         setUserDesc(userDesc);
         setText(text);
+        setUrl(url);
     }
 
 }

@@ -2,19 +2,10 @@ package com.mayousheng.www.sbgnews.vo.response.base;
 
 public class BaseNewsResponse {
 
-    private String mark;        //唯一标记
     private NewsDesc newsDesc;  //新闻描述
     private UserDesc userDesc;  //用户描述
     private String text;        //基本内容
     private String url;   //详情跳转url
-
-    public String getMark() {
-        return mark;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
 
     public NewsDesc getNewsDesc() {
         return newsDesc;

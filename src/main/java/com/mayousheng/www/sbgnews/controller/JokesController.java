@@ -6,6 +6,8 @@ import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.JokeResponse;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import com.mayousheng.www.sbgnews.service.JokeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +18,14 @@ import java.util.List;
 
 @RestController
 public class JokesController implements JokesApi {
+    private Logger log = LoggerFactory.getLogger(JokesController.class);
 
     @Resource(name = "jokeServiceImpl")
     private JokeService jokeService;
 
     @Override
-    public Result<List<JokeResponse>> getJokes(@RequestBody @Valid JokeLimit jokeLimit, BindingResult bindingResult) throws Exception {
+    public Result<List<JokeResponse>> getJokes(@RequestBody @Valid JokeLimit jokeLimit
+            , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }

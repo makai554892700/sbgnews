@@ -1,10 +1,11 @@
 package com.mayousheng.www.sbgnews.api;
 
-import com.mayousheng.www.sbgnews.pojo.User;
-import com.mayousheng.www.sbgnews.vo.response.UserResponse;
+import com.mayousheng.www.sbgnews.vo.request.NewsComment;
+import com.mayousheng.www.sbgnews.vo.request.NewsMark;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,39 @@ import javax.validation.Valid;
 public interface OperateApi {
 
     @PostMapping(value = "/love")
-    @ApiOperation(value = "喜欢这则新闻", notes = "喜欢这则新闻", tags = {"user"})
-    // http://localhost:8080/api/operate/love {"userName":"makai554892700","passWord":"marking"}
-    public Result<String> love(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception;
+    @ApiOperation(value = "喜欢这则新闻", notes = "喜欢这则新闻"
+            , tags = {"operate"})
+    @RequiresAuthentication
+    // http://localhost:8080/api/operate/love
+    // {"newsMark":1,"newsType":"photobsbdj"}
+    public Result<String> love(@RequestBody @Valid NewsMark newsMark
+            , BindingResult bindingResult) throws Exception;
+
+    @PostMapping(value = "/hate")
+    @ApiOperation(value = "讨厌这则新闻", notes = "讨厌这则新闻"
+            , tags = {"operate"})
+    @RequiresAuthentication
+    // http://localhost:8080/api/operate/hate
+    // {"newsMark":2,"newsType":"photobsbdj"}
+    public Result<String> hate(@RequestBody @Valid NewsMark newsMark
+            , BindingResult bindingResult) throws Exception;
+
+    @PostMapping(value = "/share")
+    @ApiOperation(value = "分享了这则新闻", notes = "分享了这则新闻"
+            , tags = {"operate"})
+    @RequiresAuthentication
+    // http://localhost:8080/api/operate/share
+    // {"newsMark":3,"newsType":"photobsbdj"}
+    public Result<String> share(@RequestBody @Valid NewsMark newsMark
+            , BindingResult bindingResult) throws Exception;
+
+    @PostMapping(value = "/comment")
+    @ApiOperation(value = "评论这则新闻", notes = "评论这则新闻"
+            , tags = {"operate"})
+    @RequiresAuthentication
+    // http://localhost:8080/api/operate/comment
+    // {newsMark:{"newsMark":5,"newsType":"photobsbdj"},"commentInfo":"什么都可以"}
+    public Result<String> comment(@RequestBody @Valid NewsComment newsComment
+            , BindingResult bindingResult) throws Exception;
 
 }

@@ -1,13 +1,12 @@
 package com.mayousheng.www.sbgnews.controller;
 
-import com.mayousheng.www.sbgnews.api.BSBDJApi;
-import com.mayousheng.www.sbgnews.vo.request.BSBDJLimit;
-import com.mayousheng.www.sbgnews.service.BSBDJService;
+import com.mayousheng.www.sbgnews.api.OperateApi;
+import com.mayousheng.www.sbgnews.pojo.User;
+import com.mayousheng.www.sbgnews.service.OperateService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
-import com.mayousheng.www.sbgnews.vo.response.*;
+import com.mayousheng.www.sbgnews.vo.request.NewsComment;
+import com.mayousheng.www.sbgnews.vo.request.NewsMark;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -16,48 +15,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
-public class BSBDJController implements BSBDJApi {
-    private Logger log = LoggerFactory.getLogger(BSBDJController.class);
+public class OperateController implements OperateApi {
+    private Logger log = LoggerFactory.getLogger(OperateController.class);
 
-    @Resource(name = "bsbdjServiceImpl")
-    private BSBDJService bsbdjService;
+    @Resource(name = "operateServiceImpl")
+    private OperateService operateService;
 
     @Override
-    public Result<List<VideoResponse>> getVideos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<String> love(@RequestBody @Valid NewsMark newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(bsbdjService.getVideoBySearch(bsbdjLimit));
+        return ResultUtils.succeed(operateService.love(newsMark));
     }
 
     @Override
-    public Result<List<PunsterResponse>> getPunsters(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<String> hate(@RequestBody @Valid NewsMark newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(bsbdjService.getPunsterBySearch(bsbdjLimit));
+        return ResultUtils.succeed(operateService.hate(newsMark));
     }
 
     @Override
-    public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<String> share(@RequestBody @Valid NewsMark newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(bsbdjService.getPhotoBySearch(bsbdjLimit));
+        return ResultUtils.succeed(operateService.share(newsMark));
     }
 
     @Override
-    public Result<List<VoiceResponse>> getVoices(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<String> comment(@RequestBody @Valid NewsComment newsComment
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(bsbdjService.getVoiceBySearch(bsbdjLimit));
+        User user = null;
+        return ResultUtils.succeed(operateService.comment(user, newsComment));
     }
 }

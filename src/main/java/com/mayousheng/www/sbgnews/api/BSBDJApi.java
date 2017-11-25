@@ -1,7 +1,7 @@
 package com.mayousheng.www.sbgnews.api;
 
 
-import com.mayousheng.www.sbgnews.pojo.bsbdj.BSBDJLimit;
+import com.mayousheng.www.sbgnews.vo.request.BSBDJLimit;
 import com.mayousheng.www.sbgnews.vo.response.*;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import io.swagger.annotations.Api;
@@ -19,23 +19,28 @@ import java.util.List;
 public interface BSBDJApi {
 
     @PostMapping(value = "/getVideos")
-    @ApiOperation(value = "根据查找信息获取视频", notes = "根据查找信息获取视频", tags = {"bsbdj"})
+    @ApiOperation(value = "根据查找信息获取视频", notes = "根据查找信息获取视频"
+            , tags = {"bsbdj"})
     // http://localhost:8080/api/bsbdj/getVideos {"count":10,"page":0,"needRealText":true}
-    public Result<List<VideoResponse>> getVideos(@RequestBody @Valid BSBDJLimit bsbdjLimit, BindingResult bindingResult) throws Exception;
+    public Result<List<VideoResponse>> getVideos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+            , BindingResult bindingResult) throws Exception;
 
     @PostMapping(value = "/getPunsters")
     @ApiOperation(value = "根据查找信息获取文本", notes = "根据查找信息获取文本", tags = {"bsbdj"})
     // http://localhost:8080/api/bsbdj/getPunsters {"count":10,"page":0,"needRealText":true}
-    public Result<List<PunsterResponse>> getPunsters(@RequestBody @Valid BSBDJLimit bsbdjLimit, BindingResult bindingResult) throws Exception;
+    public Result<List<PunsterResponse>> getPunsters(@RequestBody @Valid BSBDJLimit bsbdjLimit
+            , BindingResult bindingResult) throws Exception;
 
     @PostMapping(value = "/getPhotos")
     @ApiOperation(value = "根据查找信息获取图片", notes = "根据查找信息获取图片", tags = {"bsbdj"})
     // http://localhost:8080/api/bsbdj/getPhotos {"count":10,"page":0,"needRealText":true}
-    public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid BSBDJLimit bsbdjLimit, BindingResult bindingResult) throws Exception;
+    public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+            , BindingResult bindingResult) throws Exception;
 
     @PostMapping(value = "/getVoices")
     @ApiOperation(value = "根据查找信息获取声音", notes = "根据查找信息获取声音", tags = {"bsbdj"})
     // http://localhost:8080/api/bsbdj/getVoices {"count":10,"page":0,"needRealText":true}
-    public Result<List<VoiceResponse>> getVoices(@RequestBody @Valid BSBDJLimit bsbdjLimit, BindingResult bindingResult) throws Exception;
+    public Result<List<VoiceResponse>> getVoices(@RequestBody @Valid BSBDJLimit bsbdjLimit
+            , BindingResult bindingResult) throws Exception;
 
 }

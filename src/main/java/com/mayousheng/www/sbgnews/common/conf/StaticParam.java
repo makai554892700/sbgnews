@@ -27,6 +27,7 @@ public class StaticParam {
     public static final String COMMA = ",";
     public static final String SPACE = "/";
     public static final String BLANK = " ";
+    public static final String OK = "ok";
 
     public static final String FFMPEG_SHORTCUT_WH =
             "ffmpeg -i %s -y -f image2 -t 0.001 -s %sx%s %s";

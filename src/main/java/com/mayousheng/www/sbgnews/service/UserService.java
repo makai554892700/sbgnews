@@ -1,15 +1,17 @@
 package com.mayousheng.www.sbgnews.service;
 
 import com.mayousheng.www.sbgnews.pojo.User;
+import com.mayousheng.www.sbgnews.vo.response.UserResponse;
+import com.mayousheng.www.sbgnews.vo.response.base.Result;
 
 public interface UserService {
 
-    public User getUserByUserName(String userName);
+    public UserResponse register(User user) throws Exception;
 
-    public User save(User user);
+    public UserResponse login(User user) throws Exception;
 
-    public User update(User user, boolean updateRole);
+    public UserResponse update(User user) throws Exception;
 
-    public void delete(Integer id);
+    public String logout() throws Exception;
 
 }

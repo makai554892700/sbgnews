@@ -71,8 +71,8 @@ public class HttpUtils {
                 result = baos.toByteArray();
             } catch (Exception e) {
             } finally {
-                closeSilently(is);
-                closeSilently(baos);
+                CloseUtils.closeSilently(is);
+                CloseUtils.closeSilently(baos);
                 if (conn != null) {
                     conn.disconnect();
                 }
@@ -121,8 +121,8 @@ public class HttpUtils {
                     iWebCallback.onFail(code, e.toString());
                 }
             } finally {
-                closeSilently(is);
-                closeSilently(baos);
+                CloseUtils.closeSilently(is);
+                CloseUtils.closeSilently(baos);
                 if (conn != null) {
                     conn.disconnect();
                 }
@@ -163,8 +163,8 @@ public class HttpUtils {
                 result = baos.toByteArray();
             } catch (Exception e) {
             } finally {
-                closeSilently(is);
-                closeSilently(baos);
+                CloseUtils.closeSilently(is);
+                CloseUtils.closeSilently(baos);
                 if (conn != null) {
                     conn.disconnect();
                 }
@@ -216,20 +216,11 @@ public class HttpUtils {
                     iWebCallback.onFail(code, e.toString());
                 }
             } finally {
-                closeSilently(is);
-                closeSilently(baos);
+                CloseUtils.closeSilently(is);
+                CloseUtils.closeSilently(baos);
                 if (conn != null) {
                     conn.disconnect();
                 }
-            }
-        }
-    }
-
-    private void closeSilently(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Exception e) {
             }
         }
     }

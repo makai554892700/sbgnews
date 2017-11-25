@@ -22,7 +22,7 @@ public class PathUtils {
         if (fileName == null) {
             return null;
         }
-        return StaticParam.BSBDJ_IMG_URL + fileName + StaticParam.PNG_END;
+        return StaticParam.BSBDJ_IMG_URL + File.separator + fileName + StaticParam.PNG_END;
     }
 
 }

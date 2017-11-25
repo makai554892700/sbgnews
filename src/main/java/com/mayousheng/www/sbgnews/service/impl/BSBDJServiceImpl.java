@@ -11,12 +11,14 @@ import com.mayousheng.www.sbgnews.common.sort.BSBDJComparator;
 import com.mayousheng.www.sbgnews.mapper.*;
 import com.mayousheng.www.sbgnews.pojo.*;
 import com.mayousheng.www.sbgnews.pojo.bsbdj.*;
+import com.mayousheng.www.sbgnews.pojo.operate.NewsOperate;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.service.NewsDescService;
 import com.mayousheng.www.sbgnews.utils.BSBDJPojoUtils;
 import com.mayousheng.www.sbgnews.utils.HttpUtils;
 import com.mayousheng.www.sbgnews.utils.RC4Utils;
 import com.mayousheng.www.sbgnews.utils.UserUtils;
+import com.mayousheng.www.sbgnews.vo.request.BSBDJLimit;
 import com.mayousheng.www.sbgnews.vo.response.PhotoResponse;
 import com.mayousheng.www.sbgnews.vo.response.PunsterResponse;
 import com.mayousheng.www.sbgnews.vo.response.VideoResponse;
@@ -51,6 +53,8 @@ public class BSBDJServiceImpl implements BSBDJService {
     private VideoBSBDJMapper videoBSBDJMapper;
     @Resource(name = "voiceBSBDJMapper")
     private VoiceBSBDJMapper voiceBSBDJMapper;
+    @Resource(name = "newsOperateMapper")
+    private NewsOperateMapper newsOperateMapper;
     @Resource(name = "newsDescServiceImpl")
     private NewsDescService newsDescService;
 
@@ -115,14 +119,12 @@ public class BSBDJServiceImpl implements BSBDJService {
     @Override
     @Async("defaultAsync")
     public void loadAllDatas() throws Exception {
-        log.error("isInitOk=" + isInitOk);
         if (!isInitOk) {
             for (Integer type : bsbdjConf.getTypes()) {
                 BSBDJBack bsbdjBack;
                 int currentPage = 0;
                 boolean haveNext;
                 do {
-                    log.error("Loading current Page=" + currentPage);
                     bsbdjBack = loadDataByPage(type, currentPage--);
                     if (bsbdjBack != null) {
                         if (currentPage < 0) {
@@ -210,7 +212,9 @@ public class BSBDJServiceImpl implements BSBDJService {
                     tempPhotoBSBDJ.setText(RC4Utils.strToHexString(tempPhotoBSBDJ.getText()));
                 }
                 try {
-                    photoBSBDJMapper.save(tempPhotoBSBDJ);
+                    tempPhotoBSBDJ = photoBSBDJMapper.save(tempPhotoBSBDJ);
+                    newsOperateMapper.save(new NewsOperate(tempPhotoBSBDJ.getId()
+                            , StaticParam.TABLE_NAME_PHOTOBSBDJ, 0, 0, 0, 0));
                 } catch (Exception e) {
                     log.error("e=" + e + ";tempPhotoBSBDJ=" + tempPhotoBSBDJ);
                 }
@@ -234,7 +238,9 @@ public class BSBDJServiceImpl implements BSBDJService {
                     tempPunsterBSBDJ.setText(RC4Utils.strToHexString(tempPunsterBSBDJ.getText()));
                 }
                 try {
-                    punsterBSBDJMapper.save(tempPunsterBSBDJ);
+                    tempPunsterBSBDJ = punsterBSBDJMapper.save(tempPunsterBSBDJ);
+                    newsOperateMapper.save(new NewsOperate(tempPunsterBSBDJ.getId()
+                            , StaticParam.TABLE_NAME_PUNSTERBSBDJ, 0, 0, 0, 0));
                 } catch (Exception e) {
                     log.error("e=" + e + "save error,tempPhotoBSBDJ=" + tempPunsterBSBDJ);
                 }
@@ -258,7 +264,9 @@ public class BSBDJServiceImpl implements BSBDJService {
                     tempVideoBSBDJ.setText(RC4Utils.strToHexString(tempVideoBSBDJ.getText()));
                 }
                 try {
-                    videoBSBDJMapper.save(tempVideoBSBDJ);
+                    tempVideoBSBDJ = videoBSBDJMapper.save(tempVideoBSBDJ);
+                    newsOperateMapper.save(new NewsOperate(tempVideoBSBDJ.getId()
+                            , StaticParam.TABLE_NAME_VIDEOBSBDJ, 0, 0, 0, 0));
                 } catch (Exception e) {
                     log.error("e=" + e + ";tempVideoBSBDJ=" + tempVideoBSBDJ);
                 }
@@ -282,7 +290,9 @@ public class BSBDJServiceImpl implements BSBDJService {
                     tempVoiceBSBDJ.setText(RC4Utils.strToHexString(tempVoiceBSBDJ.getText()));
                 }
                 try {
-                    voiceBSBDJMapper.save(tempVoiceBSBDJ);
+                    tempVoiceBSBDJ = voiceBSBDJMapper.save(tempVoiceBSBDJ);
+                    newsOperateMapper.save(new NewsOperate(tempVoiceBSBDJ.getId()
+                            , StaticParam.TABLE_NAME_VOICEBSBDJ, 0, 0, 0, 0));
                 } catch (Exception e) {
                     log.error("e=" + e + ";tempVoiceBSBDJ=" + tempVoiceBSBDJ);
                 }
@@ -314,12 +324,15 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new PhotoResponse(photoBSBDJ.getMark(), newsDescService.getNewsDesc(
+        return new PhotoResponse(newsDescService.getNewsDesc(
                 photoBSBDJ.getCreateTime(), photoBSBDJ.getId(), StaticParam.TABLE_NAME_PHOTOBSBDJ)
-                , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getWeixinUrl(), photoBSBDJ.getCdnImg());
+                , UserUtils.user2UserDesc(user), photoBSBDJ.getText(), photoBSBDJ.getWeixinUrl()
+                , photoBSBDJ.getCdnImg(), photoBSBDJ.getScImg(), photoBSBDJ.getWidth()
+                , photoBSBDJ.getHeight());
     }
 
-    private List<PhotoResponse> photoBSBDJs2PhotoResponses(List<PhotoBSBDJ> photoBSBDJList, BSBDJLimit bsbdjLimit) {
+    private List<PhotoResponse> photoBSBDJs2PhotoResponses(List<PhotoBSBDJ> photoBSBDJList
+            , BSBDJLimit bsbdjLimit) {
         if (photoBSBDJList == null) {
             return null;
         }
@@ -341,12 +354,13 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new PunsterResponse(punsterBSBDJ.getMark(), newsDescService.getNewsDesc(
+        return new PunsterResponse(newsDescService.getNewsDesc(
                 punsterBSBDJ.getCreateTime(), punsterBSBDJ.getId(), StaticParam.TABLE_NAME_PUNSTERBSBDJ)
                 , UserUtils.user2UserDesc(user), punsterBSBDJ.getText(), punsterBSBDJ.getWeixinUrl());
     }
 
-    private List<PunsterResponse> punsterBSBDJs2PunsterResponses(List<PunsterBSBDJ> punsterBSBDJList, BSBDJLimit bsbdjLimit) {
+    private List<PunsterResponse> punsterBSBDJs2PunsterResponses(List<PunsterBSBDJ> punsterBSBDJList
+            , BSBDJLimit bsbdjLimit) {
         if (punsterBSBDJList == null) {
             return null;
         }
@@ -368,13 +382,15 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new VideoResponse(videoBSBDJ.getMark(), newsDescService.getNewsDesc(
+        return new VideoResponse(newsDescService.getNewsDesc(
                 videoBSBDJ.getCreateTime(), videoBSBDJ.getId(), StaticParam.TABLE_NAME_VIDEOBSBDJ)
                 , UserUtils.user2UserDesc(user), videoBSBDJ.getText(), videoBSBDJ.getWeixinUrl()
-                , videoBSBDJ.getVideoUri());
+                , videoBSBDJ.getVideoUri(), videoBSBDJ.getScImg(), videoBSBDJ.getWidth()
+                , videoBSBDJ.getHeight(), videoBSBDJ.getPlayTime());
     }
 
-    private List<VideoResponse> videoBSBDJs2VideoResponses(List<VideoBSBDJ> videoBSBDJList, BSBDJLimit bsbdjLimit) {
+    private List<VideoResponse> videoBSBDJs2VideoResponses(List<VideoBSBDJ> videoBSBDJList
+            , BSBDJLimit bsbdjLimit) {
         if (videoBSBDJList == null) {
             return null;
         }
@@ -396,13 +412,14 @@ public class BSBDJServiceImpl implements BSBDJService {
         if (user == null) {
             user = defaultUserConf.getUser();
         }
-        return new VoiceResponse(voiceBSBDJ.getMark(), newsDescService.getNewsDesc(
+        return new VoiceResponse(newsDescService.getNewsDesc(
                 voiceBSBDJ.getCreateTime(), voiceBSBDJ.getId(), StaticParam.TABLE_NAME_VOICEBSBDJ)
                 , UserUtils.user2UserDesc(user), voiceBSBDJ.getText(), voiceBSBDJ.getWeixinUrl()
-                , voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg());
+                , voiceBSBDJ.getVoiceuri(), voiceBSBDJ.getCdnImg(), voiceBSBDJ.getVoiceTime());
     }
 
-    private List<VoiceResponse> voiceBSBDJs2VoiceResponses(List<VoiceBSBDJ> voiceBSBDJList, BSBDJLimit bsbdjLimit) {
+    private List<VoiceResponse> voiceBSBDJs2VoiceResponses(List<VoiceBSBDJ> voiceBSBDJList
+            , BSBDJLimit bsbdjLimit) {
         if (voiceBSBDJList == null) {
             return null;
         }
