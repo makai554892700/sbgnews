@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import com.mayousheng.www.sbgnews.common.conf.ShiroConfig;
+import com.mayousheng.www.sbgnews.common.conf.StaticParam;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -20,7 +22,7 @@ import com.google.common.collect.Sets;
 public class ShrioRedisCache<K, V> implements Cache<K, V> {
     private Logger log = LoggerFactory.getLogger(ShiroConfig.class);
     private RedisTemplate<String, V> redisTemplate;
-    private String prefix = "shiro_redis:";
+    private String prefix = StaticParam.SHIRO_PREFIX;
 
     public ShrioRedisCache(RedisTemplate<String, V> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -28,7 +30,7 @@ public class ShrioRedisCache<K, V> implements Cache<K, V> {
 
     public ShrioRedisCache(RedisTemplate<String, V> redisTemplate, String prefix) {
         this(redisTemplate);
-        this.prefix = prefix;
+        setPrefix(prefix);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class ShrioRedisCache<K, V> implements Cache<K, V> {
             return null;
         }
         String realKey = getRealKey(key);
-        redisTemplate.opsForValue().set(realKey, value);
+        redisTemplate.opsForValue().set(realKey, value, StaticParam.SHIRO_SESSION_TIME_OUT, TimeUnit.SECONDS);
         return value;
     }
 

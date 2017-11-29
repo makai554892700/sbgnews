@@ -2,7 +2,7 @@ package com.mayousheng.www.sbgnews.vo.request;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class NewsMark {
+public class NewsOperateRequest {
 
     @NotEmpty(message = "新闻标记不能为空")
     private Integer newsMark;
@@ -27,7 +27,7 @@ public class NewsMark {
 
     @Override
     public String toString() {
-        return "NewsMark{" +
+        return "NewsOperateRequest{" +
                 "newsMark='" + newsMark + '\'' +
                 ", newsType='" + newsType + '\'' +
                 '}';

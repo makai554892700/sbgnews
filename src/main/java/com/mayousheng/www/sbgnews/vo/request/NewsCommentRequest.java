@@ -2,18 +2,18 @@ package com.mayousheng.www.sbgnews.vo.request;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class NewsComment {
+public class NewsCommentRequest {
 
     @NotEmpty(message = "评论标记不能为空")
-    private NewsMark newsMark;
+    private NewsOperateRequest newsMark;
     @NotEmpty(message = "评论信息不能为空")
     private String commentInfo;
 
-    public NewsMark getNewsMark() {
+    public NewsOperateRequest getNewsMark() {
         return newsMark;
     }
 
-    public void setNewsMark(NewsMark newsMark) {
+    public void setNewsMark(NewsOperateRequest newsMark) {
         this.newsMark = newsMark;
     }
 
@@ -28,7 +28,7 @@ public class NewsComment {
 
     @Override
     public String toString() {
-        return "NewsComment{" +
+        return "NewsCommentRequest{" +
                 "newsMark=" + newsMark +
                 ", commentInfo='" + commentInfo + '\'' +
                 '}';

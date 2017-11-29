@@ -1,17 +1,16 @@
 package com.mayousheng.www.sbgnews.service;
 
-import com.mayousheng.www.sbgnews.pojo.User;
-import com.mayousheng.www.sbgnews.vo.request.NewsComment;
-import com.mayousheng.www.sbgnews.vo.request.NewsMark;
+import com.mayousheng.www.sbgnews.vo.request.NewsCommentRequest;
+import com.mayousheng.www.sbgnews.vo.request.NewsOperateRequest;
 
 public interface OperateService {
 
-    public String love(NewsMark newsMark);
+    public String love(NewsOperateRequest newsMark);
 
-    public String hate(NewsMark newsMark);
+    public String hate(NewsOperateRequest newsMark);
 
-    public String share(NewsMark newsMark);
+    public String share(NewsOperateRequest newsMark);
 
-    public String comment(User user, NewsComment newsComment);
+    public String comment(NewsCommentRequest newsComment);
 
 }

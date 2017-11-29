@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     public UserResponse register(User user) throws Exception {
         User dbUser = userMapper.getUserByUserName(user.getUserName());
         if (dbUser == null) {
-            user.setRoles(null);
             user.setPassWord(getPass(user.getPassWord()));
             dbUser = userMapper.save(user);
             return UserUtils.user2UserResponse(dbUser);
@@ -42,15 +41,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse login(User user) throws Exception {
+    public UserResponse login(User user, boolean isRember, int deviceType) throws Exception {
         User dbUser = userMapper.getUserByUserName(user.getUserName());
         if (dbUser == null) {
             throw new BaseException(BaseResultEnum.NO_USER);
         }
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), getPass(user.getPassWord()));
+        token.setRememberMe(isRember);
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.login(token);
+        if (deviceType != 0) {
+            currentUser.getSession().setTimeout(StaticParam.SHIRO_EVER);//永远记住
+        }
         dbUser = userMapper.getUserByUserName(user.getUserName());
+        currentUser.getSession().setAttribute(StaticParam.SHIRO_USER, UserUtils.dbUser2SessionUser(dbUser));
         return UserUtils.user2UserResponse(dbUser);
     }
 
@@ -74,7 +78,7 @@ public class UserServiceImpl implements UserService {
         return StaticParam.OK;
     }
 
-    public User update(User user, boolean updateRole) {
+    private User update(User user, boolean updateRole) {
         User dbUser = userMapper.getUserByUserName(user.getUserName());
         if (!StringUtils.isEmpty(user.getImgUrl())) {
             dbUser.setImgUrl(user.getImgUrl());
@@ -83,7 +87,7 @@ public class UserServiceImpl implements UserService {
             dbUser.setNickName(user.getNickName());
         }
         if (!StringUtils.isEmpty(user.getPassWord())) {
-            dbUser.setPassWord(user.getPassWord());
+            dbUser.setPassWord(getPass(user.getPassWord()));
         }
         if (!StringUtils.isEmpty(user.getEmail())) {
             dbUser.setEmail(user.getEmail());

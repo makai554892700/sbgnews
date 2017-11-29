@@ -8,6 +8,7 @@ import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.UserService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.utils.UserUtils;
+import com.mayousheng.www.sbgnews.vo.request.UserRequest;
 import com.mayousheng.www.sbgnews.vo.response.UserResponse;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import org.apache.shiro.SecurityUtils;
@@ -32,21 +33,22 @@ public class UserController implements UserApi {
     private UserService userService;
 
     @Override
-    public Result<UserResponse> register(@RequestBody @Valid User user
+    public Result<UserResponse> register(@RequestBody @Valid UserRequest userRequest
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(userService.register(user));
+        return ResultUtils.succeed(userService.register(UserUtils.userRequest2User(userRequest)));
     }
 
     @Override
-    public Result<UserResponse> login(@RequestBody @Valid User user
+    public Result<UserResponse> login(@RequestBody @Valid UserRequest userRequest
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(userService.login(user));
+        return ResultUtils.succeed(userService.login(UserUtils.userRequest2User(userRequest)
+                , userRequest.isRember(), userRequest.getDeviceType()));
     }
 
     @Override
@@ -55,11 +57,11 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public Result<UserResponse> update(@RequestBody @Valid User user
+    public Result<UserResponse> update(@RequestBody @Valid UserRequest userRequest
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        return ResultUtils.succeed(userService.update(user));
+        return ResultUtils.succeed(userService.update(UserUtils.userRequest2User(userRequest)));
     }
 }

@@ -1,14 +1,11 @@
 package com.mayousheng.www.sbgnews.controller;
 
 import com.mayousheng.www.sbgnews.api.BSBDJApi;
-import com.mayousheng.www.sbgnews.vo.request.BSBDJLimit;
+import com.mayousheng.www.sbgnews.vo.request.LimitSearchRequest;
 import com.mayousheng.www.sbgnews.service.BSBDJService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.*;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -27,12 +24,8 @@ public class BSBDJController implements BSBDJApi {
     private BSBDJService bsbdjService;
 
     @Override
-    public Result<List<VideoResponse>> getVideos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<List<VideoResponse>> getVideos(@RequestBody @Valid LimitSearchRequest bsbdjLimit
             , BindingResult bindingResult) throws Exception {
-
-        Subject subject = SecurityUtils.getSubject();
-        Session session = subject.getSession();
-
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -40,7 +33,7 @@ public class BSBDJController implements BSBDJApi {
     }
 
     @Override
-    public Result<List<PunsterResponse>> getPunsters(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<List<PunsterResponse>> getPunsters(@RequestBody @Valid LimitSearchRequest bsbdjLimit
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
@@ -49,7 +42,7 @@ public class BSBDJController implements BSBDJApi {
     }
 
     @Override
-    public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<List<PhotoResponse>> getPhotos(@RequestBody @Valid LimitSearchRequest bsbdjLimit
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
@@ -58,7 +51,7 @@ public class BSBDJController implements BSBDJApi {
     }
 
     @Override
-    public Result<List<VoiceResponse>> getVoices(@RequestBody @Valid BSBDJLimit bsbdjLimit
+    public Result<List<VoiceResponse>> getVoices(@RequestBody @Valid LimitSearchRequest bsbdjLimit
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());

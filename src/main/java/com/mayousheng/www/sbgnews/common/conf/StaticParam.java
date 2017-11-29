@@ -49,4 +49,9 @@ public class StaticParam {
     public static final String BSBDJ_URL = BASE_URL + SPACE + BSBDJ;
     public static final String BSBDJ_IMG_URL = BSBDJ_URL + SPACE + IMG;
 
+    public static final String SHIRO_USER = "shiro_user";
+    public static final int SHIRO_EVER = -10001;
+    public static final String SHIRO_PREFIX = "shiro_prefix";
+    public static final long SHIRO_SESSION_TIME_OUT = 18000;
+
 }

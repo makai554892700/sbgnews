@@ -31,7 +31,7 @@ public class AuthRealm extends AuthorizingRealm {
         UsernamePasswordToken utoken = (UsernamePasswordToken) token;//获取用户输入的token
         String username = utoken.getUsername();
         User user = userMapper.getUserByUserName(username);
-        return new SimpleAuthenticationInfo(user, user.getPassWord()
+        return new SimpleAuthenticationInfo(user.getUserName(), user.getPassWord()
                 , this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
     }
 

@@ -8,7 +8,7 @@ public interface UserService {
 
     public UserResponse register(User user) throws Exception;
 
-    public UserResponse login(User user) throws Exception;
+    public UserResponse login(User user, boolean remberMe, int deviceType) throws Exception;
 
     public UserResponse update(User user) throws Exception;
 

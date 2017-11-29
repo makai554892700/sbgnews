@@ -4,8 +4,8 @@ import com.mayousheng.www.sbgnews.api.OperateApi;
 import com.mayousheng.www.sbgnews.pojo.User;
 import com.mayousheng.www.sbgnews.service.OperateService;
 import com.mayousheng.www.sbgnews.utils.ResultUtils;
-import com.mayousheng.www.sbgnews.vo.request.NewsComment;
-import com.mayousheng.www.sbgnews.vo.request.NewsMark;
+import com.mayousheng.www.sbgnews.vo.request.NewsCommentRequest;
+import com.mayousheng.www.sbgnews.vo.request.NewsOperateRequest;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class OperateController implements OperateApi {
     private OperateService operateService;
 
     @Override
-    public Result<String> love(@RequestBody @Valid NewsMark newsMark
+    public Result<String> love(@RequestBody @Valid NewsOperateRequest newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
@@ -33,7 +33,7 @@ public class OperateController implements OperateApi {
     }
 
     @Override
-    public Result<String> hate(@RequestBody @Valid NewsMark newsMark
+    public Result<String> hate(@RequestBody @Valid NewsOperateRequest newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
@@ -42,7 +42,7 @@ public class OperateController implements OperateApi {
     }
 
     @Override
-    public Result<String> share(@RequestBody @Valid NewsMark newsMark
+    public Result<String> share(@RequestBody @Valid NewsOperateRequest newsMark
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
@@ -51,12 +51,11 @@ public class OperateController implements OperateApi {
     }
 
     @Override
-    public Result<String> comment(@RequestBody @Valid NewsComment newsComment
+    public Result<String> comment(@RequestBody @Valid NewsCommentRequest newsComment
             , BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
-        User user = null;
-        return ResultUtils.succeed(operateService.comment(user, newsComment));
+        return ResultUtils.succeed(operateService.comment(newsComment));
     }
 }
