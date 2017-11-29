@@ -7,6 +7,7 @@ import com.mayousheng.www.sbgnews.utils.ResultUtils;
 import com.mayousheng.www.sbgnews.vo.response.*;
 import com.mayousheng.www.sbgnews.vo.response.base.Result;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,10 @@ public class BSBDJController implements BSBDJApi {
     @Override
     public Result<List<VideoResponse>> getVideos(@RequestBody @Valid BSBDJLimit bsbdjLimit
             , BindingResult bindingResult) throws Exception {
+
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+
         if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }

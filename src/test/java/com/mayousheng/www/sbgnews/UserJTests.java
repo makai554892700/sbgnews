@@ -1,8 +1,8 @@
 package com.mayousheng.www.sbgnews;
 
 import com.mayousheng.www.sbgnews.common.conf.pojo.DefaultUserConf;
+import com.mayousheng.www.sbgnews.mapper.UserMapper;
 import com.mayousheng.www.sbgnews.pojo.User;
-import com.mayousheng.www.sbgnews.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,12 +27,12 @@ public class UserJTests {
         log.error("defaultUserConf=" + defaultUserConf);
     }
 
-    @Resource(name = "userServiceImpl")
-    private UserService userService;
+    @Resource(name = "userMapperImpl")
+    private UserMapper userMapper;
 
     @Test
     public void testBSBDJServiceLoadData() throws Exception {
-        User user = userService.getUserByUserName(defaultUserConf.getUser().getUserName());
+        User user = userMapper.getUserByUserName(defaultUserConf.getUser().getUserName());
         if (user == null) {
             throw new Exception("default user is not insert");
         }

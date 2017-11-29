@@ -4,6 +4,7 @@ buildscript {
         swaggerVersion = '2.7.0'
         fastjsonVersion = '1.2.18'
         shiroVersion = '1.4.0'
+        springRedisVersion = '1.4.7.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -32,6 +33,8 @@ configurations {
 }
 
 dependencies {
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
     compile(
             'org.springframework.boot:spring-boot-starter-web', //web基本jar
             'mysql:mysql-connector-java', //mysql连接驱动
@@ -48,7 +51,8 @@ dependencies {
             "org.apache.shiro:shiro-web:${shiroVersion}",
             "org.apache.shiro:shiro-spring:${shiroVersion}",
             //shiro相关jar包 end
+            //redis相关jar包 start
+            "org.springframework.boot:spring-boot-starter-redis:$springRedisVersion",
+            //redis相关jar包 end
     )
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
