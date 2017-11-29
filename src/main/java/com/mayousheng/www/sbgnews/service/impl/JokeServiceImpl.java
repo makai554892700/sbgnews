@@ -139,7 +139,7 @@ public class JokeServiceImpl implements JokeService {
             try {
                 joke = jokesMapper.save(joke);
                 newsOperateMapper.save(new NewsOperate(joke.getId()
-                        , StaticParam.TABLE_NAME_PHOTOBSBDJ, 0, 0, 0, 0));
+                        , StaticParam.TABLE_NAME_JOKE, 0, 0, 0, 0));
             } catch (Exception e) {
                 log.error("loadJokes e=" + e);
             }

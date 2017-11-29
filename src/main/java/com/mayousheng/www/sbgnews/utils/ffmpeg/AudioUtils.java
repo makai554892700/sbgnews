@@ -20,16 +20,19 @@ public class AudioUtils {
         if (audioInfo == null || audioInfo.getWidth() == 0 || audioInfo.getHeight() == 0) {
             return null;
         }
+        File result = new File(path);
+        if (result.exists()) {
+            return result;
+        }
         String cmdStr = isPicture ?
                 String.format(StaticParam.FFMPEG_CUT_PICTURE, url
                         , audioInfo.getWidth(), audioInfo.getWidth(), 0, 0, path) :
                 String.format(StaticParam.FFMPEG_SHORTCUT_WH, url
                         , audioInfo.getWidth(), audioInfo.getHeight(), path);
-        String result = CMDUtils.run(cmdStr);
-        if (result == null) {
+        if (CMDUtils.run(cmdStr) == null) {
             return null;
         }
-        return new File(path);
+        return result;
     }
 
 
