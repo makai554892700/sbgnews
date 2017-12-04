@@ -41,7 +41,7 @@ public class StaticParam {
     public static final String BSBDJ = "bsbdj";
     public static final String IMG = "img";
     public static final String PNG_END = ".png";
-    public static final String ROOT_PATH = "/data";
+    public static final String ROOT_PATH = "/data/sbgnews";
     public static final String BSBDJ_PATH = ROOT_PATH + File.separator + BSBDJ;
     public static final String BSBDJ_IMG_PATH = BSBDJ_PATH + File.separator + IMG;
 

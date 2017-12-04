@@ -258,7 +258,7 @@
 
             server {
                 .....
-                location /bsbdj/img/ {
+                location /sbgnews/bsbdj/img/ {
                     root /data/;
                     autoindex on;
                 }
