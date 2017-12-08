@@ -35,9 +35,7 @@ public class ShrioRedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public V get(K key) throws CacheException {
-        if (log.isDebugEnabled()) {
-            log.debug("Key: {}", key);
-        }
+        log.debug("get Key: {}", key);
         if (key == null) {
             return null;
         }
@@ -47,9 +45,7 @@ public class ShrioRedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public V put(K key, V value) throws CacheException {
-        if (log.isDebugEnabled()) {
-            log.debug("Key: {}, value: {}", key, value);
-        }
+        log.debug(" put Key: {}, value: {}", key, value);
         if (key == null || value == null) {
             return null;
         }
@@ -60,9 +56,7 @@ public class ShrioRedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public V remove(K key) throws CacheException {
-        if (log.isDebugEnabled()) {
-            log.debug("Key: {}", key);
-        }
+        log.debug("remove Key: {}", key);
         if (key == null) {
             return null;
         }

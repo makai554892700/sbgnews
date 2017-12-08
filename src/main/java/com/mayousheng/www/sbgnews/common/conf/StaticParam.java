@@ -50,7 +50,8 @@ public class StaticParam {
     public static final String BSBDJ_IMG_URL = BSBDJ_URL + SPACE + IMG;
 
     public static final String SHIRO_USER = "shiro_user";
-    public static final int SHIRO_EVER = -10001;
+    public static final long SHIRO_MONTH = 30 * 24 * 60 * 60;//一个月
+    public static final long SHIRO_EVER = -1000L;//永久
     public static final String SHIRO_PREFIX = "shiro_prefix";
     public static final long SHIRO_SESSION_TIME_OUT = 18000;
 
