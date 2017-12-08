@@ -2,9 +2,11 @@ package com.mayousheng.www.sbgnews.vo.request;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+
 public class NewsCommentRequest {
 
-    @NotEmpty(message = "评论标记不能为空")
+    @NotNull(message = "评论标记不能为空")
     private NewsOperateRequest newsMark;
     @NotEmpty(message = "评论信息不能为空")
     private String commentInfo;

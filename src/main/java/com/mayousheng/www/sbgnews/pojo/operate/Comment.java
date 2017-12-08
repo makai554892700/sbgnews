@@ -6,7 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"userId", "descId", "tableName"})})
+@Table(indexes = {@Index(columnList = "userId,descId,tableName")})
 public class Comment {
 
     @Id
