@@ -12,7 +12,6 @@ public class AudioUtils {
 
     private static final Logger log = LoggerFactory.getLogger(AudioUtils.class);
 
-
     public synchronized static File getShortCut(String url, String path, boolean isPicture, AudioInfo audioInfo) {
         if (url == null || url.isEmpty()) {
             return null;
@@ -29,7 +28,12 @@ public class AudioUtils {
                         , audioInfo.getWidth(), audioInfo.getWidth(), 0, 0, path) :
                 String.format(StaticParam.FFMPEG_SHORTCUT_WH, url
                         , audioInfo.getWidth(), audioInfo.getHeight(), path);
-        if (CMDUtils.run(cmdStr) == null) {
+        String cmdResult = CMDUtils.run(cmdStr);
+        if (cmdResult == null) {
+            return null;
+        } else if (!result.exists()) {
+            log.error("run cmd.CMD=" + cmdStr);
+            log.error(cmdResult);
             return null;
         }
         return result;

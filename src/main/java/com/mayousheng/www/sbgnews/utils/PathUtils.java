@@ -7,6 +7,8 @@ import java.io.File;
 public class PathUtils {
 
     static {
+        FileUtils.sureDir(StaticParam.DATA_PATH);
+        FileUtils.sureDir(StaticParam.ROOT_PATH);
         FileUtils.sureDir(StaticParam.BSBDJ_PATH);
         FileUtils.sureDir(StaticParam.BSBDJ_IMG_PATH);
     }
