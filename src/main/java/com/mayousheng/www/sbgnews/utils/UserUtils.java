@@ -17,7 +17,7 @@ public class UserUtils {
         if (user == null) {
             return null;
         }
-        return new UserDesc(user.getNickName(), user.getImgUrl());
+        return new UserDesc(user.getNickName(), user.getImgUrl(),user.getPageHome());
     }
 
     public static User userRequest2User(UserRequest userRequest) {
