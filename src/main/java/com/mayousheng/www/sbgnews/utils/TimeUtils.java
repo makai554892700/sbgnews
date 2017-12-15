@@ -23,10 +23,10 @@ public class TimeUtils {
             log.error("str is null.or str is not matches.str=" + str);
             return 0;
         }
-        String[] tempStr = str.split(SPLIT_MSEC_MARK)[0].split(SPLIT_HOURE_MARK);
-        return Integer.valueOf(tempStr[0]) * 3600 +
+        String[] tempStr = str.split(SPLIT_HOURE_MARK);
+        return (int) ((Integer.valueOf(tempStr[0]) * 3600 +
                 Integer.valueOf(tempStr[1]) * 60 +
-                Integer.valueOf(tempStr[2]);
+                Double.valueOf(tempStr[2])) * 1000);
     }
 
     public static Date getDateByStr(String str, TimeEnum timeEnum) {
