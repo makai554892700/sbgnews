@@ -24,9 +24,10 @@ public class TimeUtils {
             return 0;
         }
         String[] tempStr = str.split(SPLIT_HOURE_MARK);
-        return (int) ((Integer.valueOf(tempStr[0]) * 3600 +
+        String[] tempStr2 = tempStr[2].split(SPLIT_MSEC_MARK);
+        return (Integer.valueOf(tempStr[0]) * 3600 +
                 Integer.valueOf(tempStr[1]) * 60 +
-                Double.valueOf(tempStr[2])) * 1000);
+                Integer.valueOf(tempStr2[0])) * 1000 + Integer.valueOf(tempStr2[1]);
     }
 
     public static Date getDateByStr(String str, TimeEnum timeEnum) {
