@@ -39,6 +39,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/test", "anon");
         filterChainDefinitionMap.put("/api/*", "anon");
         filterChainDefinitionMap.put("/api/**", "anon");
+        filterChainDefinitionMap.put("/static/*", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/index.html", "anon");
         filterChainDefinitionMap.put("/login.html", "anon");
         filterChainDefinitionMap.put("/logout.html", "logout");//推出登陆，具体代码shiro已经实现

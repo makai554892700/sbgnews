@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-</head>
-<body>
-Hello world!!!
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge,chrome=1"><title>index</title><meta name=description content=""><meta name=keywords content=""><meta name=renderer content=webkit><meta http-equiv=cache-control content=no-siteapp><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name=viewport><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=format-detection content="telephone=no, email=no"><script type=text/javascript>(function () {
+      document.addEventListener('DOMContentLoaded', function () {
+        var htmlsize = function () {
+          var html = document.documentElement
+          var windowWidth = html.clientWidth
+          if (windowWidth <= 750) {
+            html.style.fontSize = windowWidth / 7.5 + 'px'
+            // 等价于html.style.fontSize = windowWidth / 750 * 100 + 'px';
+          } else {
+            html.style.fontSize = 100 + 'px'
+          }
+        }
+        htmlsize()
+        window.onresize = function () {
+          htmlsize()
+        }
+      }, false)
+    })()</script><link href=/static/css/app.f7b091c12367792f3117edc21a7b8a50.css rel=stylesheet></head><body class=bodyptb><div id=index></div><script type=text/javascript src=/static/js/manifest.8f9d5234968a042e8a4c.js></script><script type=text/javascript src=/static/js/vendor.b3f87916ed5013c8e912.js></script><script type=text/javascript src=/static/js/app.a2a3228fcdf119ed6534.js></script></body></html>
