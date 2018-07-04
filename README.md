@@ -264,3 +264,7 @@
                 }
                 .....
             }
+            
+* jar 运行
+
+        java -Dserver.port=8080 -jar sbgnews.jar > sbgnews.log
